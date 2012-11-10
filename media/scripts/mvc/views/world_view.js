@@ -27,6 +27,7 @@
       this.canvas = new fabric.StaticCanvas(this.$('canvas')[0]);
       this.canvas.backgroundColor = 'black';
       this.model.canvas = this.canvas;
+      this.canvas.renderAll();
       //this.renderTest();
       return this;
     },
