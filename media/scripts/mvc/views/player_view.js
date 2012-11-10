@@ -5,9 +5,13 @@
     initialize: function() {
       console.log('player view init');
       _.bindAll(this);
-      this.model.on('change', this.reposition);
+      this.model.on('change:x change:y change:angle', this.reposition);
+      this.model.on('change:power change:shotAngle', this.logTest);
       this.model.on('remove', this.exit);
+
+      this.initKeyBindings();
     },
+
     width: 50,
     height: 66,
     object: undefined,
@@ -23,6 +27,32 @@
       this.model.off('remove', this.remove);
       this.unbind();
       this.remove();
+    },
+
+    logTest: function() {
+      console.log('angle', this.model.get('shotAngle'));
+      console.log('power', this.model.get('power'));
+    },
+
+    initKeyBindings: function() {
+      appView.$el.bind('keypress', this.handleKeypress);
+    },
+
+    handleKeypress: function(e) {
+      switch (e.keyCode) {
+        case 38: // arrow up
+          this.model.incPower();
+        break;
+        case 40: // arrow down
+          this.model.decPower();
+        break;
+        case 37: // arrow left
+          this.model.decShotAngle();
+        break;
+        case 39: // right arrow
+          this.model.incShotAngle();
+        break;
+      }
     },
 
     reposition: function(model) {
