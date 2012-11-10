@@ -26,6 +26,18 @@ server.listen(conf.port);
 
 console.log('Server running at http://localhost:' + conf.port);
 
+//--- Extend Array Obj ---
+
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+
+//--- User Management ---
+
+players = {}; // hash of id to user objects (logged in)
+
 //--- Box2D Physics Simulation ---
 
 var world = new entities.world();
@@ -36,6 +48,11 @@ var update = function() {
 
     for (var j=0; j < world.players.length; j++) {
       var player = world.players[j];
+      if (player.disconnected) { // remove player if marked for delete
+        world.players.remove(i);
+        continue;
+      }
+
       playerBox2DCenter = player.body.GetWorldCenter();
 
       // apply radial gravity
@@ -80,7 +97,24 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('disconnect', function() {
     io.sockets.emit('news', 'someone disconnected');
-    console.log('someone disconnected');
+    var dcName = socket.id;
+
+    // remove user from node player list
+    if (players[socket.id]) {
+      delete players[socket.id];
+    }
+
+    // remove user from world player list
+    for (var i=0; i < world.players.length; i++) {
+      if (world.players[i].id == socket.id) {
+        dcName = world.players[i].id + ' - ' + world.players[i].username;
+        world.players[i].disconnected = true; // mark for deletion in world update
+        break;
+      }
+    }
+
+    // show dc for socket id or username if was logged in
+    console.log(dcName + ' disconnected');
   });
 
   socket.on('login', function(data) {
@@ -93,7 +127,7 @@ io.sockets.on('connection', function(socket) {
     }
 
     // create user and log in
-    var newPlayer = new entities.player(world, socket.id, data.username, 340, 400);
+    var newPlayer = new entities.player(world, socket.id, data.username, 250, 800);
     world.players.push(newPlayer);
     io.sockets.emit('news', data.username + ' logged in');
     socket.emit('loggedIn', {username: data.username});
@@ -101,5 +135,10 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('chat', function(data) {
     socket.broadcast.emit('chat', data);
+  });
+
+  socket.on('shootMissile', function(data) {
+    // find the player
+    var missileOwner = data.player.id;
   });
 });
