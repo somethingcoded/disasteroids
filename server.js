@@ -30,11 +30,11 @@ console.log('Server running at http://localhost:' + conf.port);
 var io = sio.listen(server);
 
 io.sockets.on('connection', function(socket) {
-  io.sockets.emit('alert', socket);
+  io.sockets.emit('news', 'someone connected');
   console.log('someone connected');
 
   socket.on('disconnect', function() {
-    io.sockets.emit('someone disconnected');
+    io.sockets.emit('news', 'someone disconnected');
     console.log('someone disconnected');
   });
 });
