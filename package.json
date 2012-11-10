@@ -14,7 +14,8 @@
     "express": "~3.0.2",
     "underscore": "~1.4.2",
     "socket.io": "~0.9.11",
-    "box2d": "~1.0.0"
+    "box2d": "~1.0.0",
+    "ejs": "~0.8.3"
   },
   "engines": {
     "node": "0.8.x"

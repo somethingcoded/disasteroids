@@ -15,9 +15,7 @@ app.configure(function() {
 });
 
 app.get('/', function(req, res, next) {
-  res.render('layout.html', function(err, html) {
-  
-  });
+  res.render('layout.html')
 });
 
 app.listen(conf.port);
