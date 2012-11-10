@@ -47,36 +47,59 @@ var update = function() {
     var asteroidCenter = world.asteroids[i].body.GetWorldCenter();
 
     for (var j=0; j < world.players.length; j++) {
+
+      // remove player if marked for delete
       var player = world.players[j];
-      if (player.disconnected) { // remove player if marked for delete
+      if (player.disconnected) {
         world.players.remove(j);
         continue;
       }
 
-      playerBox2DCenter = player.body.GetWorldCenter();
-
       // apply radial gravity
+      playerBox2DCenter = player.body.GetWorldCenter();
       var pToA = new Box2D.Common.Math.b2Vec2(0, 0);
       pToA.Add(asteroidCenter);
       pToA.Subtract(playerBox2DCenter);
-
       var force = world.asteroids[i].radius*80/(pToA.LengthSquared()/2);
       pToA.Normalize();
       pToA.Multiply(force);
-
       world.players[j].body.ApplyForce(pToA, asteroidCenter);
+
+      // apply radial gravity to missiles
+      if (player.missile) {
+        missileBox2DCenter = player.missile.body.GetWorldCenter();
+        var mToA = new Box2D.Common.Math.b2Vec2(0, 0);
+        mToA.Add(asteroidCenter);
+        mToA.Subtract(missileBox2DCenter);
+        var force = world.asteroids[i].radius*80/(mToA.LengthSquared()/2);
+        mToA.Normalize();
+        mToA.Multiply(force);
+        player.missile.body.ApplyForce(mToA, asteroidCenter);
+      }
     }
   }
+
+  // simulate a step of the world
   world.box2DObj.Step(1/world.FPS, 10, 10);
 
+  // update all objects with latest simulation changes
   for (var j=0; j < world.players.length; j++) {
 
-    // update players with new location and angle
+    // update players
     var player = world.players[j];
-    playerBox2DCenter = player.body.GetWorldCenter();
+    var playerBox2DCenter = player.body.GetWorldCenter();
     player.x = playerBox2DCenter.x * world.scale;
     player.y = playerBox2DCenter.y * world.scale;
     player.angle = player.body.GetAngle();
+
+    // update player's missile if available
+    if (player.missile) {
+      var missile = player.missile;
+      var missileBox2DCenter =  missile.body.GetWorldCenter();
+      missile.x = missileBox2DCenter.x * world.scale;
+      missile.y = missileBox2DCenter.y * world.scale;
+      missile.angle = missile.body.GetAngle();
+    }
   }
 
   io.sockets.emit('sync', world);
@@ -130,8 +153,10 @@ io.sockets.on('connection', function(socket) {
     // create user and log in
     var newPlayer = new entities.player(world, socket.id, data.username, 250, 800);
     world.players.push(newPlayer);
+    players[newPlayer.id] = newPlayer;
     io.sockets.emit('news', data.username + ' logged in');
     socket.emit('loggedIn', {username: data.username});
+    console.log(newPlayer.id + ' - ' + newPlayer.username + ' logged in');
   });
 
   socket.on('chat', function(data) {
@@ -140,6 +165,11 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('shootMissile', function(data) {
     // find the player
-    var missileOwner = data.player.id;
+    var missileOwner = players[data.playerID];
+    if (missileOwner) {
+      var newMissile = new entities.missile(world, missileOwner, data.x, data.y, data.vel);
+      missileOwner.missile = newMissile;
+      world.missiles.push(missileOwner);
+    }
   });
 });
