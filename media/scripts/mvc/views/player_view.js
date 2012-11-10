@@ -40,18 +40,23 @@
 
     handleKeypress: function(e) {
       console.log(e.keyCode);
+      var inc = e.shiftKey ? 10 : undefined;
       switch (e.keyCode) {
         case 38: // arrow up
-          this.model.incPower();
+          e.preventDefault();
+          this.model.incPower(inc);
         break;
         case 40: // arrow down
-          this.model.decPower();
+          e.preventDefault();
+          this.model.decPower(inc);
         break;
         case 37: // arrow left
-          this.model.decShotAngle();
+          e.preventDefault();
+          this.model.decShotAngle(inc);
         break;
         case 39: // right arrow
-          this.model.incShotAngle();
+          e.preventDefault();
+          this.model.incShotAngle(inc);
         break;
       }
     },

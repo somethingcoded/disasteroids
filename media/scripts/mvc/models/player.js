@@ -13,15 +13,21 @@
       shotAngle: 90
     },
 
-    incConstant: .1,
+    incConstant: .5,
+
+    powerRange: [0,100],
+
+    shotAngleRange: [0,180],
 
     incPower: function(inc) {
       inc = inc || this.incConstant;
+      if (this.get('power') >= powerRange[1]) return; 
       this.set({power: this.get('power') + inc});
     },
 
     decPower: function(dec) {
       dec = dec || this.incConstant;
+      if (this.get('power') <= powerRange[0]) return; 
       this.set({power: this.get('power') - dec});
     },
 
