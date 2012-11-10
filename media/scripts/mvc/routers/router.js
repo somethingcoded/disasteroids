@@ -10,6 +10,7 @@
 
     lobby: function() {
       this.renderWorldIfNot();
+      appView.renderLobby();
     },
 
     world: function() {
@@ -20,6 +21,7 @@
       this.renderWorldIfNot();
     },
 
+    // utility function not a route
     renderWorldIfNot: function() {
       if (!window.app.world) {
         window.app.world = new sc.models.World();
