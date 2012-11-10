@@ -4,13 +4,23 @@
   sc.views.WorldView = Backbone.View.extend({
     initialize: function() {
       _.bindAll(this);
+      this.model.asteroids.on('add', this.insertAsteroid);
     },
 
     template: _.template($('#world-template').html()),
 
+    insertAsteroid: function(asteroid) {
+      console.log(asteroid);
+      var asteroidView = new sc.views.AsteroidView({model: asteroid});
+      asteroidView.render(this.canvas);
+
+    },
+
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
-      this.renderTest();
+      this.canvas = new fabric.StaticCanvas(this.$('canvas')[0]);
+      this.canvas.backgroundColor = 'black';
+      //this.renderTest();
       return this;
     },
 
