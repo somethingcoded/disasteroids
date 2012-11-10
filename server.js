@@ -57,6 +57,8 @@ var contactListener = new Box2D.Dynamics.b2ContactListener;
 contactListener.BeginContact = function(contact) {
   bodyAData = contact.GetFixtureA().GetBody().GetUserData();
   bodyBData = contact.GetFixtureB().GetBody().GetUserData();
+  if (bodyAData.type == 'player' || bodyBData.type == 'player') {
+  }
 }
 contactListener.EndContact = function(contact) {
   // console.log(contact.GetFixtureA().GetBody().GetUserData());
@@ -106,6 +108,7 @@ var update = function() {
     }
   }
 
+  /*
   // Player orientation IN SPACE (perhaps override if on an asteroid)
   for (var i=0; i < world.players.length; i++) {
     var player = world.players[i];
@@ -139,6 +142,7 @@ var update = function() {
       player.body.SetAngle(ratio*currentAngle + (1-ratio)*(targetAngle + (minVec.x < 0 ? -1 : 1)*Math.PI/2));
     }
   }
+  */
 
   // step the world brah
   world.box2DObj.Step(1/world.FPS, 10, 10);
