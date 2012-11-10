@@ -6,6 +6,8 @@
       _.bindAll(this);
       this.model.asteroids.on('add', this.insertAsteroid);
       this.model.players.on('add', this.insertPlayer);
+
+      $(window).bind('resize', this.resizeCanvas);
     },
 
     template: _.template($('#world-template').html()),
@@ -22,10 +24,18 @@
       asteroidView.render(this.canvas);
     },
 
+    resizeCanvas: function() {
+      var width = this.$el.outerWidth();
+      var height = this.$el.outerHeight();
+      this.$canvas.css({width: width, height: height});
+    },
+
     render: function() {
       var self = this;
       this.$el.html(this.template(this.model.toJSON()));
-      this.canvas = new fabric.StaticCanvas(this.$('canvas')[0]);
+      this.$canvas = this.$('#c');
+      this.$canvas.attr({width: this.$el.outerWidth(), height: this.$el.outerHeight()});
+      this.canvas = new fabric.StaticCanvas(this.$canvas[0]);
       this.canvas.backgroundColor = 'black';
       this.model.canvas = this.canvas;
 
