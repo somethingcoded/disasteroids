@@ -8,27 +8,31 @@
       username: 'Mr. Rogers',
       life: 100,
       x: 0,
-      y: 0
+      y: 0,
+      power: 50,
+      shotAngle: 90
     },
 
+    incConstant: .1,
+
     incPower: function(inc) {
-      inc = inc || .10;
+      inc = inc || this.incConstant;
       this.set({power: this.get('power') + inc});
     },
 
     decPower: function(dec) {
-      dec = dec || .10;
+      dec = dec || this.incConstant;
       this.set({power: this.get('power') - dec});
     },
 
     incShotAngle: function(inc) {
-      inc = inc || .10;
-      this.set({angle: this.get('angle') + inc});
+      inc = inc || this.incConstant;
+      this.set({shotAngle: this.get('shotAngle') + inc});
     },
 
     decShotAngle: function(dec) {
-      dec = dec || .10;
-      this.set({angle: this.get('angle') - dec});
+      dec = dec || this.incConstant;
+      this.set({shotAngle: this.get('shotAngle') - dec});
     }
     
   });

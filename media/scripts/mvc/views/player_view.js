@@ -9,7 +9,6 @@
       this.model.on('change:power change:shotAngle', this.logTest);
       this.model.on('remove', this.exit);
 
-      this.initKeyBindings();
     },
 
     width: 50,
@@ -35,10 +34,11 @@
     },
 
     initKeyBindings: function() {
-      appView.$el.bind('keypress', this.handleKeypress);
+      $('body').bind('keydown', this.handleKeypress);
     },
 
     handleKeypress: function(e) {
+      console.log(e.keyCode);
       switch (e.keyCode) {
         case 38: // arrow up
           this.model.incPower();
@@ -68,6 +68,9 @@
 
     render: function(canvas) {
       var self = this;
+      this.canvas = canvas;
+      this.initKeyBindings();
+
       fabric.loadSVGFromURL(this.SVGPaths.default, function(objects) {
         var group = new fabric.PathGroup(objects, {
           left: self.model.get('x'),
