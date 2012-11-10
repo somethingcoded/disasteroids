@@ -49,7 +49,7 @@ var update = function() {
     for (var j=0; j < world.players.length; j++) {
       var player = world.players[j];
       if (player.disconnected) { // remove player if marked for delete
-        world.players.remove(i);
+        world.players.remove(j);
         continue;
       }
 
@@ -89,6 +89,7 @@ setInterval(function() {
 //--- Message Handling ---
 
 var io = sio.listen(server);
+//io.set('log level', 1);
 
 io.sockets.on('connection', function(socket) {
   io.sockets.emit('news', 'someone connected');
