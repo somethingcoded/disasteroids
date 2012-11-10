@@ -35,7 +35,8 @@
   =================================================== -->
 
   <script id="app-template" type="text/html">
-    App Template
+    <iframe src="http://nodeknockout.com/iframe/somethingcoded" frameborder=0 scrolling=no allowtransparency=true width=115 height=25>
+</iframe>
     <div class="errors"></div>
     <div class="chat-log"></div>
     <div class="world"></div>
@@ -43,7 +44,6 @@
   
   <script id="world-template" type="text/html">
     <canvas id="c" height=1000 width=1000></canvas>
-    World Template
   </script>
 
   <script id="login-template" type="text/html">
@@ -52,8 +52,10 @@
   </script>
 
   <script id="chat-log-template" type="text/html">
-    <div class="chats"></div>
-    <input class="chat-log-input" type="text" placeholder="type here or press enter to chat" /><a href="#" class="submit-chat">chat</a>
+    <div class="chat-log-inner">
+      <div class="chats"></div>
+      <input class="chat-log-input" type="text" placeholder="type here or press enter to chat" /><a href="#" class="submit-chat">chat</a>
+    </div>
   </script>
 
   <script id="chat-template" type="text/html">
