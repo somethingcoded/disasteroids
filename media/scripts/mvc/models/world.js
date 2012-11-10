@@ -12,7 +12,22 @@
     },
     
     playersChanged: function(model, players) {
+      console.log('players changed');
       var self = this;
+      // iterate through existing
+      // oh god the horror
+      self.players.each(function(p, i) {
+        var found = false;
+        _.each(players, function(p2, i2) {
+          if (p.id === p2.id)
+            found = true;
+        });
+        if (!found) {
+          // this player doesn't exist anymore brah
+          self.players.remove(p);
+        }
+      });
+      // iterate through incoming
       _.each(players, function(p, i) {
         var player = self.players.get(p.id);
         if (player) {

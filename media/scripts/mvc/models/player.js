@@ -2,6 +2,8 @@
   'use strict';
 
   sc.models.Player = Backbone.Model.extend({
+    initialize: function() {
+    },
     defaults: {
       username: 'Mr. Rogers',
       life: 100,

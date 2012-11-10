@@ -5,12 +5,23 @@
     initialize: function() {
       _.bindAll(this);
       this.model.on('change', this.reposition);
+      this.model.on('remove', this.remove);
     },
     width: 50,
     height: 66,
     object: undefined,
     SVGPaths: {
       default: '/media/art/mech_01_stand_full.svg'
+    },
+
+    // Remember to avoid memory leaks
+    remove: function() {
+      console.log('Player view remove');
+      this.object.remove();
+      this.model.off('change', this.reposition);
+      this.model.off('remove', this.remove);
+      this.unbind();
+      this.remove();
     },
 
     reposition: function(model) {
