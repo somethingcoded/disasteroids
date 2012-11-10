@@ -15,6 +15,7 @@ var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 
 //--- Box2D World Definitions ---
 
+var SCALE = 30; // 30 units = 1 box2D meter
 var box2DFPS = 60;
 var box2DWorld = new b2World(new b2Vec2(0, 0), true); // no gravity for us lolol
 
