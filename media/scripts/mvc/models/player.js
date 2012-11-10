@@ -58,6 +58,10 @@
       
       this.set({shotAngle: newAngle});
 
+    },
+
+    emitShoot: function() {
+    
     }
     
   });
