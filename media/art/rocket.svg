@@ -2,36 +2,38 @@
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="15px" height="8px" viewBox="0 0 15 8" enable-background="new 0 0 15 8" xml:space="preserve">
+	 width="8px" height="16px" viewBox="0 0 8 16" enable-background="new 0 0 8 16" xml:space="preserve">
 <g id="projectile_4_">
 	
-		<image overflow="visible" opacity="0.75" width="46" height="38" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAmCAYAAAC76qlaAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
-GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABNlJREFUeNrsWNlyGzcQBHaXpKxb
-pUrKxae86yf8Z1L+LD/Bdz+pXHZUjmTJPPZAehoNEpLMQ7RjmykvaxbDPQY9g8YMsM79Or7v4f8L
-o2GFXc/bPwnw8JV2tnHGfzOwV1vYuoQZv50D/qsA52BHmf4B+pslBkYZuItMv1romzjgtwKdACew
-F2qv1Q5X2L0WqKHa5Ig5kY3AOvB+qyjngA2sAb3RtXO0tyvsnsDcjUC9Q3sGMSfMgTQCiv4q8MVW
-oA3wGd8t3EDt1JXQK/cecgK9h9akwTnp9sy9nqvwzoXeH1GPtk00oqsmfbExT3LQFuUcsIE9RVui
-7UMmgFlLDGLSjyHmyFSOmROmH8jWWebAGvDVxpxOoC06r9FaxO4hp5AZOq/R7uF6i7ZB+wpSZ532
-YG4GaSGHrsO5w90O73duX88MoV+nrnX2W3CcwJ+Ctuj0IQb8CIA92lpto7aH85SOODpRwdQE+gDA
-nECb9ODGGNKHdPgdonV6JnF+Cd+Ljbj9QfR4TW77OWiLdMPue3SnlARADIS5aAtdj273+Y5ZMnp9
-osVIl7cZ51fUh2ojXr/R6NzCYJmBLtmhxbMCOKNLhSgXAFWSKi0kUAJjYdSY8a4RJlKqgBhVjEb7
-yjJHCtRHjnRIgcyjXm1UFeNktOH35LQnDaz7ilHrI3ozZo4S0GL0Okjgk4mrHYB2dKuG7OFsx1TE
-sTdumGUCAAfYTPUhvDzii+IS5R7iBbwh8JLRjunOMkbFcWjF9SILgBevDf6A/xyhm3s2ccccs859
-hhgdTwR6pBHzm6bD8KSM3wrKnbjoGaOSUGvm60rTsLdU0v1a1OrJQUfL0eYhzg9ZQbPjz+c8Xw48
-f/hGxuywlPf5CXjHTFIw2unn5UgEW/Ju0L2KsS3nNqacrh5084i8VWL3aAmxVQHKXx5Lt/zcCFYr
-+jRyphGYQjndSZLeMb8XdK2VnT3ZPCbnIyXXHIXb0WM98GE2q19J73FKBkQrkACBuSQWjmo+CQMJ
-kQpK0uNk7JgQS9mZyOYdi5RV1rA98Mvs5XPoB/o/Yb5dVMBC1a4mmMUvuhXFszK2bO3XkDjt3MaA
-+T2wRFlwrr8QtI2B+ycL/RPF8fgJ6IY1sGFeiSDrpZLu9zgTYj4PstfJ5r2CdJ71ffncgfV5fKRq
-ZkNoxeJUHVSMYMGpGSecI00814PtfCIu0muiSgs7sQAN4MAU0rCUtSxQVj3/hjxwnR6D5zeM+LMF
-/FAROJiztwNlWhYTi+KMUbRzzeRmA18wP0Td02WrrTP+t2cnhNkQcKXIn5NQHUp+eLbNe9HkvNIK
-7S9tuRoZ/qQVXavOY4KL4BPosQAncQLf5/1InYozo0FdiPZsRKzcv9Ou6GL5PrRa9clgvmb5TcM2
-UtT7BO8QGaeC3GlqLpa1Xuu9jlokis+4XLKNk/VIy1p7+o9Hy9pHm+iXrcdXbSRKleqZAO+xeBRc
-i/SXbCSm2UYiyX62Dr/mIqvLN89f2nsWG32oSZSJUejI3EYL/38gM67K47CXosAY0vBOlLGu2/17
-PWtUs/ffZqDzFOi/ReXMwQ8ZudjZAB3/LgCtYO7Nd5k1c0bS7wR+wFTY0HHTH2Tr4/qdz85/nvh/
-fxDa+U9wO/3Rc+c/M//oD/u/ju99/CvAAOvOz0QCa5tzAAAAAElFTkSuQmCC" transform="matrix(1 0 0 1 -16 -15)">
+		<image overflow="visible" opacity="0.75" width="39" height="46" xlink:href="data:image/png;base64,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" transform="matrix(1 0 0 1 -15 -15)">
 	</image>
 	<g>
-		<polygon fill="none" stroke="#FF7300" stroke-width="2" stroke-miterlimit="10" points="4,7 1,4 4,1 14,1 14,7 		"/>
+		<polygon fill="none" stroke="#FF7300" stroke-width="2" stroke-miterlimit="10" points="1,4.5 4,1.5 7,4.5 7,15 1,15 		"/>
 	</g>
 </g>
 </svg>
