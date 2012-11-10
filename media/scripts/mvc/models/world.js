@@ -25,7 +25,6 @@
         });
         if (!found) {
           // this player doesn't exist anymore brah
-          // console.log('trying to remove player');
           self.players.remove(p);
         }
       });
@@ -40,7 +39,6 @@
           self.players.add(p);
         }
       });
-
     },
 
     setCurrentPlayer: function(player) {
@@ -50,24 +48,56 @@
     },
 
     asteroidsChanged: function(model, asteroids) {
-      console.log('asteroids changed', asteroids);
       var self = this;
-      // Update individual asteroids
+      // iterate through existing
+      // oh god the horror
+      self.asteroids.each(function(a, i) {
+        var found = false;
+        _.each(asteroids, function(a2, i2) {
+          if (a.id === a2.id)
+            found = true;
+        });
+        if (!found) {
+          // this asteroid doesn't exist anymore brah
+          self.asteroids.remove(a);
+        }
+      });
+      // iterate through incoming
       _.each(asteroids, function(a, i) {
-        // TODO: check for existing objects
-        console.log(a);
-        self.asteroids.add(a); 
+        var asteroid = self.asteroids.get(a.id);
+        if (asteroid) {
+          // update existing
+          asteroid.set(a)
+        } else {
+          // make new
+          self.asteroids.add(a);
+        }
       });
     },
 
     missilesChanged: function(model, missiles) {
-      console.log('missiles changed', missiles);
       var self = this;
+      // iterate through existing
+      // oh god the horror
+      self.missiles.each(function(m, i) {
+        var found = false;
+        _.each(missiles, function(m2, i2) {
+          if (m.id === m2.id)
+            found = true;
+        });
+        if (!found) {
+          // this missile doesn't exist anymore brah
+          self.missiles.remove(m);
+        }
+      });
+      // iterate through incoming
       _.each(missiles, function(m, i) {
         var missile = self.missiles.get(m.id);
         if (missile) {
-          missile.set(m); 
+          // update existing
+          missile.set(m)
         } else {
+          // make new
           self.missiles.add(m);
         }
       });

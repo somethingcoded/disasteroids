@@ -5,7 +5,8 @@
     defaults: {
       life: 100,
       x: 0,
-      y: 0
+      y: 0,
+      angle:0
     }
   });
 
