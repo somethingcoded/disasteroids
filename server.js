@@ -3,7 +3,7 @@ var http = require('http'),
     express = require('express'),
     _ = require('underscore'),
     sio = require('socket.io'),
-    box2d = require('./lib/box2d');
+    Box2D = require('./lib/box2d');
 
 var app = express();
 var server = http.createServer(app);
@@ -25,8 +25,19 @@ server.listen(conf.port);
 
 console.log('Server running at http://localhost:' + conf.port);
 
+//--- Box2D Shortcuts ----
 
-// Sockets
+var b2World = Box2D.Dynamics.b2World,
+  b2Vec2 = Box2D.Common.Math.b2Vec2,
+  b2FixtureDef = Box2D.Dynamics.b2FixtureDef,
+  b2BodyDef = Box2D.Dynamics.b2BodyDef,
+  b2Body = Box2D.Dynamics.b2Body,
+  b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
+  b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
+  b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+
+//--- Message Handling ---
+
 var io = sio.listen(server);
 
 io.sockets.on('connection', function(socket) {
