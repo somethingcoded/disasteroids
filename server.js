@@ -8,13 +8,16 @@ var app = express.createServer();
 
 app.configure(function() {
   app.set('views', __dirname + '/templates/');
+  app.engine('html', require('ejs').renderFile);
   app.use(express.errorHandler());
   app.use('/media', express.static(__dirname + '/media'));
   app.use('/', express.static(__dirname + '/templates/'))
 });
 
 app.get('/', function(req, res, next) {
-  res.send('Hello World');
+  res.render('layout.html', function(err, html) {
+  
+  });
 });
 
 app.listen(conf.port);
