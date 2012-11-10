@@ -58,6 +58,10 @@ io.sockets.on('connection', function(socket) {
   socket.emit('sync', world);
   console.log('someone connected');
 
+  // TODO REMOVE DEBUG PLAYER
+  var newPlayer = new entities.player(world, 'testid', 'testname', 40, 50);
+  world.players.push(newPlayer);
+
   socket.on('disconnect', function() {
     io.sockets.emit('news', 'someone disconnected');
     console.log('someone disconnected');
