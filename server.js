@@ -93,11 +93,9 @@ world.box2DObj.SetContactListener(contactListener);
 var update = function() {
   for (var i=0; i < world.players.length; i++) {
     var player = world.players[i];
-    var playerCenter = player.body.GetWorldCenter();
-
     // remove player if marked for delete
     if (player.disconnected) {
-      world.players.remove(j);
+      world.players.remove(i);
       continue;
     }
 
@@ -110,6 +108,7 @@ var update = function() {
     var nearest;
     var minDistance = Infinity;
     var minVec;
+    var playerCenter = player.body.GetWorldCenter();
 
     for (var j=0; j < world.asteroids.length; j++) {
       var asteroid = world.asteroids[j];
