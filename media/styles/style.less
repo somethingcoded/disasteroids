@@ -1,4 +1,15 @@
-body { font-family: helvetica, sans-serif; }
+/* Vars and Mixins
+***************************/
+
+.fontset { font-family: Abel, Helvetica, Arial, sans-serif; }
+
+
+/* Styles
+***************************/
+
+body { .fontset; }
+
+input[type=text] { .fontset; }
 
 .main { position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
 .errors { position: fixed; top: 15px; left: 15px; color: red; }
