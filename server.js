@@ -55,13 +55,32 @@ world.addAsteroids();
 //---- collision listener ----
 var contactListener = new Box2D.Dynamics.b2ContactListener;
 contactListener.BeginContact = function(contact) {
-  bodyAData = contact.GetFixtureA().GetBody().GetUserData();
-  bodyBData = contact.GetFixtureB().GetBody().GetUserData();
-  if (bodyAData.type == 'player' || bodyBData.type == 'player') {
+  var bodyAData = contact.GetFixtureA().GetBody().GetUserData();
+  var bodyBData = contact.GetFixtureB().GetBody().GetUserData();
+
+  var player = undefined;
+  var target = undefined;
+  if (bodyAData.type == 'player') { player = bodyAData; target = bodyBData; }
+  if (bodyBData.type == 'player') { player = bodyBData; target = bodyAData; }
+
+  if (target.type == 'asteroid') {
+    player.onAsteroid = true;
+    player.body.SetAwake(false);
   }
 }
 contactListener.EndContact = function(contact) {
-  // console.log(contact.GetFixtureA().GetBody().GetUserData());
+  var bodyAData = contact.GetFixtureA().GetBody().GetUserData();
+  var bodyBData = contact.GetFixtureB().GetBody().GetUserData();
+
+  var player = undefined;
+  var target = undefined;
+  if (bodyAData.type == 'player') { player = bodyAData; target = bodyBData; }
+  if (bodyBData.type == 'player') { player = bodyBData; target = bodyAData; }
+
+  if (target.type == 'asteroid') {
+    player.onAsteroid = false;
+    player.body.SetAwake(true);
+  }
 }
 contactListener.PostSolve = function(contact, impulse) {
 }
@@ -81,6 +100,10 @@ var update = function() {
       var player = world.players[j];
       if (player.disconnected) {
         world.players.remove(j);
+        continue;
+      }
+
+      if (player.onAsteroid) {
         continue;
       }
 
@@ -108,7 +131,6 @@ var update = function() {
     }
   }
 
-  /*
   // Player orientation IN SPACE (perhaps override if on an asteroid)
   for (var i=0; i < world.players.length; i++) {
     var player = world.players[i];
@@ -142,7 +164,6 @@ var update = function() {
       player.body.SetAngle(ratio*currentAngle + (1-ratio)*(targetAngle + (minVec.x < 0 ? -1 : 1)*Math.PI/2));
     }
   }
-  */
 
   // step the world brah
   world.box2DObj.Step(1/world.FPS, 10, 10);
@@ -177,7 +198,7 @@ setInterval(function() {
 //--- Message Handling ---
 
 var io = sio.listen(server);
-//io.set('log level', 1);
+io.set('log level', 1);
 
 io.sockets.on('connection', function(socket) {
   io.sockets.emit('news', 'someone connected');
