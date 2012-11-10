@@ -10,10 +10,11 @@
     // SVG asset dimensions
     width: 230,
     height: 222,
+    angle: Math.floor(Math.random()*360),
     object: undefined,
-
+    
     SVGPaths: {
-      default: '/media/art/asteroid_01.svg'
+      default: '/media/art/asteroid_0'+Math.ceil(Math.random()*5)+'.svg'
     },
     
     exit: function() {
@@ -33,6 +34,7 @@
           top: self.model.get('y'),
           height: self.height,
           width: self.width,
+          angle: self.angle,
           scaleX: 2*self.model.get('radius')/self.width,
           scaleY: 2*self.model.get('radius')/self.height
         });
