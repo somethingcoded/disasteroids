@@ -27,8 +27,14 @@
       this.$el.append(lobbyView.render().el);
     },
 
+    renderChatLog: function() {
+      var chatLogView = new sc.views.ChatLogView({model: this.model.chatLog, el: this.$('.chat-log')});
+      chatLogView.render();
+    },
+
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
+      this.renderChatLog();
       return this;
     }
     

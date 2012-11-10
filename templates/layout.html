@@ -37,6 +37,7 @@
   <script id="app-template" type="text/html">
     App Template
     <div class="errors"></div>
+    <div class="chat-log"></div>
     <div class="world"></div>
   </script>
   
@@ -51,11 +52,12 @@
   </script>
 
   <script id="chat-log-template" type="text/html">
-    chat log template
+    <div class="chats"></div>
+    <input class="chat-log-input" type="text" placeholder="type here or press enter to chat" /><a href="#" class="submit-chat">chat</a>
   </script>
 
   <script id="chat-template" type="text/html">
-    chat template
+    {{ msg }}
   </script>
 
   <!-- JS
@@ -84,11 +86,14 @@
   <script src="/media/scripts/mvc/models/app.js"></script>
   <script src="/media/scripts/mvc/models/world.js"></script>
   <script src="/media/scripts/mvc/models/lobby.js"></script>
+  <script src="/media/scripts/mvc/models/chat.js"></script>
+  <script src="/media/scripts/mvc/models/chat_log.js"></script>
   <script src="/media/scripts/mvc/models/asteroid.js"></script>
   <script src="/media/scripts/mvc/models/missile.js"></script>
   <script src="/media/scripts/mvc/models/player.js"></script>
 
   <!-- Collections -->
+  <script src="/media/scripts/mvc/collections/chats.js"></script>
   <script src="/media/scripts/mvc/collections/asteroids.js"></script>
   <script src="/media/scripts/mvc/collections/missiles.js"></script>
   <script src="/media/scripts/mvc/collections/players.js"></script>
@@ -97,6 +102,8 @@
   <script src="/media/scripts/mvc/views/app_view.js"></script>
   <script src="/media/scripts/mvc/views/world_view.js"></script>
   <script src="/media/scripts/mvc/views/lobby_view.js"></script>
+  <script src="/media/scripts/mvc/views/chat_view.js"></script>
+  <script src="/media/scripts/mvc/views/chat_log_view.js"></script>
   <script src="/media/scripts/mvc/views/asteroid_view.js"></script>
   <script src="/media/scripts/mvc/views/missile_view.js"></script>
   <script src="/media/scripts/mvc/views/player_view.js"></script>

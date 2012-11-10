@@ -3,7 +3,7 @@
 
   sc.models.App = Backbone.Model.extend({
     initialize: function() {
-      
+      this.chatLog = new sc.models.ChatLog();
     },
 
     router: new sc.routers.Router,
