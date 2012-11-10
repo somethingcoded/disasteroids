@@ -50,4 +50,8 @@ io.sockets.on('connection', function(socket) {
     io.sockets.emit('news', 'someone disconnected');
     console.log('someone disconnected');
   });
+
+  socket.on('login', function(data) {
+    console.log(data.username);
+  })
 });
