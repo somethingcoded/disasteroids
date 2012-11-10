@@ -6,7 +6,7 @@
       '': 'lobby',
       'world': 'world',
       'results': 'results'
-    }
+    },
 
     lobby: function() {
     

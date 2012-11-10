@@ -4,7 +4,7 @@
   sc.models.World = Backbone.Model.extend({
     initialize: function() {
       
-    }
+    },
 
     start: function(attrs) {
 
