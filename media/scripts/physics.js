@@ -13,6 +13,13 @@ var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 
-//--- World Definition ---
+//--- Box2D World Definitions ---
 
-var world = new b2World(new b2Vec2(0, 0), true); // no gravity for us lolol
+var box2DFPS = 60;
+var box2DWorld = new b2World(new b2Vec2(0, 0), true); // no gravity for us lolol
+
+//--- Physics Step Function ---
+
+var updateWorld = function() {
+  //box2DWorld.Step(1/box2DFPS, 10, 10);
+}
