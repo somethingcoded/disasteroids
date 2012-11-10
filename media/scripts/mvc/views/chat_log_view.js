@@ -33,11 +33,12 @@
     insertChat: function(chat) {
       var chatView = new sc.views.ChatView({model: chat});
       this.$chats.append(chatView.render().el);
-      this.$chats.scrollTop(this.$chats.outerHeight());
+      this.$chatsWrapper.scrollTop(this.$chats.outerHeight());
     },
 
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
+      this.$chatsWrapper = this.$('.chats-wrapper');
       this.$chats = this.$('.chats');
       this.$chatLogInput = this.$('.chat-log-input');
       return this;

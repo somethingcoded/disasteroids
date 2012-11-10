@@ -12,7 +12,7 @@
     },
     
     playersChanged: function(model, players) {
-      console.log('players changed');
+      // console.log('players changed');
       var self = this;
       // iterate through existing
       // oh god the horror
@@ -24,7 +24,7 @@
         });
         if (!found) {
           // this player doesn't exist anymore brah
-          console.log('trying to remove player');
+          // console.log('trying to remove player');
           self.players.remove(p);
         }
       });
