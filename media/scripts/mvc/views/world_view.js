@@ -25,10 +25,18 @@
     },
 
     resizeCanvas: function() {
+      // get heights
       var width = this.$el.outerWidth();
       var height = this.$el.outerHeight();
+
+      // canvas element resize
       this.$canvas.css({width: width, height: height})
         .attr({width: width, height: height});
+
+      // fabric canvas resize
+      this.canvas.setWidth(width);
+      this.canvas.setHeight(height);
+
     },
 
     render: function() {

@@ -79,7 +79,44 @@ var update = function() {
     }
   }
 
-  // simulate a step of the world
+  // Player orientation IN SPACE (perhaps override if on an asteroid)
+  for (var i=0; i < world.players.length; i++) {
+    console.log('yo');
+    var player = world.players[i];
+    // find the nearest asteroid surface
+    var nearest;
+    var minDistance = Infinity;
+    var minVec;
+    for (var j=0; j < world.asteroids.length; j++) {
+      console.log('hi');
+      // calculate distance minus asteroid radius 
+      var asteroid = world.asteroids[j];
+      var playerCenter = player.body.GetWorldCenter();
+      var astCenter = asteroid.body.GetWorldCenter();
+      var distVec = new Box2D.Common.Math.b2Vec2(playerCenter.x-astCenter.x, playerCenter.y-astCenter.y);
+      var dist = distVec.Length()-(asteroid.radius/world.scale)
+      if (dist < minDistance) {
+        minDistance = dist;
+        nearest = asteroid;
+        minVec = distVec;
+      }
+    }
+
+    if (!nearest){
+      console.log('no nearest');
+      break; // something went wrong
+    } 
+    var cutoff = nearest.radius/world.scale * 2
+    if (minDistance < cutoff) {
+      // gogogo start turning
+      var ratio = minDistance/cutoff;
+      var targetAngle = Math.atan(minVec.y/minVec.x);
+      var currentAngle = player.body.GetAngle();
+      player.body.SetAngle(ratio*currentAngle + (1-ratio)*(targetAngle + (minVec.x < 0 ? -1 : 1)*Math.PI/2));
+    }
+  }
+  
+  // step the world brah
   world.box2DObj.Step(1/world.FPS, 10, 10);
 
   // update all objects with latest simulation changes
