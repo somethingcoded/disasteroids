@@ -46,8 +46,8 @@ world.addAsteroids();
 //---- collision listener ----
 var contactListener = new Box2D.Dynamics.b2ContactListener;
 contactListener.BeginContact = function(contact) {
-  bodyAData = contact.GetFixtureA().GetBody();
-  bodyBData = contact.GetFixtureB().GetBody();
+  bodyAData = contact.GetFixtureA().GetBody().GetUserData();
+  bodyBData = contact.GetFixtureB().GetBody().GetUserData();
 }
 contactListener.EndContact = function(contact) {
   // console.log(contact.GetFixtureA().GetBody().GetUserData());
@@ -105,7 +105,7 @@ var update = function() {
     var minDistance = Infinity;
     var minVec;
     for (var j=0; j < world.asteroids.length; j++) {
-      // calculate distance minus asteroid radius 
+      // calculate distance minus asteroid radius
       var asteroid = world.asteroids[j];
       var playerCenter = player.body.GetWorldCenter();
       var astCenter = asteroid.body.GetWorldCenter();
@@ -120,7 +120,7 @@ var update = function() {
 
     if (!nearest){
       break; // something went wrong
-    } 
+    }
     var cutoff = nearest.radius/world.scale * 2
     if (minDistance < cutoff) {
       // gogogo start turning
@@ -130,7 +130,7 @@ var update = function() {
       player.body.SetAngle(ratio*currentAngle + (1-ratio)*(targetAngle + (minVec.x < 0 ? -1 : 1)*Math.PI/2));
     }
   }
-  
+
   // step the world brah
   world.box2DObj.Step(1/world.FPS, 10, 10);
 
