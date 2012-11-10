@@ -14,6 +14,10 @@
     },
 
     game: function() {
+      if (!app.currentPlayer) {
+        return app.router.navigate('/', {trigger: true});
+      }
+      
       this.renderWorldIfNot();
       
       if (app.lobby) {
@@ -32,7 +36,7 @@
         window.app.world = new sc.models.World();
         window.app.worldView = new sc.views.WorldView({model: window.app.world, el: $('.world')});
         window.app.worldView.render();
-      } else if (window.app.worldView.$el.empty()) {
+      } else if (!window.app.worldView.$el.children().length) {
         window.app.worldView.render();
       }
     }

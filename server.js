@@ -80,6 +80,6 @@ io.sockets.on('connection', function(socket) {
     var newPlayer = new entities.player(world, socket.id, data.username);
     world.players.push(newPlayer);
     io.sockets.emit('news', data.username + ' logged in');
-    socket.emit('loggedIn', data.username + ' joined the game!');
+    socket.emit('loggedIn', {username: data.username});
   })
 });

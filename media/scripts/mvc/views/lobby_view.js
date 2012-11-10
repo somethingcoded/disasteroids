@@ -15,6 +15,8 @@
     
     template: _.template($('#login-template').html()),
 
+    className: 'lobby',
+
     loginKeypress: function(e) {
       if (e.keyCode == 13) {
         this.login(e);

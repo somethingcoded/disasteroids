@@ -9,7 +9,8 @@
     },
 
     events: {
-      'keypress .chat-log-input': 'chatLogInputKeypress'
+      'keypress .chat-log-input': 'chatLogInputKeypress',
+      'click .submit-chat': 'submitChat'
     },
 
     template: _.template($('#chat-log-template').html()),
