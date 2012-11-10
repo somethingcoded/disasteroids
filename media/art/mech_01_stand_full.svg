@@ -5,7 +5,7 @@
 	 width="80px" height="100px" viewBox="0 0 80 100" enable-background="new 0 0 80 100" xml:space="preserve">
 <g id="chassis_2_">
 	
-		<image overflow="visible" opacity="0.75" width="72" height="53" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA1CAYAAADiUa1YAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+		<image overflow="visible" opacity="0.75" enable-background="new    " width="72" height="53" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA1CAYAAADiUa1YAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
 GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAADl5JREFUeNrsW8tuG0cWvVVd3U1K
 lB0hIwcwxpjACy9iZJXtAJOf8PfY/h79ROYDsho4Cy+MDBIEiIVYlkWJZHc95pzb1WRTFvWyk1Fm
 TLjczX6x69S55z6qJPLp8+nzIR/zP9OTdKYvBkf+bwHKYKTrdPKGgLk/MyjP1wb4mTxdHdfvq1vx
@@ -75,12 +75,12 @@ uOwlN5nQjV/20gXkcjErP/BjPuZLbnzZj/F3E1f484OPCczN1gelay6d/Ygv+uf95KUun4D49Pn0
 	</image>
 	<g>
 		<polyline fill="none" stroke="#B8FF52" stroke-width="2" stroke-miterlimit="10" points="19.425,39.118 20.386,34.795 40.559,30 
-			51.606,18 58.331,18 50.078,38.165 		"/>
+			51.605,18 58.331,18 50.078,38.165 		"/>
 	</g>
 </g>
 <g id="cockpit_1_">
 	
-		<image overflow="visible" opacity="0.75" width="62" height="48" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD4AAAAwCAYAAABJy8k0AAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+		<image overflow="visible" opacity="0.75" enable-background="new    " width="62" height="48" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD4AAAAwCAYAAABJy8k0AAAACXBIWXMAAAsSAAALEgHS3X78AAAA
 GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAACfVJREFUeNrsmstu3EYWhk8Vyb6o
 W5YNR87MYAwEXmgG9tLAbOMHmK2fx/bz+CUcINusBsnCC2EGCTywBMOW1JKabLIq3zksttq6WWrZ
 sTAjBkz1hU3Xd/5zq6JEbo6b4//icNdyVvGMeTm++Z8APwYYl5n4ksZwXwP0tJm+ODGX5/Ls6Lv5
@@ -134,7 +134,7 @@ ri0Lz6wXn1tfhyS2/JOUE8+7jwxw2pGeYFgD9OyaQl/8EdKxP+d4cc7vrvq3KdcL/Jy/ZznzptcU
 </g>
 <g id="chassis_floor">
 	
-		<image overflow="visible" opacity="0.75" width="57" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADkAAAAgCAYAAACowdDWAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+		<image overflow="visible" opacity="0.75" enable-background="new    " width="57" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADkAAAAgCAYAAACowdDWAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
 GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABahJREFUeNrsWdtOHEcQPT0zO7ML
 SyBCEMWyFYkHP4RHf4u/B/M9fIsfyQMPSBZWpHiFAtmFnWt3zunpJUO47MUkSgyNhu5epqvO6aqu
 ql6Al/ZtNPOk0txtee5rwZilRTwxyUDI/dvWWIF4sgq5rpbDG/0fcHDP60c4Xmgj32P/DvjDIDds
@@ -169,7 +169,7 @@ OsVP5mAGm9xlPsm/4ljWu2IseLP0Vevl0vx8vv54Nl9k/Qe+kjzoFOD/3FeS/+Mvl5/Fvwle2rfS
 </g>
 <g id="rocket_bay">
 	
-		<image overflow="visible" opacity="0.75" width="56" height="40" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAAoCAYAAACrUDmFAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+		<image overflow="visible" opacity="0.75" enable-background="new    " width="56" height="40" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAAoCAYAAACrUDmFAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
 GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAACHdJREFUeNrsWUmOHDcW/RwiIlOV
 mtAoNQxYaEMLLSR45QPYl9B5VHUebfsA6gN4KS28ENxQoxvdsqGhsiozI4Kk3/tkZEYNWZPlBiQr
 JBZjJPn++yNT5MvxaR/mo42Ujo+Vfu8izJWG+MgAC5j0/2TgmoDNVYGNZ9kfff9U9o69+kxeXHrs
@@ -218,7 +218,7 @@ YII=" transform="matrix(1 0 0 1 0 27)">
 </g>
 <g id="leg_upper_1_">
 	
-		<image overflow="visible" opacity="0.75" width="50" height="50" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+		<image overflow="visible" opacity="0.75" enable-background="new    " width="50" height="50" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
 GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAACdlJREFUeNrsmk9vG8kRxat7/kqU
 7BU2VJDEiwQ++GBjTwZyja8L5KrPY/vz6EvokGtOC+/BByOAgwARs7BlySI5M929v6oZSvLakkiJ
 CgLEI7eHFDk99fpVvarqkcjX4+vx9bjqcGuZJV0yj+OT/3kgGJ9WvdEdAstvA+Dl2UK8kOdf+OrL
@@ -273,7 +273,7 @@ viIAAAAASUVORK5CYII=" transform="matrix(1 0 0 1 24 16)">
 </g>
 <g id="foot_1_">
 	
-		<image overflow="visible" opacity="0.75" width="64" height="45" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAtCAYAAAAeA21aAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+		<image overflow="visible" opacity="0.75" enable-background="new    " width="64" height="45" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAtCAYAAAAeA21aAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
 GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAC2BJREFUeNrsWstu3MgVvVVFNrv1
 sEZx7GxiJNDCC3tpIOv5ifkey9+jn3C2Abz0APFCSODZjA1nYrekfpBVlXNuVbXYklpqSW0nmAyF
 AkmRTdY999xnUeS37f97M1/9DfGadxhc/VUBkIWNd53EfwEQ8zWEfrX03EN5eeEnr3rXyvay9wjz
@@ -329,13 +329,13 @@ vbxzc98W3X2Cd/wi7Kt94nLH5fGv8pncda21jUzyf+D7wt+2X8v2HwEGAKglzdKq16vdAAAAAElF
 TkSuQmCC" transform="matrix(1 0 0 1 11 53)">
 	</image>
 	<g>
-		<polygon fill="none" stroke="#B8FF52" stroke-width="2" stroke-miterlimit="10" points="28.311,82 57.851,82 55.689,75 47.043,75 
+		<polygon fill="none" stroke="#B8FF52" stroke-width="2" stroke-miterlimit="10" points="28.311,82 57.852,82 55.689,75 47.043,75 
 			42.721,69 32.634,69 		"/>
 	</g>
 </g>
 <g id="leg_lower_7_">
 	
-		<image overflow="visible" opacity="0.75" width="52" height="65" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAABBCAYAAACel4eZAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+		<image overflow="visible" opacity="0.75" enable-background="new    " width="52" height="65" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAABBCAYAAACel4eZAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
 GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAADBhJREFUeNrsWstuG8kVvVX9IClR
 I2sm8iBGJgm08MJe+gf8AbOd77H8PfqJWWTrVWAvjEAI4CDAmEhsmZJJdtdjzrlVTbZlOSIl2shC
 bVzzoW52nTrnvqpa5O64O+6O2xzmm98xrnFPg7NueNhvCSTS9O3KjuXz73iedPZ/x1AGweP58n7H
@@ -395,9 +395,12 @@ D/Z9PUBfWObqP37ZPVnySda/5aOXXx/Qpf4pbnLDrwBkqw8vXdcg3jb73x13x91xd9z4+F2AAQBb
 	</image>
 	<g>
 		<polyline fill="none" stroke="#B8FF52" stroke-width="2" stroke-miterlimit="10" points="50.646,74.662 57.123,62.198 
-			54.175,60.852 62.901,43.569 59.09,43.081 44.882,71.299 		"/>
+			54.175,60.852 62.9,43.569 59.09,43.081 44.882,71.299 		"/>
 	</g>
 </g>
 <line id="pylon" fill="none" stroke="#B8FF52" stroke-width="2" stroke-miterlimit="10" x1="30" y1="40" x2="30" y2="42"/>
 <line id="pylon_1_" fill="none" stroke="#B8FF52" stroke-width="2" stroke-miterlimit="10" x1="34" y1="40" x2="34" y2="42"/>
+<g>
+	<path fill="#FFFFFF" d="M79,1v98H1V1H79 M80,0H0v100h80V0L80,0z"/>
+</g>
 </svg>

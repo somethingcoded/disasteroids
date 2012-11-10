@@ -5,7 +5,7 @@
 	 width="30px" height="20px" viewBox="0 0 30 20" enable-background="new 0 0 30 20" xml:space="preserve">
 <g id="projectile">
 	
-		<image overflow="visible" opacity="0.75" width="46" height="38" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAmCAYAAAC76qlaAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+		<image overflow="visible" opacity="0.75" enable-background="new    " width="46" height="38" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAmCAYAAAC76qlaAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
 GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABPxJREFUeNrcWNtu2zgQJSXKdu4J
 gl0Ufuq7f6J/luyf7U/4vU9B0TboJnXq2LqwM4eHMuPUtqomwDoyRhyL0vDM8HBGVGb29Mj2Fbh7
 DaPeGLupz6L7fwJ8G9Au9/Zxxr0Y2Ovu4NvjSszYla3fccD+EeAU7DTRv4j+YYOBaQJukujXK72L
@@ -34,5 +34,8 @@ BRgAmYDOXRS6xQMAAAAASUVORK5CYII=" transform="matrix(1 0 0 1 -8 -9)">
 	<g>
 		<polygon fill="none" stroke="#FF7300" stroke-width="2" stroke-miterlimit="10" points="12,13 9,10 12,7 22,7 22,13 		"/>
 	</g>
+</g>
+<g>
+	<path fill="#FFFFFF" d="M29,1v18H1V1H29 M30,0H0v20h30V0L30,0z"/>
 </g>
 </svg>
