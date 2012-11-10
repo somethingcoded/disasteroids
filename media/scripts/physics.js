@@ -21,6 +21,12 @@ var box2DWorld = new b2World(new b2Vec2(0, 0), true); // no gravity for us lolol
 
 //--- Physics Step Function ---
 
-var updateWorld = function() {
-  //box2DWorld.Step(1/box2DFPS, 10, 10);
+var updateWorld = function(updateCallback) {
+  box2DWorld.Step(1/box2DFPS, 10, 10);
+  box2DWorld.DrawDebugData();
+  box2dWorld.ClearForces();
+
+  // updateCallback should be requestAnimFrame on the client and just a
+  // dummy function on the server side */
+  updateCallback(updateWorld);
 }
