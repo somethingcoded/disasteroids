@@ -197,6 +197,7 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('chat', function(data) {
+    data.msg = escape(data.msg);
     socket.broadcast.emit('chat', data);
   });
 
