@@ -78,10 +78,6 @@ io.sockets.on('connection', function(socket) {
   socket.emit('sync', world);
   console.log('someone connected');
 
-  // TODO REMOVE DEBUG PLAYER
-  var newPlayer = new entities.player(world, 'testid', 'testname', 510, 100);
-  world.players.push(newPlayer);
-
   socket.on('disconnect', function() {
     io.sockets.emit('news', 'someone disconnected');
     console.log('someone disconnected');
@@ -97,7 +93,7 @@ io.sockets.on('connection', function(socket) {
     }
 
     // create user and log in
-    var newPlayer = new entities.player(world, socket.id, data.username);
+    var newPlayer = new entities.player(world, socket.id, data.username, 340, 400);
     world.players.push(newPlayer);
     io.sockets.emit('news', data.username + ' logged in');
     socket.emit('loggedIn', {username: data.username});
