@@ -3,8 +3,8 @@
 
   sc.views.AsteroidView = Backbone.View.extend({
     // SVG asset dimensions
-    width: 300,
-    height: 300,
+    width: 230,
+    height: 222,
     object: undefined,
 
     SVGPath: '/media/art/asteroid_01.svg',
