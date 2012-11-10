@@ -36,7 +36,7 @@ var io = sio.listen(server);
 
 io.sockets.on('connection', function(socket) {
   io.sockets.emit('news', 'someone connected');
-  socket.emit('sync', world);
+  socket.emit('sync', {});
   console.log('someone connected');
 
   socket.on('disconnect', function() {
