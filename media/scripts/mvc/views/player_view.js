@@ -10,7 +10,7 @@
     height: 66,
     object: undefined,
     SVGPaths: {
-      default: '/media/art/mech_01_stand_full_flush.svg'
+      default: '/media/art/mech_01_stand_full.svg'
     },
 
     reposition: function(model) {

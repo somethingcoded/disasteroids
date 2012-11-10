@@ -39,15 +39,15 @@ var update = function() {
       playerBox2DCenter = player.body.GetWorldCenter();
 
       // apply radial gravity
-      //var pToA = new Box2D.Common.Math.b2Vec2(0, 0);
-      //pToA.Add(asteroidCenter);
-      //pToA.Subtract(playerBox2DCenter);
+      var pToA = new Box2D.Common.Math.b2Vec2(0, 0);
+      pToA.Add(asteroidCenter);
+      pToA.Subtract(playerBox2DCenter);
 
-      //var force = world.asteroids[i].radius*80/(pToA.LengthSquared()/2);
-      //pToA.Normalize();
-      //pToA.Multiply(force);
+      var force = world.asteroids[i].radius*80/(pToA.LengthSquared()/2);
+      pToA.Normalize();
+      pToA.Multiply(force);
 
-      //world.players[j].body.ApplyForce(pToA, asteroidCenter);
+      world.players[j].body.ApplyForce(pToA, asteroidCenter);
     }
   }
   world.box2DObj.Step(1/world.FPS, 10, 10);
