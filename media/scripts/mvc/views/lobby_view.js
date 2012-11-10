@@ -13,7 +13,7 @@
       'keypress .username': 'loginKeypress'
     },
     
-    template: _.template($('#login-template').html()),
+    template: _.template($('#lobby-template').html()),
 
     className: 'lobby',
 

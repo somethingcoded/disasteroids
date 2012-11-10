@@ -46,9 +46,11 @@
     <canvas id="c"></canvas>
   </script>
 
-  <script id="login-template" type="text/html">
-    Name your Mech
-    <input class="username" type="text" placeholder="username"/><a href="#" class="login">go</a>
+  <script id="lobby-template" type="text/html">
+    <div class="login-form">
+      <div>Name your Mech</div>
+      <input class="username" type="text" placeholder="username" value="user{{ Math.floor(Math.random() * 100) }}"/><a href="#" class="login">go</a>
+    </div>
   </script>
 
   <script id="chat-log-template" type="text/html">

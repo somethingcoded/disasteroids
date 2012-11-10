@@ -32,6 +32,7 @@
       this.model.lobby = new sc.models.Lobby();
       var lobbyView = new sc.views.LobbyView({model: window.app.lobby});
       this.$el.append(lobbyView.render().el);
+      this.$('.username').focus();
     },
 
     renderChatLog: function() {
