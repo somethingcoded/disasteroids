@@ -42,6 +42,24 @@ players = {}; // hash of id to user objects (logged in)
 
 var world = new entities.world();
 world.addAsteroids();
+
+//---- collision listener ----
+var contactListener = new Box2D.Dynamics.b2ContactListener;
+contactListener.BeginContact = function(contact) {
+  bodyAData = contact.GetFixtureA().GetBody();
+  bodyBData = contact.GetFixtureB().GetBody();
+}
+contactListener.EndContact = function(contact) {
+  // console.log(contact.GetFixtureA().GetBody().GetUserData());
+}
+contactListener.PostSolve = function(contact, impulse) {
+}
+contactListener.PreSolve = function(contact, oldManifold) {
+}
+world.box2DObj.SetContactListener(contactListener);
+
+
+//---- update ----
 var update = function() {
   for (var i=0; i < world.asteroids.length; i++) {
     var asteroidCenter = world.asteroids[i].body.GetWorldCenter();
@@ -81,14 +99,12 @@ var update = function() {
 
   // Player orientation IN SPACE (perhaps override if on an asteroid)
   for (var i=0; i < world.players.length; i++) {
-    console.log('yo');
     var player = world.players[i];
     // find the nearest asteroid surface
     var nearest;
     var minDistance = Infinity;
     var minVec;
     for (var j=0; j < world.asteroids.length; j++) {
-      console.log('hi');
       // calculate distance minus asteroid radius 
       var asteroid = world.asteroids[j];
       var playerCenter = player.body.GetWorldCenter();
@@ -103,7 +119,6 @@ var update = function() {
     }
 
     if (!nearest){
-      console.log('no nearest');
       break; // something went wrong
     } 
     var cutoff = nearest.radius/world.scale * 2
@@ -207,7 +222,7 @@ io.sockets.on('connection', function(socket) {
     if (missileOwner) {
       var newMissile = new entities.missile(world, missileOwner, data.x, data.y, data.vel);
       missileOwner.missile = newMissile;
-      world.missiles.push(missileOwner);
+      world.missiles.push(newMissile);
     }
   });
 });
