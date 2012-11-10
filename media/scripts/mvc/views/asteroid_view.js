@@ -22,7 +22,6 @@
         });
         self.object = group;
         canvas.add(group);
-        canvas.renderAll();
       });
     }
   });

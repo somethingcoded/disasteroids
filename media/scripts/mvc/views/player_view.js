@@ -21,7 +21,6 @@
       var self = this;
       this.object.set('left',self.model.get('x'));
       this.object.set('top', self.model.get('y'));
-      app.world.canvas.renderAll();
     },
 
     render: function(canvas) {
@@ -37,7 +36,6 @@
         });
         self.object = group;
         canvas.add(group);
-        canvas.renderAll();      
       });
     }
   });
