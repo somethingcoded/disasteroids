@@ -15,14 +15,9 @@ app.configure(function() {
 });
 
 app.get('/', function(req, res, next) {
-  res.render('layout.html')
+  res.render('layout.html');
 });
 
 app.listen(conf.port);
-    
-// http.createServer(function (req, res) {
-//   res.writeHead(200, {'Content-Type': 'text/plain'});
-//   res.end('Hello World\n');
-// }).listen(8000);
 
 console.log('Server running at http://0.0.0.0:' + conf.port);
