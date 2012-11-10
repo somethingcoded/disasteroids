@@ -14,7 +14,7 @@
     },
 
     game: function() {
-      if (!app.currentPlayer) {
+      if (!app.username) {
         return app.router.navigate('/', {trigger: true});
       }
       

@@ -9,6 +9,7 @@
       this.on('change:players', this.playersChanged);
       this.on('change:asteroids', this.asteroidsChanged);
       this.on('change:missiles', this.missilesChanged);
+      this.players.on('add', this.setCurrentPlayer);
     },
     
     playersChanged: function(model, players) {
@@ -40,6 +41,12 @@
         }
       });
 
+    },
+
+    setCurrentPlayer: function(player) {
+      if (player.get('username') == app.username) {
+        app.currentPlayer = player;
+      }
     },
 
     asteroidsChanged: function(model, asteroids) {

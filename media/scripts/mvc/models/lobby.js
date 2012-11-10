@@ -12,7 +12,7 @@
     },
 
     loggedIn: function(data) {
-      app.currentPlayer = data.username;
+      app.username = data.username;
       app.router.navigate('game', {trigger: true});
     },
 
