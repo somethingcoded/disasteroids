@@ -29,6 +29,13 @@ console.log('Server running at http://localhost:' + conf.port);
 //--- Box2D World Init ---
 
 var world = new entities.world();
+var update = function() {
+  world.box2DObj.Step(1/world.box2DObj.FPS, 10, 10);
+  world.box2DObj.ClearForces();
+};
+setInterval(function() {
+  update();
+}, 1000/world.box2DObj.FPS);
 
 //--- Message Handling ---
 
