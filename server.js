@@ -3,7 +3,7 @@ var http = require('http'),
     express = require('express'),
     _ = require('underscore'),
     sio = require('socket.io'),
-    box2d = require('box2d');
+    box2d = require('./lib/box2d');
 
 var app = express();
 var server = http.createServer(app);
