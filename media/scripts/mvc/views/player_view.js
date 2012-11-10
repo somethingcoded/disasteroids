@@ -58,7 +58,7 @@
           e.preventDefault();
           this.model.incShotAngle(inc);
         break;
-        case: 32: // space
+        case 32: // space
           e.preventDefault();
           this.model.emitShoot();
         break;
