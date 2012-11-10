@@ -26,7 +26,7 @@ server.listen(conf.port);
 
 console.log('Server running at http://localhost:' + conf.port);
 
-//--- Box2D World Init ---
+//--- Box2D Physics Simulation ---
 
 var world = new entities.world();
 var update = function() {
