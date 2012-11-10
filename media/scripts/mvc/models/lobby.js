@@ -12,6 +12,7 @@
     },
 
     loggedIn: function(data) {
+      app.currentPlayer = data.currentPlayer;
       app.router.navigate('game', {trigger: true});
     },
 

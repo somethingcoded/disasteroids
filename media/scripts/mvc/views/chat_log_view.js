@@ -23,8 +23,10 @@
     submitChat: function(e) {
       e.preventDefault();
       var msg = this.$chatLogInput.val();
-      this.model.chats.add({msg: msg});
+      this.model.chats.add({username: app.currentPlayer, msg: msg});
       this.$chatLogInput.val('');
+
+      window.socket.emit('chat', {username: app.currentPlayer, msg: msg});
     },
 
     insertChat: function(chat) {

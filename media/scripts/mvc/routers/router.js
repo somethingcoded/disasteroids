@@ -4,7 +4,7 @@
   sc.routers.Router = Backbone.Router.extend({
     routes: {
       '': 'lobby',
-      'world': 'world',
+      'game': 'game',
       'results': 'results'
     },
 

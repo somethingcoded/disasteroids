@@ -18,7 +18,7 @@ app.configure(function() {
   app.use(app.router);
 });
 
-app.get('/', function(req, res, next) {
+app.get('*', function(req, res, next) {
   res.render('layout.html');
 });
 
