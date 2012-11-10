@@ -27,7 +27,8 @@
     resizeCanvas: function() {
       var width = this.$el.outerWidth();
       var height = this.$el.outerHeight();
-      this.$canvas.css({width: width, height: height});
+      this.$canvas.css({width: width, height: height})
+        .attr({width: width, height: height});
     },
 
     render: function() {
