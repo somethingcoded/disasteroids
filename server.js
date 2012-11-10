@@ -34,6 +34,15 @@ Array.prototype.remove = function(from, to) {
   return this.push.apply(this, rest);
 };
 
+//-- html escape func ---
+
+function htmlEscape(text) {
+   return text.replace(/&/g, '&amp;').
+     replace(/</g, '&lt;').
+     replace(/"/g, '&quot;').
+     replace(/'/g, '&#039;');
+}
+
 //--- User Management ---
 
 players = {}; // hash of id to user objects (logged in)
@@ -212,7 +221,7 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('chat', function(data) {
-    data.msg = escape(data.msg);
+    data.msg = htmlEscape(data.msg);
     socket.broadcast.emit('chat', data);
   });
 

@@ -24,6 +24,7 @@
       this.object.remove();
       this.model.off('change', this.reposition);
       this.model.off('remove', this.remove);
+      $('body').unbind('keydown.player', this.handleKeypress);
       this.unbind();
       this.remove();
     },
@@ -34,7 +35,7 @@
     },
 
     initKeyBindings: function() {
-      $('body').bind('keydown', this.handleKeypress);
+      $('body').bind('keydown.player', this.handleKeypress);
     },
 
     handleKeypress: function(e) {
