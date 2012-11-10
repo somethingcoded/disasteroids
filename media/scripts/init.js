@@ -1,3 +1,13 @@
 (function() {
-  window.socket = io.connect();
+  'use strict';
+  var socket;
+  window.socket = socket = io.connect();
+
+  window.world = new sc.models.World(data);
+  window.worldView = new sc.views.WorldView({model: window.world});
+
+  socket.on('sync', function(data) {
+    window.world.start(data);
+  });
+
 })();
