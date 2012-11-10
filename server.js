@@ -29,13 +29,25 @@ console.log('Server running at http://localhost:' + conf.port);
 //--- Box2D Physics Simulation ---
 
 var world = new entities.world();
+world.addAsteroids();
 var update = function() {
-  world.box2DObj.Step(1/world.box2DObj.FPS, 10, 10);
+  world.box2DObj.Step(1/world.FPS, 10, 10);
+
+  // update players with new location
+  for (var i=0; i < world.players.length; i++) {
+    var player = world.players[i];
+    playerBox2DCenter = player.body.GetWorldCenter();
+    console.log(playerBox2DCenter);
+    player.x = playerBox2DCenter.x * world.scale;
+    player.y = playerBox2DCenter.y * world.scale;
+  }
+
+  io.sockets.emit('sync', world);
   world.box2DObj.ClearForces();
 };
 setInterval(function() {
   update();
-}, 1000/world.box2DObj.FPS);
+}, 1000/world.FPS);
 
 //--- Message Handling ---
 
@@ -52,6 +64,18 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('login', function(data) {
-    console.log(data.username);
+    // username already taken
+    for (var i=0; i < world.players.length; i++) {
+      if (world.players[i].username == data.username) {
+        socket.emit('loginError', 'That name is already taken :(');
+        return;
+      }
+    }
+
+    // create user and log in
+    var newPlayer = new entities.player(world, socket.id, data.username);
+    world.players.push(newPlayer);
+    io.sockets.emit('news', data.username + ' logged in');
+    socket.emit('loggedIn', data.username + ' joined the game!');
   })
 });
