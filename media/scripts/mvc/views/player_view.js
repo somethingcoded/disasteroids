@@ -32,8 +32,8 @@
           top: self.model.get('y'),
           height: self.height,
           width: self.width,
-          scaleX: 2*self.model.get('width')/self.width,                                        
-          scaleY: 2*self.model.get('height')/self.height
+          scaleX: self.model.get('width')/self.width,                                        
+          scaleY: self.model.get('height')/self.height
         });
         self.object = group;
         canvas.add(group);
