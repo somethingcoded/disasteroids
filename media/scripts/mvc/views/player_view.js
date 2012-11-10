@@ -6,11 +6,11 @@
       _.bindAll(this);
       this.model.on('change', this.reposition);
     },
-    width: 80,
-    height: 100,
+    width: 50,
+    height: 66,
     object: undefined,
     SVGPaths: {
-      default: '/media/art/mech_01_stand_full.svg'
+      default: '/media/art/mech_01_stand_full_flush.svg'
     },
 
     reposition: function(model) {
