@@ -4,7 +4,7 @@
   sc.views.AsteroidView = Backbone.View.extend({
     initialize: function() {
       console.log('asteroid view init');
-      _.bindall(this);
+      _.bindAll(this);
       this.model.on('remove', this.exit);
     },
     // SVG asset dimensions
@@ -23,6 +23,7 @@
       this.unbind();
       this.remove();
     },
+
     render: function(canvas) {
       var self = this;
       fabric.loadSVGFromURL(this.SVGPaths.default, function(objects) {
