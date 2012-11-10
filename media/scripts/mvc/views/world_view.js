@@ -5,15 +5,21 @@
     initialize: function() {
       _.bindAll(this);
       this.model.asteroids.on('add', this.insertAsteroid);
+      this.model.players.on('add', this.insertPlayer);
     },
 
     template: _.template($('#world-template').html()),
 
+    insertPlayer: function(player) {
+      console.log('insert player', player);
+      var playerView = new sc.views.PlayerView({model: player});
+      playerView.render(this.canvas);
+    },
+
     insertAsteroid: function(asteroid) {
-      console.log(asteroid);
+      console.log('insert asteroid', asteroid);
       var asteroidView = new sc.views.AsteroidView({model: asteroid});
       asteroidView.render(this.canvas);
-
     },
 
     render: function() {
