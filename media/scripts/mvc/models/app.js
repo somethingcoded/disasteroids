@@ -12,7 +12,6 @@
       var model = this;
       
       socket.on('sync', function(data) {
-        console.log('sync', data);
         model.currentPlayer = data.currentPlayer || undefined;
         model.world.parse(data);
       });

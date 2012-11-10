@@ -26,6 +26,7 @@
       this.$el.html(this.template(this.model.toJSON()));
       this.canvas = new fabric.StaticCanvas(this.$('canvas')[0]);
       this.canvas.backgroundColor = 'black';
+      this.model.canvas = this.canvas;
       //this.renderTest();
       return this;
     },

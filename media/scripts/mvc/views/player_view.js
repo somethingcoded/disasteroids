@@ -4,13 +4,24 @@
   sc.views.PlayerView = Backbone.View.extend({
     initialize: function() {
       _.bindAll(this);
-      this.model.on('change', this.render);
+      this.model.on('change', this.reposition);
     },
     width: 80,
     height: 100,
     object: undefined,
     SVGPaths: {
       default: '/media/art/mech_01_stand_full.svg'
+    },
+
+    reposition: function(model) {
+      if (!this.object) {
+        console.log('no player!');
+        return;
+      }
+      var self = this;
+      this.object.set('left',self.model.get('x'));
+      this.object.set('top', self.model.get('y'));
+      app.world.canvas.renderAll();
     },
 
     render: function(canvas) {

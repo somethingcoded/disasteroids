@@ -12,7 +12,6 @@
     },
     
     playersChanged: function(model, players) {
-      console.log('players changed', players);
       var self = this;
       _.each(players, function(p, i) {
         var player = self.players.get(p.id);
