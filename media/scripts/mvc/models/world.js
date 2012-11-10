@@ -5,17 +5,24 @@
     initialize: function() {
       this.players = new sc.collections.Players();
       this.asteroids = new sc.collections.Asteroids();
+      this.missiles = new sc.collections.Missiles();
       this.on('change:players', this.playersChanged);
       this.on('change:asteroids', this.asteroidsChanged);
+      this.on('change:missiles', this.missilesChanged);
     },
     
     playersChanged: function(model, players) {
       console.log('players changed', players);
       var self = this;
-      _.each(players, function(e, i) {
-        // TODO: check for existing objects
-        console.log(e);
-        self.players.add(e);
+      _.each(players, function(p, i) {
+        var player = self.players.get(p.id);
+        if (player) {
+          // update existing
+          player.set(p)
+        } else {
+          // make new
+          self.players.add(p);
+        }
       });
 
     },
@@ -24,10 +31,23 @@
       console.log('asteroids changed', asteroids);
       var self = this;
       // Update individual asteroids
-      _.each(asteroids, function(e, i) {
+      _.each(asteroids, function(a, i) {
         // TODO: check for existing objects
-        console.log(e);
-        self.asteroids.add(e); 
+        console.log(a);
+        self.asteroids.add(a); 
+      });
+    },
+
+    missilesChanged: function(model, missiles) {
+      console.log('missiles changed', missiles);
+      var self = this;
+      _.each(missiles, function(m, i) {
+        var missile = self.missiles.get(m.id);
+        if (missile) {
+          missile.set(m); 
+        } else {
+          self.missiles.add(m);
+        }
       });
     },
 
