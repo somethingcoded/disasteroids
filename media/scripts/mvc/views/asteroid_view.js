@@ -2,15 +2,30 @@
   'use strict';
 
   sc.views.AsteroidView = Backbone.View.extend({
+    initialize: function() {
+      console.log('asteroid view init');
+      _.bindall(this);
+      this.model.on('remove', this.exit);
+    },
     // SVG asset dimensions
     width: 230,
     height: 222,
     object: undefined,
 
-    SVGPath: '/media/art/asteroid_01.svg',
+    SVGPaths: {
+      default: '/media/art/asteroid_01.svg'
+    },
+    
+    exit: function() {
+      console.log('Asteroid View Exit');
+      this.object.remove();
+      this.model.off('remove', this.exit);
+      this.unbind();
+      this.remove();
+    },
     render: function(canvas) {
       var self = this;
-      fabric.loadSVGFromURL(this.SVGPath, function(objects) {
+      fabric.loadSVGFromURL(this.SVGPaths.default, function(objects) {
         console.log(objects);
         var group = new fabric.PathGroup(objects, {
           left: self.model.get('x'),

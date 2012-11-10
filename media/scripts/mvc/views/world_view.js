@@ -6,6 +6,7 @@
       _.bindAll(this);
       this.model.asteroids.on('add', this.insertAsteroid);
       this.model.players.on('add', this.insertPlayer);
+      this.model.missiles.on('add', this.insertMissile);
 
       $(window).bind('resize', this.resizeCanvas);
     },
@@ -22,6 +23,12 @@
       console.log('insert asteroid', asteroid);
       var asteroidView = new sc.views.AsteroidView({model: asteroid});
       asteroidView.render(this.canvas);
+    },
+
+    insertMissile: function(missile) {
+      console.log('insert missile', missile);
+      var missileView = new sc.views.MissileView({model: missile}); 
+      missileView.render(this.canvas);
     },
 
     resizeCanvas: function() {
