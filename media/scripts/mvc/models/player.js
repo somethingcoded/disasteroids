@@ -21,24 +21,43 @@
 
     incPower: function(inc) {
       inc = inc || this.incConstant;
-      if (this.get('power') >= powerRange[1]) return; 
-      this.set({power: this.get('power') + inc});
+      var newPower = this.get('power') + inc;
+      if (newPower >= this.powerRange[1]) {
+        newPower = this.powerRange[1];
+      } 
+
+      this.set({power: newPower});
     },
 
     decPower: function(dec) {
       dec = dec || this.incConstant;
-      if (this.get('power') <= powerRange[0]) return; 
-      this.set({power: this.get('power') - dec});
+      var newPower = this.get('power') - dec;
+      if (newPower <= this.powerRange[0]) {
+        newPower = this.powerRange[0];
+      } 
+
+      this.set({power: newPower});
     },
 
     incShotAngle: function(inc) {
       inc = inc || this.incConstant;
-      this.set({shotAngle: this.get('shotAngle') + inc});
+      var newAngle = this.get('shotAngle') + inc;
+      if (newAngle >= this.shotAngleRange[1]) {
+        newAngle = this.shotAngleRange[1]; 
+      }
+      
+      this.set({shotAngle: newAngle});
     },
 
     decShotAngle: function(dec) {
       dec = dec || this.incConstant;
-      this.set({shotAngle: this.get('shotAngle') - dec});
+      var newAngle = this.get('shotAngle') - dec;
+      if (newAngle <= this.shotAngleRange[0]) {
+        newAngle = this.shotAngleRange[0]; 
+      }
+      
+      this.set({shotAngle: newAngle});
+
     }
     
   });
