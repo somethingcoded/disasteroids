@@ -53,12 +53,13 @@ var update = function() {
   world.box2DObj.Step(1/world.FPS, 10, 10);
 
   for (var j=0; j < world.players.length; j++) {
-    // update players with new location
+
+    // update players with new location and angle
     var player = world.players[j];
     playerBox2DCenter = player.body.GetWorldCenter();
-    console.log(playerBox2DCenter);
     player.x = playerBox2DCenter.x * world.scale;
     player.y = playerBox2DCenter.y * world.scale;
+    player.angle = player.body.GetAngle();
   }
 
   io.sockets.emit('sync', world);
