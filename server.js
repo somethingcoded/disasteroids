@@ -101,5 +101,9 @@ io.sockets.on('connection', function(socket) {
     world.players.push(newPlayer);
     io.sockets.emit('news', data.username + ' logged in');
     socket.emit('loggedIn', {username: data.username});
-  })
+  });
+
+  socket.on('chat', function(data) {
+    socket.broadcast.emit('chat', data);
+  });
 });

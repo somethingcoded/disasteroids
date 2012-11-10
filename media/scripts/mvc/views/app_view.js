@@ -7,9 +7,16 @@
 
       this.model.on('error', this.error);
       window.socket.on('error', this.error);
+      window.socket.on('chat', this.routeChat);
     },
 
     template: _.template($('#app-template').html()),
+
+    routeChat: function(chat) {
+      // this should also make the chat show above the user somehow
+      
+      this.model.chatLog.chats.add(chat);
+    },
 
     error: function(err) {
       var $error = $('<div class="error">' + err + '</div>');

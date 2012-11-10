@@ -3,7 +3,8 @@
 
   sc.models.Chat = Backbone.Model.extend({
     defaults: {
-      msg: ''
+      msg: '',
+      username: ''
     }
   });
   
