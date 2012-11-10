@@ -3,9 +3,10 @@
 
   sc.views.PlayerView = Backbone.View.extend({
     initialize: function() {
+      console.log('player view init');
       _.bindAll(this);
       this.model.on('change', this.reposition);
-      this.model.on('remove', this.remove);
+      this.model.on('remove', this.exit);
     },
     width: 50,
     height: 66,
@@ -15,7 +16,7 @@
     },
 
     // Remember to avoid memory leaks
-    remove: function() {
+    exit: function() {
       console.log('Player view remove');
       this.object.remove();
       this.model.off('change', this.reposition);

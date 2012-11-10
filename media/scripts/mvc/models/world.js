@@ -24,6 +24,7 @@
         });
         if (!found) {
           // this player doesn't exist anymore brah
+          console.log('trying to remove player');
           self.players.remove(p);
         }
       });
