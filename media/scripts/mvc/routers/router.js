@@ -9,15 +9,15 @@
     },
 
     lobby: function() {
-    
+      window.worldView.render();
     },
 
     world: function() {
-    
+      window.worldView.render();
     },
 
     results: function() {
-    
+      window.worldView.render();
     }
   });
   

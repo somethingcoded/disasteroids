@@ -6,13 +6,14 @@
       
     },
 
-    start: function(attrs) {
+    router: new sc.routers.Router,
 
-      Backbone.history.start();
-      
+    start: function(attrs) {
       this.currentPlayer = attrs.currentPlayer || undefined;
       this.players = new sc.collections.Players(attrs.players || []);
       this.asteroids = new sc.collections.Asteroids(attrs.asteroids || []);
+
+      Backbone.history.start({pushState: true});
     }
   });
   
