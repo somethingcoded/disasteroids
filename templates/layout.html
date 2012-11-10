@@ -34,6 +34,11 @@
 	<!-- Templates
   =================================================== -->
 
+  <script id="app-template" type="text/html">
+    App Template
+    <div class="world"></div>
+  </script>
+  
   <script id="world-template" type="text/html">
     <canvas id="c" height=500 width=500></canvas>
     World Template
@@ -62,6 +67,7 @@
     
     
   <!-- Models -->
+  <script src="/media/scripts/mvc/models/app.js"></script>
   <script src="/media/scripts/mvc/models/world.js"></script>
   <script src="/media/scripts/mvc/models/asteroid.js"></script>
   <script src="/media/scripts/mvc/models/missile.js"></script>
@@ -73,6 +79,7 @@
   <script src="/media/scripts/mvc/collections/players.js"></script>
 
   <!-- Views -->
+  <script src="/media/scripts/mvc/views/app_view.js"></script>
   <script src="/media/scripts/mvc/views/world_view.js"></script>
   <script src="/media/scripts/mvc/views/asteroid_view.js"></script>
   <script src="/media/scripts/mvc/views/missile_view.js"></script>

@@ -15,14 +15,16 @@
     },
 
     renderTest: function() {
-      var canvas = new fabric.Canvas(this.$el.find('canvas')[0])
+      var canvas = new fabric.StaticCanvas(this.$el.find('canvas')[0])
       canvas.backgroundColor = 'black';
       fabric.loadSVGFromURL('/media/art/asteroid_01.svg', function(objects) { 
           var group = new fabric.PathGroup(objects, { 
           left: 100, 
           top: 100, 
-          scaleX: .5,
-          scaleY: .5
+          height:300,
+          width:300
+//          scaleX: .5,
+ //         scaleY: .5
         }); 
         canvas.add(group); 
         canvas.renderAll(); 

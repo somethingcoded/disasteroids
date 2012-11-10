@@ -26,9 +26,16 @@ server.listen(conf.port);
 
 console.log('Server running at http://localhost:' + conf.port);
 
-//--- Box2D World Init ---
+//--- Box2D Physics Simulation ---
 
 var world = new entities.world();
+var update = function() {
+  world.box2DObj.Step(1/world.box2DObj.FPS, 10, 10);
+  world.box2DObj.ClearForces();
+};
+setInterval(function() {
+  update();
+}, 1000/world.box2DObj.FPS);
 
 //--- Message Handling ---
 
@@ -36,7 +43,7 @@ var io = sio.listen(server);
 
 io.sockets.on('connection', function(socket) {
   io.sockets.emit('news', 'someone connected');
-  socket.emit('sync', {});
+  socket.emit('sync', world);
   console.log('someone connected');
 
   socket.on('disconnect', function() {

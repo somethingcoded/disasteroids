@@ -9,15 +9,25 @@
     },
 
     lobby: function() {
-      window.worldView.render();
+      this.renderWorldIfNot();
     },
 
     world: function() {
-      window.worldView.render();
+      this.renderWorldIfNot();
     },
 
     results: function() {
-      window.worldView.render();
+      this.renderWorldIfNot();
+    },
+
+    renderWorldIfNot: function() {
+      if (!window.app.world) {
+        window.app.world = new sc.models.World();
+        window.app.worldView = new sc.views.WorldView({model: window.app.world, el: $('.world')});
+        window.app.worldView.render();
+      } else if (window.app.worldView.$el.empty()) {
+        window.app.worldView.render();
+      }
     }
   });
   
