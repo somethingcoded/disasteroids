@@ -9,15 +9,30 @@
     },
 
     lobby: function() {
-      window.worldView.render();
+      if (!window.app.world) {
+        window.app.world = new sc.models.World();
+        window.app.worldView = new sc.views.WorldView({model: window.app.world, el: $('.world')});
+      }
+
+      window.app.worldView.render();
     },
 
     world: function() {
-      window.worldView.render();
+      if (!window.app.world) {
+        window.app.world = new sc.models.World();
+        window.app.worldView = new sc.views.WorldView({model: window.app.world, el: $('.world')});
+      }
+
+      window.app.worldView.render();
     },
 
     results: function() {
-      window.worldView.render();
+      if (!window.app.world) {
+        window.app.world = new sc.models.World();
+        window.app.worldView = new sc.views.WorldView({model: window.app.world, el: $('.world')});
+      }
+
+      window.app.worldView.render();
     }
   });
   

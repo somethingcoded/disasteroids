@@ -4,11 +4,9 @@
   var socket;
   window.socket = socket = io.connect();
 
-  window.world = new sc.models.World();
-  window.worldView = new sc.views.WorldView({model: window.world, el: $('.main')});
-
-  socket.on('sync', function(data) {
-    window.world.start(data);
-  });
-
+  window.app = new sc.models.App();
+  window.appView = new sc.views.AppView({model: window.app, el: $('.main')});
+  window.appView.render();
+  window.app.start();
+  
 })();
