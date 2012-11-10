@@ -13,8 +13,13 @@
       appView.renderLobby();
     },
 
-    world: function() {
+    game: function() {
       this.renderWorldIfNot();
+      
+      if (app.lobby) {
+        app.lobby.trigger('exit');
+        app.lobby = undefined;
+      }
     },
 
     results: function() {
