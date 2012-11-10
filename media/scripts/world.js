@@ -67,14 +67,27 @@ var asteroid = function(x, y, radius, enablePhysics) {
 //--- WORLD ---
 
 var world = function(enablePhysics, drawDebug) {
+  var box2DWorld = undefined;
+
   if (enablePhysics) {
+    var box2DWorld = new b2World(new b2Vec2(0, 0), true); // no gravity
+
     if (drawDebug) {
+      var debugDraw = new b2DebugDraw;
+      debugDraw.SetDrawScale(box2DScale);
+      debugDraw.SetSprite(canvasContext); // NEED THIS DEFINED
+      debugDraw.SetFillAlpha(0.3);
+      debugDraw.SetLineThickness(1.0);
+      debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+      box2DWorld.SetDebugDraw(debugDraw);
     }
   }
 
-  missiles: [],
-  asteroids: [],
-  players: [],
-  box2DObj: undefined,
-  currentPlayer: undefined
+  return {
+    missiles: [],
+    asteroids: [],
+    players: [],
+    box2DObj: box2DWorld,
+    currentPlayer: undefined,
+  };
 };

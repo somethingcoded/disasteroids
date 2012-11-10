@@ -15,16 +15,15 @@ var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 
 //--- Box2D World Definitions ---
 
-var SCALE = 30; // 30 units = 1 box2D meter
+var box2DScale = 30; // 30 units = 1 box2D meter
 var box2DFPS = 60;
-var box2DWorld = new b2World(new b2Vec2(0, 0), true); // no gravity for us lolol
 
 //--- Physics Step Function ---
 
 var updateWorld = function(updateCallback) {
-  box2DWorld.Step(1/box2DFPS, 10, 10);
-  box2DWorld.DrawDebugData();
-  box2dWorld.ClearForces();
+  world.box2DObj.Step(1/box2DFPS, 10, 10);
+  world.box2DObj.DrawDebugData();
+  world.box2DObj.ClearForces();
 
   // updateCallback should be requestAnimFrame on the client and just a
   // dummy function on the server side */
