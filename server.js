@@ -91,35 +91,42 @@ world.box2DObj.SetContactListener(contactListener);
 
 //---- update ----
 var update = function() {
-  for (var i=0; i < world.asteroids.length; i++) {
-    var asteroidCenter = world.asteroids[i].body.GetWorldCenter();
+  for (var i=0; i < world.players.length; i++) {
+    var player = world.players[i];
+    var playerCenter = player.body.GetWorldCenter();
 
-    for (var j=0; j < world.players.length; j++) {
+    // remove player if marked for delete
+    if (player.disconnected) {
+      world.players.remove(j);
+      continue;
+    }
 
-      // remove player if marked for delete
-      var player = world.players[j];
-      if (player.disconnected) {
-        world.players.remove(j);
-        continue;
-      }
+    // nothing to step for player if on asteroid
+    if (player.onAsteroid) {
+      continue;
+    }
 
-      if (player.onAsteroid) {
-        continue;
-      }
+    // find the nearest asteroid surface
+    var nearest;
+    var minDistance = Infinity;
+    var minVec;
+
+    for (var j=0; j < world.asteroids.length; j++) {
+      var asteroid = world.asteroids[j];
+      var asteroidCenter = asteroid.body.GetWorldCenter();
 
       // apply radial gravity
-      playerBox2DCenter = player.body.GetWorldCenter();
       var pToA = new Box2D.Common.Math.b2Vec2(0, 0);
       pToA.Add(asteroidCenter);
-      pToA.Subtract(playerBox2DCenter);
-      var force = world.asteroids[i].radius*80/(pToA.LengthSquared()/2);
+      pToA.Subtract(playerCenter);
+      var force = asteroid.radius*80/(pToA.LengthSquared()/2);
       pToA.Normalize();
       pToA.Multiply(force);
-      world.players[j].body.ApplyForce(pToA, asteroidCenter);
+      player.body.ApplyForce(pToA, asteroidCenter);
 
       // apply radial gravity to missiles
       if (player.missile) {
-        missileBox2DCenter = player.missile.body.GetWorldCenter();
+        var missileBox2DCenter = player.missile.body.GetWorldCenter();
         var mToA = new Box2D.Common.Math.b2Vec2(0, 0);
         mToA.Add(asteroidCenter);
         mToA.Subtract(missileBox2DCenter);
@@ -128,22 +135,9 @@ var update = function() {
         mToA.Multiply(force);
         player.missile.body.ApplyForce(mToA, asteroidCenter);
       }
-    }
-  }
 
-  // Player orientation IN SPACE (perhaps override if on an asteroid)
-  for (var i=0; i < world.players.length; i++) {
-    var player = world.players[i];
-    // find the nearest asteroid surface
-    var nearest;
-    var minDistance = Infinity;
-    var minVec;
-    for (var j=0; j < world.asteroids.length; j++) {
-      // calculate distance minus asteroid radius
-      var asteroid = world.asteroids[j];
-      var playerCenter = player.body.GetWorldCenter();
-      var astCenter = asteroid.body.GetWorldCenter();
-      var distVec = new Box2D.Common.Math.b2Vec2(playerCenter.x-astCenter.x, playerCenter.y-astCenter.y);
+      // orient player
+      var distVec = new Box2D.Common.Math.b2Vec2(playerCenter.x-asteroidCenter.x, playerCenter.y-asteroidCenter.y);
       var dist = distVec.Length()-(asteroid.radius/world.scale)
       if (dist < minDistance) {
         minDistance = dist;
@@ -155,7 +149,8 @@ var update = function() {
     if (!nearest){
       break; // something went wrong
     }
-    var cutoff = nearest.radius/world.scale * 2
+
+    var cutoff = nearest.radius/world.scale * 2;
     if (minDistance < cutoff) {
       // gogogo start turning
       var ratio = minDistance/cutoff;
