@@ -31,11 +31,30 @@ console.log('Server running at http://localhost:' + conf.port);
 var world = new entities.world();
 world.addAsteroids();
 var update = function() {
+  for (var i=0; i < world.asteroids.length; i++) {
+    var asteroidCenter = world.asteroids[i].body.GetWorldCenter();
+
+    for (var j=0; j < world.players.length; j++) {
+      var player = world.players[j];
+      playerBox2DCenter = player.body.GetWorldCenter();
+
+      // apply radial gravity
+      var pToA = new Box2D.Common.Math.b2Vec2(0, 0);
+      pToA.Add(asteroidCenter);
+      pToA.Subtract(playerBox2DCenter);
+
+      var force = world.asteroids[i].radius*80/(pToA.LengthSquared()/2);
+      pToA.Normalize();
+      pToA.Multiply(force);
+
+      world.players[j].body.ApplyForce(pToA, asteroidCenter);
+    }
+  }
   world.box2DObj.Step(1/world.FPS, 10, 10);
 
-  // update players with new location
-  for (var i=0; i < world.players.length; i++) {
-    var player = world.players[i];
+  for (var j=0; j < world.players.length; j++) {
+    // update players with new location
+    var player = world.players[j];
     playerBox2DCenter = player.body.GetWorldCenter();
     console.log(playerBox2DCenter);
     player.x = playerBox2DCenter.x * world.scale;
@@ -59,7 +78,7 @@ io.sockets.on('connection', function(socket) {
   console.log('someone connected');
 
   // TODO REMOVE DEBUG PLAYER
-  var newPlayer = new entities.player(world, 'testid', 'testname', 40, 50);
+  var newPlayer = new entities.player(world, 'testid', 'testname', 310, 400);
   world.players.push(newPlayer);
 
   socket.on('disconnect', function() {
