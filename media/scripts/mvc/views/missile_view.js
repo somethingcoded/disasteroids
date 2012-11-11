@@ -20,7 +20,7 @@
       var self = this;
       console.log('missile view exit');
 
-      app.playAudio('rocket_impact');
+      app.playAudio('rocketImpact');
       
       this.particleSystem.removeEmitter(this.thruster);
 
@@ -85,7 +85,7 @@
         canvas.add(group);
       });
 
-      app.playAudio('rocket_shoot');
+      app.playAudio('rocketShoot');
 
       this.particleSystem = particleSystem;
       this.thruster = new Emitter();

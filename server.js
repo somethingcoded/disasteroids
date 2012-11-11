@@ -82,6 +82,7 @@ contactListener.BeginContact = function(contact) {
     if (bodyBData.id == bodyAData.player.id) {
       bodyAData.player.misses++;
       bodyAData.player.suicides++;
+      bodyAData.player.socket.emit('suicide', bodyAData.player);
     }
     else {
       bodyAData.player.kills++;

@@ -72,7 +72,7 @@
         window.socket.emit('shootMissile', this.toJSON());
         this.set({canShoot: false});
 
-        app.playAudio('rocket_shoot');
+        app.playAudio('rocketShoot');
       }
     },
     
@@ -82,7 +82,7 @@
         window.socket.emit('moveCC', this.toJSON());
         this.moving = 'cc';
 
-        app.audio.walk.play();
+        app.playAudio('walk');
       }
     },
 
@@ -92,7 +92,7 @@
         window.socket.emit('moveCCW', this.toJSON());
         this.moving = 'ccw';
         
-        app.audio.walk.play();
+        app.playAudio('walk');
       }
     },
     
@@ -122,7 +122,7 @@
       if (this.id == data.playerID) {
         this.trigger('playerDied');
 
-        app.playAudio('player_explosion');
+        app.playAudio('playerExplosion');
       }
     },
 
