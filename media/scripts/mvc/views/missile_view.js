@@ -25,6 +25,7 @@
       this.explosion = new Emitter();
       this.explosion.position = new Vector(this.model.get('x'), this.model.get('y'));
       this.explosion.velocity = new Vector(0, 5);
+      this.explosion.size = 0;
       this.explosion.particleColor = [255,50,0,1];
       this.explosion.spread = 50;
       this.explosion.emissionRate = 10;
