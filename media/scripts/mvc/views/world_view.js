@@ -71,6 +71,11 @@
       this.canvas.getContext('2d').scale(1/this.getScaleFactor(), 1/this.getScaleFactor());
     },
 
+    renderStats: function() {
+      var statsView = new sc.views.StatsView({model: app.currentPlayer});
+      this.$el.append(statsView.render().el);
+    },
+
     render: function() {
       var self = this;
       this.$el.html(this.template(this.model.toJSON()));

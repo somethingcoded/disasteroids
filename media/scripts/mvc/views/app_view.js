@@ -6,6 +6,7 @@
       _.bindAll(this);
 
       this.model.on('error', this.error);
+      this.model.on('change:currentPlayer', this.currentPlayerSet);
       window.socket.on('error', this.error);
       window.socket.on('chat', this.routeChat);
     },
@@ -26,6 +27,11 @@
           $error.remove();
         });  
       }, 5000);
+    },
+
+    currentPlayerSet: function(model, currentPlayer) {
+      this.currentPlayer = currentPlayer;
+      this.worldView.renderStats();
     },
 
     renderLobby: function() {

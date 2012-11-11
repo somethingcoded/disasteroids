@@ -45,7 +45,7 @@
 
     setCurrentPlayer: function(player) {
       if (player.get('username') == app.username) {
-        app.currentPlayer = player;
+        app.set({currentPlayer: player});
       }
     },
 

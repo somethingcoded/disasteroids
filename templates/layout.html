@@ -66,6 +66,12 @@
     {{ username }} : {{ msg }}
   </script>
 
+  <script id="stats-template" type="text/html">
+    <div class="stat kills">Kills: {{ kills }}</div>
+    <div class="stat deaths">Deaths: {{ deaths }}</div>
+    <div class="stat suicides">Suicides: {{ suicides }}</div>
+  </script>
+
   <div class="social">
     <iframe class="vote-button" src="http://nodeknockout.com/iframe/somethingcoded" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>
     <div class="divider"></div>
@@ -190,6 +196,7 @@
   <script src="/media/scripts/mvc/views/asteroid_view.js"></script>
   <script src="/media/scripts/mvc/views/missile_view.js"></script>
   <script src="/media/scripts/mvc/views/player_view.js"></script>
+  <script src="/media/scripts/mvc/views/stats_view.js"></script>
 
   <!-- Misc -->
   <script src="/media/scripts/init.js"></script>
