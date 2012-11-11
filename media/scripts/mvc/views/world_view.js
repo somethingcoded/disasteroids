@@ -65,6 +65,7 @@
       var display = new Display(this.canvas);
       display.init();
       this.particleSystem = new ParticleSystem().init(display);
+      this.particleSystem.maxParticles = 10000;
       display.start();
       
       return this;

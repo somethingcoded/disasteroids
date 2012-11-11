@@ -59,13 +59,14 @@
       this.particleSystem = particleSystem;
       this.emitter = new Emitter();
       this.emitter.position = new Vector(self.model.get('x'), self.model.get('y'));
-      this.emitter.velocity = Vector.fromAngle(self.model.get('angle')*180/Math.PI, 2);
+      this.emitter.velocity = Vector.fromAngle(self.model.get('angle')*180/Math.PI, 5);
       this.emitter.size = 0;
       this.emitter.particleLife = 100;
       // this.emitter.spread = Math.PI / 64;
       this.emitter.spread = .5;
       this.emitter.emissionRate = 0.5;
       this.emitter.jitter = 0;
+      this.emitter.drawColor = '#fff';
       particleSystem.emitters.push(this.emitter)
     }
   });

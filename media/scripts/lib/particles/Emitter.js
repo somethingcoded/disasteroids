@@ -9,6 +9,8 @@
     this.particleLife = -1;
     this.spread       = Math.PI / 32;
     this.emissionRate = 4;
+    this.particleColor = Particle.color;
+    this.particleSize = Particle.size;
   }
 
   Emitter.prototype.moveTo = function(point) {
@@ -20,6 +22,8 @@
       this.position.copy(),
       Vector.fromAngle(this.velocity.getAngle() + this.spread - (Math.random() * this.spread * 2), this.velocity.getMagnitude())
     );
+    particle.color = this.particleColor;
+    particle.size = this.particleSize;
     particle.ttl = this.particleLife;
     return particle;
   };

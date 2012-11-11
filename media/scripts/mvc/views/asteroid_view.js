@@ -23,19 +23,41 @@
     },
     
     exit: function() {
+      var self = this;
+      // explode
+      this.emitter = new Emitter();
+      this.emitter.position = new Vector(self.model.get('x'), self.model.get('y'));
+      this.emitter.velocity = Vector.fromAngle(0,5);
+      this.emitter.size = self.model.get('radius') * 2;
+      this.emitter.particleLife = 300;
+      // this.emitter.spread = Math.PI / 64;
+      this.emitter.spread = 50;
+      this.emitter.emissionRate = 25;
+      this.emitter.jitter = 50;
+      this.emitter.drawColor = 'rgba(0,0,0,0)';
+      this.emitter.drawColor2 = 'rgba(0,0,0,0)';
+      this.emitter.particleColor = [255,255,255,1];
+      this.emitter.particleSize = 10;
+      this.particleSystem.emitters.push(this.emitter);
+      // this.particleSystem.removeField(this.field);
+      
       console.log('Asteroid View Exit');
       this.object.remove();
       this.model.off('remove', this.exit);
       this.unbind();
       this.remove();
-      // this.particleSystem.removeField(this.field);
+
+      setTimeout(function() {
+        self.particleSystem.removeEmitter(self.emitter);
+      }, 750);
+
     },
 
     render: function(canvas, particleSystem) {
       var self = this;
 
       // add particle gravity
-      // this.particleSystem = particleSystem;
+      this.particleSystem = particleSystem;
       // var point = new Vector(self.model.get('x'), self.model.get('y'));
       // var mass = self.model.get('radius') * self.model.get('radius');
       // this.field = new Field(point, mass);

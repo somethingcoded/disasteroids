@@ -156,10 +156,10 @@
     drawParticles : function () {
       var display = this.display;
       display.context.globalCompositeOperation = 'darker';
-      display.context.fillStyle = 'rgba(' + Particle.color.join(',') + ')';
-      var size = Particle.size;
       _(this.particles).each(function(particle){
         var point = particle.position;
+        display.context.fillStyle = 'rgba(' + particle.color.join(',') + ')';
+        var size = particle.size;
         display.context.fillRect(point.x,point.y,size,size);
       });
     },
