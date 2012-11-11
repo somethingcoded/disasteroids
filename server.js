@@ -73,7 +73,6 @@ contactListener.BeginContact = function(contact) {
     //var astCenter = target.body.GetWorldCenter();
     //var newAngle = Math.atan((playerCenter.y-astCenter.y)/(playerCenter.x-astCenter.x));
     //player.body.SetAngle(newAngle);
- 
     //player.onAsteroid = true;
     //player.body.SetAwake(false);
   }
