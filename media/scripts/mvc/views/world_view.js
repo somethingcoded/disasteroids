@@ -16,7 +16,7 @@
     insertPlayer: function(player) {
       console.log('insert player', player);
       var playerView = new sc.views.PlayerView({model: player});
-      playerView.render(this.canvas);
+      playerView.render(this.canvas, this.particleSystem);
     },
 
     insertAsteroid: function(asteroid) {

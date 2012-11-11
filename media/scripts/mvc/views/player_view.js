@@ -9,7 +9,6 @@
       this.model.on('change:power change:shotAngle', this.logTest);
       this.model.on('remove', this.exit);
       app.chatLog.chats.on('add', this.displayChat);
-
     },
     
     width: 50,
@@ -40,11 +39,42 @@
 
     // Remember to avoid memory leaks
     exit: function() {
+      var self = this;
       console.log('Player view remove');
-      this.objects.remove();
-      this.hud.remove();
-      this.text.remove();
-      this.chat.remove();
+
+      // explode
+      this.littleBlast = new Emitter();
+      this.littleBlast.position = new Vector(self.model.get('x'), self.model.get('y'));
+      this.littleBlast.velocity = Vector.fromAngle(0,5);
+      this.littleBlast.size = 0;
+      this.littleBlast.particleLife = 65;
+      // this.emitter.spread = Math.PI / 64;
+      this.littleBlast.spread = 50;
+      this.littleBlast.emissionRate = 25;
+      this.littleBlast.jitter = 50;
+      this.littleBlast.drawColor = 'rgba(0,0,0,0)';
+      this.littleBlast.drawColor2 = 'rgba(0,0,0,0)';
+      this.littleBlast.particleColor = [0,255,0,1];
+      this.littleBlast.particleSize = 1;
+      
+      this.bigBlast = new Emitter();
+      this.bigBlast.position = new Vector(self.model.get('x'), self.model.get('y'));
+      this.bigBlast.velocity = new Vector(0, 2);
+      this.bigBlast.size = 0;
+      this.bigBlast.particleLife = 50;
+      this.bigBlast.spread = 50;
+      this.bigBlast.emissionRate = 3;
+      this.bigBlast.drawColor = 'rgba(0,0,0,0)';
+      this.bigBlast.drawColor2 = 'rgba(0,0,0,0)';
+      this.bigBlast.particleColor = [0,255,0,1];
+      this.bigBlast.particleSize = 5;
+      this.particleSystem.emitters.push(this.littleBlast);
+      this.particleSystem.emitters.push(this.bigBlast);
+      
+      app.world.canvas.remove(this.objects);
+      app.world.canvas.remove(this.chat);
+      app.world.canvas.remove(this.text);
+      
       this.model.off('change', this.reposition);
       this.model.off('remove', this.remove);
       app.chatLog.chats.off('add', this.displayChat);
@@ -52,6 +82,11 @@
       $('body').unbind('keyup.player', this.routeKeypress);
       this.unbind();
       this.remove();
+
+      setTimeout(function() {
+        self.particleSystem.removeEmitter(self.littleBlast);
+        self.particleSystem.removeEmitter(self.bigBlast);
+      }, 500); 
     },
 
     logTest: function() {
@@ -216,9 +251,11 @@
     },
     
     //_renderSVG: function(SVGData
-    render: function(canvas) {
+    render: function(canvas, particleSystem) {
       var self = this;
       this.initKeyBindings();
+
+      this.particleSystem = particleSystem;
       
       this.objects = new fabric.Group();
       this.hud = new fabric.Group();
