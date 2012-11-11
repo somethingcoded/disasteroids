@@ -150,9 +150,28 @@ var update = function() {
     // WARNING: ASSUMES AT LEAST 1 ASTEROID EXISTS
     var asteroid = world.asteroids[i];
 
+    // asteroid dead
     if (asteroid.life == 0) {
       world.box2DObj.DestroyBody(asteroid.body);
       world.asteroids.remove(i);
+
+      // queue respawn
+      var recreateAsteroid = function(asteroidID, world) {
+        var asteroidData = {}
+        for (var blah = 0; blah < world.asteroidDefs.length; blah++) {
+          if (world.asteroidDefs[blah].id == asteroidID) {
+            asteroidData = world.asteroidDefs[blah];
+            break;
+          }
+        }
+        var newAsteroid = new entities.asteroid(world, asteroidData.id, asteroidData.x, asteroidData.y, asteroidData.radius);
+        world.asteroids.push(newAsteroid);
+      };
+      (function(aID, w) {
+      setTimeout(function() {
+        recreateAsteroid(aID, w);
+      }, 10000);
+      })(asteroid.id, world);
       continue;
     }
 
