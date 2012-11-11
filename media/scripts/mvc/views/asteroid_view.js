@@ -25,20 +25,33 @@
     exit: function() {
       var self = this;
       // explode
-      this.emitter = new Emitter();
-      this.emitter.position = new Vector(self.model.get('x'), self.model.get('y'));
-      this.emitter.velocity = Vector.fromAngle(0,5);
-      this.emitter.size = self.model.get('radius') * 2;
-      this.emitter.particleLife = 300;
+      this.littleExplosion = new Emitter();
+      this.littleExplosion.position = new Vector(self.model.get('x'), self.model.get('y'));
+      this.littleExplosion.velocity = Vector.fromAngle(0,5);
+      this.littleExplosion.size = self.model.get('radius') * 2;
+      this.littleExplosion.particleLife = 300;
       // this.emitter.spread = Math.PI / 64;
-      this.emitter.spread = 50;
-      this.emitter.emissionRate = 25;
-      this.emitter.jitter = 50;
-      this.emitter.drawColor = 'rgba(0,0,0,0)';
-      this.emitter.drawColor2 = 'rgba(0,0,0,0)';
-      this.emitter.particleColor = [255,255,255,1];
-      this.emitter.particleSize = 1;
-      this.particleSystem.emitters.push(this.emitter);
+      this.littleExplosion.spread = 50;
+      this.littleExplosion.emissionRate = 25;
+      this.littleExplosion.jitter = 50;
+      this.littleExplosion.drawColor = 'rgba(0,0,0,0)';
+      this.littleExplosion.drawColor2 = 'rgba(0,0,0,0)';
+      this.littleExplosion.particleColor = [255,255,255,1];
+      this.littleExplosion.particleSize = 1;
+
+      this.bigExplosion = new Emitter();
+      this.bigExplosion.position = new Vector(self.model.get('x'), self.model.get('y'));
+      this.bigExplosion.velocity = new Vector(0, 2);
+      this.bigExplosion.size = self.model.get('radius');
+      this.bigExplosion.particleLife = 500;
+      this.bigExplosion.spread = 50;
+      this.bigExplosion.emissionRate = 5;
+      this.bigExplosion.drawColor = 'rgba(0,0,0,0)';
+      this.bigExplosion.drawColor2 = 'rgba(0,0,0,0)';
+      this.bigExplosion.particleColor = [255,255,255,1];
+      this.bigExplosion.particleSize = 10;
+      this.particleSystem.emitters.push(this.littleExplosion);
+      this.particleSystem.emitters.push(this.bigExplosion);
       // this.particleSystem.removeField(this.field);
       
       console.log('Asteroid View Exit');
@@ -48,7 +61,8 @@
       this.remove();
 
       setTimeout(function() {
-        self.particleSystem.removeEmitter(self.emitter);
+        self.particleSystem.removeEmitter(self.littleExplosion);
+        self.particleSystem.removeEmitter(self.bigExplosion);
       }, 750);
 
     },
