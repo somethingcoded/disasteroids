@@ -73,7 +73,6 @@ contactListener.BeginContact = function(contact) {
     //var newAngle = Math.atan((playerCenter.y-astCenter.y)/(playerCenter.x-astCenter.x));
     //player.body.SetAngle(newAngle);
     player.onAsteroid = true;
-    player.body.SetAwake(false);
     target.playerCount++;
   }
 
@@ -105,7 +104,6 @@ contactListener.BeginContact = function(contact) {
       missile.player.misses++;
       target.life = 0;
     }
-    missile.body.SetActive(false);
     missile.life = 0;
   }
 }
@@ -122,7 +120,6 @@ contactListener.EndContact = function(contact) {
 
   if (player && target.type == 'asteroid') {
     player.onAsteroid = false;
-    player.body.SetAwake(true);
     target.playerCount--;
   }
 }
@@ -172,6 +169,7 @@ var update = function() {
 
       // nothing to step for player if on asteroid
       if (player.onAsteroid) {
+        player.body.SetAwake(false);
         continue;
       }
 
@@ -210,6 +208,7 @@ var update = function() {
 
       // remove missile if dead
       if (missile.life == 0) {
+        missile.body.SetActive(false);
         missile.player.socket.emit('missileDestroyed', {'playerID': missile.player.id, 'missileID': missile.id});
         missile.player.missile = undefined;
         world.missiles.remove(k);
