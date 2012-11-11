@@ -158,7 +158,7 @@ world.box2DObj.SetContactListener(contactListener);
 var update = function() {
 
   for (var i=0; i < world.asteroids.length; i++) {
-    // WARNING: ASSUMES AT LEAST 1 ASTEROID EXISTS
+        // WARNING: ASSUMES AT LEAST 1 ASTEROID EXISTS
     var asteroid = world.asteroids[i];
 
     // asteroid dead
@@ -183,6 +183,7 @@ var update = function() {
         recreateAsteroid(aID, w);
       }, 15000);
       })(asteroid.id, world);
+      console.log('CONTINUE');
       continue;
     }
 
@@ -191,7 +192,9 @@ var update = function() {
     // player update
     for (var j=0; j < world.players.length; j++) {
       var player = world.players[j];
-
+      if (i == world.players.length - 1 && player.nearestAsteroid)
+        player.nearestAsteroid.minDistance = Infinity;
+  
       // remove player if marked for delete
       if (player.disconnected) {
         world.box2DObj.DestroyBody(player.body);
@@ -246,10 +249,7 @@ var update = function() {
         player.nearestAsteroid.distVec = distVec;
         player.nearestAsteroid.asteroid = asteroid;
       }
-      // So next time we come through the asteroids we can calculate again
-      if (i == world.players.length - 1)
-        player.nearestAsteroid.minDistance = Infinity;
-    } // player loop
+   } // player loop
 
     for (var k=0; k < world.missiles.length; k++) {
       var missile = world.missiles[k];
@@ -295,14 +295,14 @@ var update = function() {
       continue;
     }
     var asteroidData = player.nearestAsteroid;
-    var cutoff = asteroidData.asteroid.radius/world.scale * 3
+    var cutoff = asteroidData.asteroid.radius/world.scale * 1
     if (asteroidData.minDistance < cutoff) {
       // gogogo start turning
       var ratio = asteroidData.minDistance/cutoff;
       var targetAngle = Math.atan(asteroidData.minVec.y/asteroidData.minVec.x);
       var currentAngle = player.body.GetAngle();
-      //player.body.SetAngle(targetAngle+(asteroidData.minVec.x < 0 ? -1 : 1)*Math.PI/2);
-      player.body.SetAngle(ratio*currentAngle + (1-ratio)*(targetAngle + (asteroidData.minVec.x < 0 ? -1 : 1)*Math.PI/2));
+      player.body.SetAngle(targetAngle+(asteroidData.minVec.x <= 0 ? -1 : 1)*Math.PI/2);
+      //player.body.SetAngle(ratio*currentAngle + (1-ratio)*(targetAngle + (asteroidData.minVec.x < 0 ? -1 : 1)*Math.PI/2));
     }
   } // orientation loop
 
