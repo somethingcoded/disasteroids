@@ -6,15 +6,20 @@
       console.log('asteroid view init');
       _.bindAll(this);
       this.model.on('remove', this.exit);
+      this.angle = Math.floor(Math.random()*360);
     },
     // SVG asset dimensions
     width: 230,
     height: 222,
-    angle: Math.floor(Math.random()*360),
+    angle: 0, 
     object: undefined,
     
     SVGPaths: {
-      default: '/media/art/asteroid_0'+Math.ceil(Math.random()*5)+'.svg'
+      asteroid1: '/media/art/asteroid_01.svg',
+      asteroid2: '/media/art/asteroid_02.svg',
+      asteroid3: '/media/art/asteroid_03.svg',
+      asteroid4: '/media/art/asteroid_04.svg',
+      asteroid5: '/media/art/asteroid_05.svg'
     },
     
     exit: function() {
@@ -27,7 +32,8 @@
 
     render: function(canvas) {
       var self = this;
-      fabric.loadSVGFromURL(this.SVGPaths.default, function(objects) {
+      var path = this.SVGPaths['asteroid'+Math.ceil(Math.random()*5)];
+      fabric.loadSVGFromURL(path, function(objects) {
         console.log(objects);
         var group = new fabric.PathGroup(objects, {
           left: self.model.get('x'),
