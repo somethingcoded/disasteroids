@@ -4,7 +4,6 @@
   sc.models.Player = Backbone.Model.extend({
     initialize: function() {
       _.bindAll(this);
-      window.socket.on('missileDestroyed', this.missileDestroyed);
     },
     
     defaults: {

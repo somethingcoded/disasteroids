@@ -10,6 +10,8 @@
       this.on('change:asteroids', this.asteroidsChanged);
       this.on('change:missiles', this.missilesChanged);
       this.players.on('add', this.setCurrentPlayer);
+      
+      window.socket.on('missileDestroyed', this.missileDestroyed);
     },
     
     playersChanged: function(model, players) {
@@ -101,6 +103,12 @@
           self.missiles.add(m);
         }
       });
+    },
+
+    missileDestroyed: function(data) {
+      if (data.playerId == app.currentPlayer.id) {
+        app.currentPlayer.missileDestroyed();
+      }
     },
 
     parse: function(attrs) {
