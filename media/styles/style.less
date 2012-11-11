@@ -1,6 +1,10 @@
 /* Vars and Mixins
 ***************************/
 
+@white: rgba(255, 255, 255, 1.0);
+@black: rgba(0, 0, 0, 1.0);
+@green: rgba(184, 255, 82, 1.0);
+
 .fontset {
   font-family: Abel, Helvetica, Arial, sans-serif;
 }
@@ -45,7 +49,7 @@ input[type=text] {
   width: 300px;
   height: 500px;
   border: 1px solid gray;
-  background: rgba(255,255,255,.2);
+  background: rgba(255, 255, 255, .2);
 
   .chat-log-inner {
     position: absolute;
@@ -57,7 +61,7 @@ input[type=text] {
     max-height: 435px;
     width: 300px;
     padding: 10px;
-    color: #fff;
+    color: @white;
   }
 
   .chat-log-input {
@@ -96,21 +100,49 @@ input[type=text] {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0,0,0,.3);
+  background: rgba(0, 0, 0, .2);
 }
 
-.login-form { 
-  width: 300px;
-  height: 100px;
+.login-form {
+  .shdw(0px, 0px, 10px, rgba(0, 0, 0, .4));
+  width: 230px;
+  height: 90px;
   position: absolute;
   top: 50%;
   left: 50%;
   margin: -50px -150px;
-  padding: 30px;
-  background: rgba(0,0,0,.6);
+  padding: 20px;
+  color: @white;
+  background: rgba(55, 55, 55, 1.0);
+  font-size: 24px;
+
+  div {
+    padding-left: 5px;
+    margin-bottom: 10px;
+  }
 
   .username {
-    padding: 5px;
+    float: left;
+    padding: 0 10px;
+    margin-right: 0;
+    height: 36px;
+    line-height: 36px;
+    border: none;
+    background: rgba(255, 255, 255, .1);
+    font-size: 18px;
+    outline: 0;
+    color: @white;
+  }
+
+  .login {
+    float: left;
+    width: 36px;
+    height: 36px;
+    line-height: 32px;
+    color: @white;
+    background: rgba(20, 20, 20, 1.0);
+    text-decoration: none;
+    text-align: center;
   }
 }
 
