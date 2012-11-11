@@ -45,6 +45,8 @@
       // fabric canvas resize
       this.canvas.setWidth(width);
       this.canvas.setHeight(height);
+      this.display.width = width;
+      this.display.height = height;
 
       this.canvas.getContext('2d').scale(this.scaleFactor, this.scaleFactor);
     },
@@ -65,11 +67,11 @@
       drawLoop(); // start drawing, sucka
 
       // init particle system
-      var display = new Display(this.canvas);
-      display.init();
-      this.particleSystem = new ParticleSystem().init(display);
+      this.display = new Display(this.canvas);
+      this.display.init();
+      this.particleSystem = new ParticleSystem().init(this.display);
       this.particleSystem.maxParticles = 10000;
-      display.start();
+      this.display.start();
 
       this.canvas.getContext('2d').scale(this.scaleFactor, this.scaleFactor);
 
