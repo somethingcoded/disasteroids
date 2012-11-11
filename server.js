@@ -146,6 +146,13 @@ var update = function() {
 
       // player dead
       if (player.life == 0) {
+        player.body.SetActive(false);
+        player.life = 100;
+        player.visible = false;
+        player.deaths++;
+
+        // TODO SHOW LOL YOU DIED SCREEN
+        player.spawn();
       }
 
       // nothing to step for player if on asteroid
