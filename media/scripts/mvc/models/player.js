@@ -5,7 +5,7 @@
     initialize: function() {
       _.bindAll(this);
     },
-    
+
     defaults: {
       username: 'Mr. Rogers',
       life: 100,
@@ -27,7 +27,7 @@
       var newPower = this.get('power') + inc;
       if (newPower >= this.powerRange[1]) {
         newPower = this.powerRange[1];
-      } 
+      }
 
       this.set({power: newPower});
     },
@@ -37,7 +37,7 @@
       var newPower = this.get('power') - dec;
       if (newPower <= this.powerRange[0]) {
         newPower = this.powerRange[0];
-      } 
+      }
 
       this.set({power: newPower});
     },
@@ -46,9 +46,9 @@
       inc = inc || this.incConstant;
       var newAngle = this.get('shotAngle') + inc;
       if (newAngle >= this.shotAngleRange[1]) {
-        newAngle = this.shotAngleRange[1]; 
+        newAngle = this.shotAngleRange[1];
       }
-      
+
       this.set({shotAngle: newAngle});
     },
 

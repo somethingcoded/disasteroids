@@ -82,7 +82,6 @@ contactListener.BeginContact = function(contact) {
   if (bodyBData.type == 'missile') { missile = bodyBData; target = bodyAData; }
 
   if (missile && target) {
-    missile.body.SetActive(false);
     if (target.type == 'asteroid') {
       missile.player.misses++;
       target.life -= 25;
@@ -106,6 +105,7 @@ contactListener.BeginContact = function(contact) {
       missile.player.misses++;
       target.life = 0;
     }
+    missile.body.SetActive(false);
     missile.life = 0;
   }
 }
@@ -205,10 +205,10 @@ var update = function() {
 
       // remove missile if dead
       if (missile.life == 0) {
-        world.box2DObj.DestroyBody(missile.body);
         missile.player.socket.emit('missileDestroyed', {'playerID': missile.player.id, 'missileID': missile.id});
         missile.player.missile = undefined;
         world.missiles.remove(k);
+        world.box2DObj.DestroyBody(missile.body);
         continue;
       }
 
