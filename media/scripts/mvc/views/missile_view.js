@@ -44,7 +44,7 @@
           top: self.model.get('y'),
           height: self.height,
           width: self.width,
-          scaleX: self.model.get('width')/self.                                       width,                                        
+          scaleX: self.model.get('width')/self.width,                                        
           scaleY: self.model.get('height')/self.height,
           angle: self.model.get('angle')*180/Math.PI
         });

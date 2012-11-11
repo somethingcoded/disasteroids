@@ -3,7 +3,10 @@
 
   sc.models.Player = Backbone.Model.extend({
     initialize: function() {
+      _.bindAll(this);
+      window.socket.on('missileDestroyed', this.missileDestroyed);
     },
+    
     defaults: {
       username: 'Mr. Rogers',
       life: 100,
@@ -61,8 +64,11 @@
     },
 
     emitShoot: function() {
-      console.log('shootMissile');
-      window.socket.emit('shootMissile', this.toJSON());
+      if (!this.shooting) {
+        console.log('shootMissile');
+        window.socket.emit('shootMissile', this.toJSON());
+        this.shooting = true;
+      }
     },
     
     emitMoveCC: function() {
@@ -93,6 +99,10 @@
       console.log('endMove');
       window.socket.emit('endMove', this.toJSON());
       this.moving = undefined;
+    },
+
+    missileDestroyed: function() {
+      this.shooting = false;
     }
   });
 
