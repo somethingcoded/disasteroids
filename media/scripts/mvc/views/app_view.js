@@ -70,6 +70,23 @@
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
       this.renderChatLog();
+
+      $('.about').click(function(e) {
+        e.preventDefault();
+        var $aboutUs = $('.about-us');
+        
+        $aboutUs.find('.close').click(function(e) {
+          e.preventDefault();
+          $aboutUs.fadeOut();
+        });
+        
+        if ($aboutUs.is(':visible')) {
+          $aboutUs.fadeOut();
+        } else {
+          $aboutUs.fadeIn();
+        }
+      });
+      
       return this;
     }
     
