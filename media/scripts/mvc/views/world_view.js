@@ -36,9 +36,11 @@
     template: _.template($('#world-template').html()),
 
     displayMessage: function(msg) {
-      var $el = $('<div class="message">' + msg + '</div>');
+      var $el = $('<div class="kill-message">' + msg + '</div>');
       this.$el.append($el);
-      $el.fadeOut('slow');
+      setTimeout(function() {
+        $el.fadeOut();
+      }, 500);
     },
 
     insertPlayer: function(player) {
