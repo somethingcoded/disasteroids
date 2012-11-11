@@ -29,7 +29,7 @@
       this.littleExplosion.position = new Vector(self.model.get('x'), self.model.get('y'));
       this.littleExplosion.velocity = Vector.fromAngle(0,5);
       this.littleExplosion.size = self.model.get('radius') * 2;
-      this.littleExplosion.particleLife = 300;
+      this.littleExplosion.particleLife = 100;
       // this.emitter.spread = Math.PI / 64;
       this.littleExplosion.spread = 50;
       this.littleExplosion.emissionRate = 25;
@@ -43,13 +43,13 @@
       this.bigExplosion.position = new Vector(self.model.get('x'), self.model.get('y'));
       this.bigExplosion.velocity = new Vector(0, 2);
       this.bigExplosion.size = self.model.get('radius');
-      this.bigExplosion.particleLife = 500;
+      this.bigExplosion.particleLife = 50;
       this.bigExplosion.spread = 50;
-      this.bigExplosion.emissionRate = 5;
+      this.bigExplosion.emissionRate = 3;
       this.bigExplosion.drawColor = 'rgba(0,0,0,0)';
       this.bigExplosion.drawColor2 = 'rgba(0,0,0,0)';
       this.bigExplosion.particleColor = [255,255,255,1];
-      this.bigExplosion.particleSize = 10;
+      this.bigExplosion.particleSize = 5;
       this.particleSystem.emitters.push(this.littleExplosion);
       this.particleSystem.emitters.push(this.bigExplosion);
       // this.particleSystem.removeField(this.field);
