@@ -88,6 +88,7 @@ contactListener.BeginContact = function(contact) {
       bodyAData.player.kills++;
       bodyAData.player.hits++;
       bodyAData.player.socket.emit('playerKilled', {'killerID': bodyAData.player.id, 'killedID':bodyBData.id});
+      bodyBData.socket.emit('playerKilled', {'killerID': bodyAData.player.id, 'killedID':bodyBData.id});
     }
   }
   else if (bodyBData.type == 'missile' && bodyAData.type == 'player') {
@@ -104,6 +105,7 @@ contactListener.BeginContact = function(contact) {
       bodyBData.player.kills++;
       bodyBData.player.hits++;
       bodyBData.player.socket.emit('playerKilled', {'killerID': bodyBData.player.id, 'killedID':bodyAData.id});
+      bodyAData.socket.emit('playerKilled', {'killerID': bodyBData.player.id, 'killedID':bodyAData.id});
     }
   }
 
