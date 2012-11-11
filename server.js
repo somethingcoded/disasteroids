@@ -227,7 +227,7 @@ setInterval(function() {
 //--- Message Handling ---
 
 var io = sio.listen(server);
-//io.set('log level', 1);
+io.set('log level', 1);
 
 io.sockets.on('connection', function(socket) {
   io.sockets.emit('news', 'someone connected');
@@ -284,7 +284,7 @@ io.sockets.on('connection', function(socket) {
     // find the player
     var missileOwner = players[data.id];
     if (missileOwner) {
-      var newMissile = new entities.missile(world, missileOwner, data.x, data.y, data.power);
+      var newMissile = new entities.missile(world, missileOwner, data.x + 100, data.y + 100, data.shotAngle, data.power);
       missileOwner.missile = newMissile;
       world.missiles.push(newMissile);
     }
