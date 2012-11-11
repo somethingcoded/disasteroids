@@ -176,6 +176,7 @@ var update = function() {
       // remove missile if dead
       if (missile.life == 0) {
         world.box2DObj.DestroyBody(missile.body);
+        missile.player.socket.emit('missileDestroyed', {'playerID': missile.player.id, 'missileID': missile.id});
         missile.player.missile = undefined;
         world.missiles.remove(k);
         continue;
@@ -283,6 +284,7 @@ io.sockets.on('connection', function(socket) {
 
     // create user and log in
     var newPlayer = new entities.player(world, socket.id, data.username, 250, 600);
+    newPlayer.socket = socket;
     world.players.push(newPlayer);
     players[newPlayer.id] = newPlayer;
     io.sockets.emit('news', data.username + ' logged in');
