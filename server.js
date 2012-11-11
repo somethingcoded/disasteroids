@@ -95,6 +95,7 @@ var update = function() {
     var player = world.players[i];
     // remove player if marked for delete
     if (player.disconnected) {
+      world.box2DObj.DestroyBody(player.body);
       world.players.remove(i);
       continue;
     }
