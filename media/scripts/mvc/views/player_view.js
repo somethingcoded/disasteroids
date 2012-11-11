@@ -39,7 +39,7 @@
     // Remember to avoid memory leaks
     exit: function() {
       console.log('Player view remove');
-      this.object.remove();
+      this.objects.remove();
       this.model.off('change', this.reposition);
       this.model.off('remove', this.remove);
       $('body').unbind('keydown.player', this.routeKeypress);
@@ -177,21 +177,35 @@
         group.SVGData = self.SVGData.mech;
         self.objects.add(group);
       });
-
-      // Angle Meter
-      fabric.loadSVGFromURL(this.SVGData.angleMeter.path, function(objects) {
-        var group = new fabric.PathGroup(objects, {
-          left: self.SVGData.angleMeter.x,
-          top:  self.SVGData.angleMeter.y,
-          height: self.SVGData.angleMeter.height,
-          width: self.SVGData.angleMeter.width
+      
+      if (app.currentPlayer == self.model) {
+        // Angle Meter
+        fabric.loadSVGFromURL(this.SVGData.angleMeter.path, function(objects) {
+          var group = new fabric.PathGroup(objects, {
+            left: self.SVGData.angleMeter.x,
+            top:  self.SVGData.angleMeter.y,
+            height: self.SVGData.angleMeter.height,
+            width: self.SVGData.angleMeter.width
+          });
+          group.SVGData = self.SVGData.angleMeter
+          self.objects.add(group);
+          self.hud.add(group);
         });
-        group.SVGData = self.SVGData.angleMeter
-        self.objects.add(group);
-        self.hud.add(group);
-      });
+      }
+      
+      // player names
+      if (app.currentPlayer != self.model) {
+        var playerName = new fabric.Text(self.model.get('username'), { 
+            fontFamily: 'abel', 
+            left: 0, 
+            top: -50,
+            fontSize: 14,
+            fill: "#FFFFFF"
+        });
+        self.objects.add(playerName);
+      }
 
-      self.objects.setAngle(self.model.get('angle')*180/Math.PI);
+      self.reposition();
       canvas.add(self.objects);
     }
   });
