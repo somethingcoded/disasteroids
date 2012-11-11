@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="8px" height="99px" viewBox="0 0 8 99" enable-background="new 0 0 8 99" xml:space="preserve">
+<g>
+	<defs>
+		<path id="segments_compound" d="M8,99H0v-1h8V99z M8,96H0v1h8V96z M8,94H0v1h8V94z M8,92H0v1h8V92z M8,90H0v1h8V90z M8,88H0v1h8
+			V88z M8,86H0v1h8V86z M8,84H0v1h8V84z M8,82H0v1h8V82z M8,80H0v1h8V80z M8,78H0v1h8V78z M8,76H0v1h8V76z M8,74H0v1h8V74z M8,72H0
+			v1h8V72z M8,70H0v1h8V70z M8,68H0v1h8V68z M8,66H0v1h8V66z M8,64H0v1h8V64z M8,62H0v1h8V62z M8,60H0v1h8V60z M8,58H0v1h8V58z
+			 M8,56H0v1h8V56z M8,54H0v1h8V54z M8,52H0v1h8V52z M8,50H0v1h8V50z M8,48H0v1h8V48z M8,46H0v1h8V46z M8,44H0v1h8V44z M8,42H0v1h8
+			V42z M8,40H0v1h8V40z M8,38H0v1h8V38z M8,36H0v1h8V36z M8,34H0v1h8V34z M8,32H0v1h8V32z M8,30H0v1h8V30z M8,28H0v1h8V28z M8,26H0
+			v1h8V26z M8,24H0v1h8V24z M8,22H0v1h8V22z M8,20H0v1h8V20z M8,18H0v1h8V18z M8,16H0v1h8V16z M8,14H0v1h8V14z M8,12H0v1h8V12z
+			 M8,10H0v1h8V10z M8,8H0v1h8V8z M8,6H0v1h8V6z M8,4H0v1h8V4z M8,2H0v1h8V2z M8,0H0v1h8V0z"/>
+	</defs>
+	<clipPath id="segments_compound_1_">
+		<use xlink:href="#segments_compound"  overflow="visible"/>
+	</clipPath>
+	<linearGradient id="bar_2_" gradientUnits="userSpaceOnUse" x1="3.9995" y1="0" x2="3.9995" y2="100.0005">
+		<stop  offset="0" style="stop-color:#9CCBF4"/>
+		<stop  offset="1" style="stop-color:#01A9F4"/>
+	</linearGradient>
+	<rect id="bar_1_" clip-path="url(#segments_compound_1_)" fill="url(#bar_2_)" width="8" height="100"/>
+</g>
+</svg>
