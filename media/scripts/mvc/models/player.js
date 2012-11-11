@@ -16,7 +16,7 @@
       canShoot: true
     },
 
-    incConstant: .5,
+    incConstant: 1,
 
     powerRange: [0,100],
 
