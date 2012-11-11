@@ -39,41 +39,42 @@
 
     // Remember to avoid memory leaks
     exit: function() {
+      var self = this;
       console.log('Player view remove');
 
       // explode
       this.littleBlast = new Emitter();
       this.littleBlast.position = new Vector(self.model.get('x'), self.model.get('y'));
       this.littleBlast.velocity = Vector.fromAngle(0,5);
-      this.littleBlast.size = self.model.get('radius') * 2;
-      this.littleBlast.particleLife = 100;
+      this.littleBlast.size = 0;
+      this.littleBlast.particleLife = 65;
       // this.emitter.spread = Math.PI / 64;
       this.littleBlast.spread = 50;
       this.littleBlast.emissionRate = 25;
       this.littleBlast.jitter = 50;
       this.littleBlast.drawColor = 'rgba(0,0,0,0)';
       this.littleBlast.drawColor2 = 'rgba(0,0,0,0)';
-      this.littleBlast.particleColor = [255,255,255,1];
+      this.littleBlast.particleColor = [0,255,0,1];
       this.littleBlast.particleSize = 1;
-
+      
       this.bigBlast = new Emitter();
       this.bigBlast.position = new Vector(self.model.get('x'), self.model.get('y'));
       this.bigBlast.velocity = new Vector(0, 2);
-      this.bigBlast.size = self.model.get('radius');
+      this.bigBlast.size = 0;
       this.bigBlast.particleLife = 50;
       this.bigBlast.spread = 50;
       this.bigBlast.emissionRate = 3;
       this.bigBlast.drawColor = 'rgba(0,0,0,0)';
       this.bigBlast.drawColor2 = 'rgba(0,0,0,0)';
-      this.bigBlast.particleColor = [255,255,255,1];
+      this.bigBlast.particleColor = [0,255,0,1];
       this.bigBlast.particleSize = 5;
       this.particleSystem.emitters.push(this.littleBlast);
       this.particleSystem.emitters.push(this.bigBlast);
       
-      this.objects.remove();
-      this.hud.remove();
-      this.text.remove();
-      this.chat.remove();
+      app.world.canvas.remove(this.objects);
+      app.world.canvas.remove(this.chat);
+      app.world.canvas.remove(this.text);
+      
       this.model.off('change', this.reposition);
       this.model.off('remove', this.remove);
       app.chatLog.chats.off('add', this.displayChat);
@@ -83,8 +84,8 @@
       this.remove();
 
       setTimeout(function() {
-        this.particleSystem.removeEmitter(this.littleBlast);
-        this.particleSystem.removeEmitter(this.bigBlast);
+        self.particleSystem.removeEmitter(self.littleBlast);
+        self.particleSystem.removeEmitter(self.bigBlast);
       }, 500); 
     },
 
