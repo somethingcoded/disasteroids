@@ -67,6 +67,9 @@
       this.particleSystem = new ParticleSystem().init(display);
       this.particleSystem.maxParticles = 10000;
       display.start();
+
+      this.canvas.getContext('2d').scale(.75, .75);
+
       
       return this;
     }

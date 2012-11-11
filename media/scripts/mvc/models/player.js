@@ -110,7 +110,7 @@
     },
 
     playerDied: function(data) {
-      if (this.model.id == data.playerID) {
+      if (this.id == data.playerID) {
         this.trigger('remove');
       }
     },
