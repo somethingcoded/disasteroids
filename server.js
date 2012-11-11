@@ -166,9 +166,7 @@ var update = function() {
         player.visible = false;
         player.deaths++;
 
-        world.players.remove(j);
-        // TODO SHOW LOL YOU DIED SCREEN
-        world.players.push(player);
+        player.socket.emit('playerDied', {'playerID': player.id});
         player.spawn();
       }
 
