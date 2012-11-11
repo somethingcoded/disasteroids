@@ -80,19 +80,19 @@
         this.moving = 'ccw';
       }
     },
-
-    emitEndMove: function() {
-      console.log('endMove');
-      window.socket.emit('endMove', this.toJSON());
-      this.moving = undefined;
-    },
-
+    
     emitJump: function() {
       if (!this.moving) {
         console.log('jump');
         window.socket.emit('jump', this.toJSON());
         this.moving = 'jump';
       }
+    },
+
+    emitEndMove: function() {
+      console.log('endMove');
+      window.socket.emit('endMove', this.toJSON());
+      this.moving = undefined;
     }
   });
 

@@ -289,4 +289,20 @@ io.sockets.on('connection', function(socket) {
       world.missiles.push(newMissile);
     }
   });
+
+  socket.on('moveCC', function() {
+    console.log('moveCC');
+  });
+
+  socket.on('moveCCW', function() {
+    console.log('moveCCW');
+  });
+
+  socket.on('jump', function() {
+    console.log('jump');
+  });
+
+  socket.on('endMove', function() {
+    console.log('endMove');
+  });
 });
