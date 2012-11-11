@@ -207,6 +207,7 @@ var update = function() {
       // prevent forever missile
       if ((currentTime - missile.flightStart) >= missile.maxFlightTime) {
         missile.life = 0;
+        missile.player.misses++;
       }
 
       // remove missile if dead
