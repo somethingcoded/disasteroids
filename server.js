@@ -85,7 +85,7 @@ contactListener.BeginContact = function(contact) {
     missile.body.SetActive(false);
     if (target.type == 'asteroid') {
       missile.player.misses++;
-      target.life -= 35;
+      target.life -= 25;
       if (target.life < 0)
         target.life = 0;
     }
@@ -168,7 +168,8 @@ var update = function() {
 
         world.players.remove(j);
         // TODO SHOW LOL YOU DIED SCREEN
-        setTimeout(function() {player.spawn(); world.players.push(player); }, 500);
+        world.players.push(player);
+        player.spawn();
       }
 
       // nothing to step for player if on asteroid
