@@ -127,7 +127,7 @@
     },
 
     suicide: function() {
-      app.world.trigger('message', 'Congratulations, you killed yourself');
+      app.world.trigger('message', 'Congratulations, you self-destructed!');
     },
 
     missileDestroyed: function() {
