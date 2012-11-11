@@ -221,15 +221,24 @@ var update = function() {
       player.body.ApplyForce(pToA, asteroidCenter);
 
       // calc player orientation
-      var minDistance = Infinity;
-      var minVec;
+      if (!player.nearestAsteroid) {
+        player.nearestAsteroid = {
+          minDistance: Infinity, 
+          minVec: undefined, 
+          distVec: undefined,
+          asteroid: undefined};
+      }
       var distVec = new Box2D.Common.Math.b2Vec2(playerCenter.x-asteroidCenter.x, playerCenter.y-asteroidCenter.y);
       var dist = distVec.Length()-(asteroid.radius/world.scale)
-      if (dist < minDistance) {
-        minDistance = dist;
-        minVec = distVec;
-        player.nearestAsteroid = {minDistance: minDistance, minVec: minVec, distVec: distVec, asteroid: asteroid};
+      if (dist < player.nearestAsteroid.minDistance) {
+        player.nearestAsteroid.minDistance = dist;
+        player.nearestAsteroid.minVec = distVec;
+        player.nearestAsteroid.distVec = distVec;
+        player.nearestAsteroid.asteroid = asteroid;
       }
+      // So next time we come through the asteroids we can calculate again
+      if (i == world.players.length - 1)
+        player.nearestAsteroid.minDistance = Infinity;
     } // player loop
 
     for (var k=0; k < world.missiles.length; k++) {
@@ -276,12 +285,13 @@ var update = function() {
       continue;
     }
     var asteroidData = player.nearestAsteroid;
-    var cutoff = asteroidData.asteroid.radius/world.scale * 2;
+    var cutoff = asteroidData.asteroid.radius/world.scale * 3
     if (asteroidData.minDistance < cutoff) {
       // gogogo start turning
       var ratio = asteroidData.minDistance/cutoff;
       var targetAngle = Math.atan(asteroidData.minVec.y/asteroidData.minVec.x);
       var currentAngle = player.body.GetAngle();
+      //player.body.SetAngle(targetAngle+(asteroidData.minVec.x < 0 ? -1 : 1)*Math.PI/2);
       player.body.SetAngle(ratio*currentAngle + (1-ratio)*(targetAngle + (asteroidData.minVec.x < 0 ? -1 : 1)*Math.PI/2));
     }
   } // orientation loop
@@ -410,7 +420,7 @@ io.sockets.on('connection', function(socket) {
     var power = data.power || 1;
     var alpha = 50;// TODO: change this to tweak power
     var theta1 = jumpingPlayer.angle;
-    var theta2 = data.shotAngle * Math.PI/180;
+    var theta2 = Math.PI/2;//data.shotAngle * Math.PI/180;
     var theta3 = theta1 + theta2 + Math.PI;
     var playerCenter = jumpingPlayer.body.GetWorldCenter();
     var playerX = playerCenter.x; // Meters
