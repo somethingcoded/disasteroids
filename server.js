@@ -85,7 +85,7 @@ contactListener.BeginContact = function(contact) {
     }
     else {
       bodyAData.player.kills++;
-      bodyADAta.player.hits++;
+      bodyAData.player.hits++;
     }
   }
   else if (bodyBData.type == 'missile' && bodyBData.type == 'player') {
@@ -99,7 +99,7 @@ contactListener.BeginContact = function(contact) {
     }
     else {
       bodyBData.player.kills++;
-      bodyBDAta.player.hits++;
+      bodyBData.player.hits++;
     }
   }
 
@@ -358,7 +358,7 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('shootMissile', function(data) {
     var missileOwner = players[data.id];
-    if (missileOwner.missile == undefined) {
+    if (missileOwner && missileOwner.missile == undefined) {
       // find the player
       if (missileOwner) {
         var newMissile = new entities.missile(world, missileOwner, data.shotAngle, data.power);
