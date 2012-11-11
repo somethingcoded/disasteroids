@@ -31,12 +31,12 @@
     },
 
     audio: {
-      mortar: $('<audio src="/media/audio/mortar.mp3"></audio>')[0],
-      fizzle: $('<audio src="/media/audio/fizzle.mp3"></audio>')[0],
-      explosionWeak: $('<audio src="/media/audio/explosion_weak.mp3"></audio>')[0],
-      hardImpact: $('<audio src="/media/audio/hard_impact.mp3"></audio>')[0],
-      machine: $('<audio src="/media/audio/machine.mp3"></audio>')[0],
-      whoosh: $('<audio src="/media/audio/whoosh.mp3"></audio>')[0],
+      rocket_shoot: $('<audio src="/media/audio/rocket_shoot.mp3"></audio>')[0],
+      rocket_impact: $('<audio src="/media/audio/rocket_impact.mp3"></audio>')[0],
+      asteroid_explosion: $('<audio src="/media/audio/asteroid_explosion.mp3"></audio>')[0],
+      player_explosion: $('<audio src="/media/audio/player_explosion.mp3"></audio>')[0],
+      walk: $('<audio src="/media/audio/walk.mp3"></audio>')[0],
+      jump: $('<audio src="/media/audio/jump.mp3"></audio>')[0],
     }
   });
   

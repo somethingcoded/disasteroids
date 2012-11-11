@@ -19,6 +19,8 @@
     exit: function() {
       var self = this;
       console.log('missile view exit');
+
+      app.playAudio('rocket_impact');
       
       this.particleSystem.removeEmitter(this.thruster);
 
@@ -74,6 +76,8 @@
         self.object = group;
         canvas.add(group);
       });
+
+      app.playAudio('rocket_shoot');
 
       this.particleSystem = particleSystem;
       this.thruster = new Emitter();
