@@ -82,15 +82,13 @@ contactListener.BeginContact = function(contact) {
 
   if (missile && target) {
     missile.life = 0;
+    missile.body.SetActive(false);
     if (target.type == 'asteroid') {
       target.life -= 35;
       if (target.life < 0)
         target.life = 0;
     }
-    else if (target.type == 'player') {
-      target.life = 0;
-    }
-    else if (target.type == 'missile') {
+    else if (target.type == 'player' || target.type == 'missile') {
       target.life = 0;
     }
   }
@@ -140,6 +138,10 @@ var update = function() {
         world.box2DObj.DestroyBody(player.body);
         world.players.remove(j);
         continue;
+      }
+
+      // player dead
+      if (player.life == 0) {
       }
 
       // nothing to step for player if on asteroid
