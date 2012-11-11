@@ -22,7 +22,7 @@
       self.players.each(function(p, i) {
         var found = false;
         _.each(players, function(p2, i2) {
-          if (p.id === p2.id)
+          if ((p && p2) && (p.id === p2.id))
             found = true;
         });
         if (!found) {
@@ -56,7 +56,7 @@
       self.asteroids.each(function(a, i) {
         var found = false;
         _.each(asteroids, function(a2, i2) {
-          if (a.id === a2.id)
+          if ((a && a2) && (a.id === a2.id))
             found = true;
         });
         if (!found) {
@@ -84,7 +84,7 @@
       self.missiles.each(function(m, i) {
         var found = false;
         _.each(missiles, function(m2, i2) {
-          if (m.id === m2.id)
+          if ((m && m2) && (m.id === m2.id))
             found = true;
         });
         if (!found) {
