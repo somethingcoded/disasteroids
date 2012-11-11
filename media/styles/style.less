@@ -77,6 +77,16 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@start', endColorstr='@end');
 }
 
+.pseudoelem {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
 .cf { /* from: http://nicolasgallagher.com/micro-clearfix-hack/ */
 
   &:before,
@@ -98,6 +108,46 @@ body {
   font-size: 18px;
   overflow: hidden;
   background: rgba(14, 14, 14, 1.0) url(/media/art/starscape.png) 0 0 repeat;
+  -webkit-animation-name: movestarsa;
+  -webkit-animation-duration: 30s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: movestarsa;
+  -moz-animation-duration: 30s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+}
+
+@-webkit-keyframes movestarsa {
+  from { background-position: 0 0; }
+  to { background-position: 500px 0; }
+}
+
+@-moz-keyframes movestarsa {
+  from { background-position: 0 0; }
+  to { background-position: 500px 0; }
+}
+
+.main {
+  background: transparent url(/media/art/starscape2.png) 0 0 repeat;
+  -webkit-animation-name: movestarsb;
+  -webkit-animation-duration: 60s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: movestarsb;
+  -moz-animation-duration: 60s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+}
+
+@-webkit-keyframes movestarsb {
+  from { background-position: 0 0; }
+  to { background-position: -500px 0; }
+}
+
+@-moz-keyframes movestarsb {
+  from { background-position: 0 0; }
+  to { background-position: -500px 0; }
 }
 
 input[type=text] {
