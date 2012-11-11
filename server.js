@@ -67,7 +67,6 @@ contactListener.BeginContact = function(contact) {
   if (bodyBData.type == 'player') { player = bodyBData; target = bodyAData; }
 
   if (player && target.type == 'asteroid') {
-    target.life = 0;
     // snap to proper angle on asteroid
     //var playerCenter = player.body.GetWorldCenter();
     //var astCenter = target.body.GetWorldCenter();
