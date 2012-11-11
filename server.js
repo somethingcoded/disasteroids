@@ -249,6 +249,10 @@ var update = function() {
         player.nearestAsteroid.distVec = distVec;
         player.nearestAsteroid.asteroid = asteroid;
       }
+
+      // Jump End Detection
+      if (player.body.GetLinearVelocity().Length() < .5)
+        player.socket.emit('endJump', player);
    } // player loop
 
     for (var k=0; k < world.missiles.length; k++) {
@@ -424,8 +428,8 @@ io.sockets.on('connection', function(socket) {
     var jumpingPlayer = players[data.id];
     if (!jumpingPlayer)
       return;
-    if (!jumpingPlayer.onAsteroid)
-      return;
+    //if (!jumpingPlayer.onAsteroid)
+    //  return;
     
     var power = data.power || 1;
     var alpha = 50;// TODO: change this to tweak power
@@ -441,6 +445,7 @@ io.sockets.on('connection', function(socket) {
     var fireVec = new Box2D.Common.Math.b2Vec2(playerX, playerY);
     jumpingPlayer.onAsteroid = false;
     jumpingPlayer.body.ApplyImpulse(kick, fireVec);
+    jumpingPlayer.socket.emit('jump', jumpingPlayer);
   });
   
   socket.on('endJump', function() {

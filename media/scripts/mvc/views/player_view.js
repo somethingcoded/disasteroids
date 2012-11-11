@@ -293,17 +293,16 @@
     },
 
     jumpingChanged: function(model, jumping) {
-      //if (jumping) {
-      //  this.renderThruster();
-      //} else {
-      //  this.removeThruster();
-      //}
+      if (jumping) {
+        app.playAudio('jump');
+      } else {
+      }
     },
     
     onAsteroidChanged: function(model, onAsteroid) {
-      if (onAsteroid) {
-        model.set({'jumping':false});
-      }
+      //if (onAsteroid) {
+      //  model.set({'jumping':false});
+      //}
      // else {
       //  model.set({'jumping':true});
      // }

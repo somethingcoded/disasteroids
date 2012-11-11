@@ -8,8 +8,20 @@
       window.socket.on('playerDied', this.playerDied);
       window.socket.on('suicide', this.suicide);
       window.socket.on('playerKilled', this.playerKilled);
+      window.socket.on('jump', this.jumpConfirmed);
+      window.socket.on('endJump', this.jumpEnded);
     },
-
+    
+    jumpConfirmed: function(data) {
+      if (this.id == data.id) {
+        this.set({'jumping': true});
+      }
+    },
+    jumpEnded: function(data) {
+      if (this.id == data.id) {
+        this.set({'jumping': false});
+      }
+    },
     defaults: {
       username: 'Mr. Rogers',
       life: 100,
@@ -107,8 +119,7 @@
       if (!this.get('jumping')) {
         console.log('jump');
         window.socket.emit('jump', this.toJSON());
-        app.playAudio('jump');
-        this.set({jumping: true});
+        //this.set({jumping: true});
       }
     },
 
