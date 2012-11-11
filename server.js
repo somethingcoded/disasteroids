@@ -52,8 +52,8 @@ players = {}; // hash of id to user objects (logged in)
 var world = new entities.world();
 world.addAsteroids();
 
-//---- collision listener ----
 var contactListener = new Box2D.Dynamics.b2ContactListener;
+//---- ON CONTACT ----
 contactListener.BeginContact = function(contact) {
   var bodyAData = contact.GetFixtureA().GetBody().GetUserData();
   var bodyBData = contact.GetFixtureB().GetBody().GetUserData();
@@ -74,6 +74,7 @@ contactListener.BeginContact = function(contact) {
     //player.body.SetAngle(newAngle);
     player.onAsteroid = true;
     player.body.SetAwake(false);
+    target.playerCount++;
   }
 
   // missile to player or asteroid
@@ -93,6 +94,8 @@ contactListener.BeginContact = function(contact) {
     }
   }
 }
+
+//---- END CONTACT ---
 contactListener.EndContact = function(contact) {
   var bodyAData = contact.GetFixtureA().GetBody().GetUserData();
   var bodyBData = contact.GetFixtureB().GetBody().GetUserData();
@@ -105,6 +108,7 @@ contactListener.EndContact = function(contact) {
   if (player && target.type == 'asteroid') {
     player.onAsteroid = false;
     player.body.SetAwake(true);
+    target.playerCount--;
   }
 }
 contactListener.PostSolve = function(contact, impulse) {
@@ -255,6 +259,7 @@ var io = sio.listen(server);
 app.configure('production', function() {
   io.set('log level', 1);
 });
+io.set('log level', 1);
 
 io.sockets.on('connection', function(socket) {
   io.sockets.emit('news', 'someone connected');
@@ -293,7 +298,7 @@ io.sockets.on('connection', function(socket) {
     }
 
     // create user and log in
-    var newPlayer = new entities.player(world, socket.id, data.username, 600, 200);
+    var newPlayer = new entities.player(world, socket.id, data.username);
     newPlayer.socket = socket;
     world.players.push(newPlayer);
     players[newPlayer.id] = newPlayer;
