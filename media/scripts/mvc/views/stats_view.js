@@ -1,11 +1,15 @@
 (function() {
   
-  sc.views.Stats = Backbone.View.extend({
+  sc.views.StatsView = Backbone.View.extend({
     initialize: function() {
-      _.bindAll();
+      _.bindAll(this);
+
+      this.model.on('change:kills change:deaths change:suicides', this.render);
     },
 
-    template: _.template($('#stats').html()),
+    className: 'stats',
+
+    template: _.template($('#stats-template').html()),
 
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
