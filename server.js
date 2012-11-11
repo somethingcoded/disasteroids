@@ -182,6 +182,11 @@ var update = function() {
         continue;
       }
 
+      // Set missle angle
+      var currentVec = missile.body.GetLinearVelocity();
+      var arctanArg = currentVec.y/currentVec.x
+      missile.body.SetAngle((currentVec.x < 0 ? -1 : 1)*Math.PI/2 + Math.atan(arctanArg));  
+
       // apply radial gravity to missiles
       var missileBox2DCenter = missile.body.GetWorldCenter();
       var mToA = new Box2D.Common.Math.b2Vec2(0, 0);
@@ -283,7 +288,7 @@ io.sockets.on('connection', function(socket) {
     }
 
     // create user and log in
-    var newPlayer = new entities.player(world, socket.id, data.username, 250, 600);
+    var newPlayer = new entities.player(world, socket.id, data.username, 600, 200);
     newPlayer.socket = socket;
     world.players.push(newPlayer);
     players[newPlayer.id] = newPlayer;
@@ -302,7 +307,7 @@ io.sockets.on('connection', function(socket) {
     if (missileOwner.missile == undefined) {
       // find the player
       if (missileOwner) {
-        var newMissile = new entities.missile(world, missileOwner, data.x + 300, data.y + 80, data.shotAngle, data.power);
+        var newMissile = new entities.missile(world, missileOwner, data.shotAngle, data.power);
         missileOwner.missile = newMissile;
         world.missiles.push(newMissile);
       }
