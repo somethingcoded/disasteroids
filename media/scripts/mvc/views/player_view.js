@@ -13,9 +13,27 @@
 
     width: 50,
     height: 66,
-    object: undefined,
-    SVGPaths: {
-      default: '/media/art/mech_01_stand_full.svg'
+    
+    //object groups
+    objects: [],
+    hud: [],
+
+    SVGData: {
+      mech: {
+        path: '/media/art/mech_01_stand_full.svg',
+        x: 0,
+        y: 0,
+        width: 50,
+        height: 66
+      },
+      angleMeter: {
+        path: '/media/art/angles.svg',
+        x: 0,
+        y: -50,
+        width: 176,
+        height: 84
+      }
+
     },
 
     // Remember to avoid memory leaks
@@ -132,34 +150,49 @@
     },
 
     reposition: function(model) {
-      if (!this.object) {
-        console.log('no player!');
-        return;
-      }
       var self = this;
-      this.object.set('left',self.model.get('x'));
-      this.object.set('top', self.model.get('y'));
-      this.object.set('angle', self.model.get('angle')*180/Math.PI);
+      this.objects.set('left', self.model.get('x'));
+      this.objects.set('top', self.model.get('y'));
+      this.objects.setAngle(self.model.get('angle')*180/Math.PI);
     },
-
+    
+    //_renderSVG: function(SVGData
     render: function(canvas) {
       var self = this;
-      this.canvas = canvas;
       this.initKeyBindings();
+      
+      this.objects = new fabric.Group();
+      this.hud = new fabric.Group();
 
-      fabric.loadSVGFromURL(this.SVGPaths.default, function(objects) {
+      // Basic Mech
+      fabric.loadSVGFromURL(this.SVGData.mech.path, function(objects) {
         var group = new fabric.PathGroup(objects, {
-          left: self.model.get('x'),
-          top: self.model.get('y'),
-          height: self.height,
-          width: self.width,
-          scaleX: self.model.get('width')/self.width,                                        
-          scaleY: self.model.get('height')/self.height,
-          angle: self.model.get('angle')*180/Math.PI
+          left: self.SVGData.mech.x,
+          top: self.SVGData.mech.y,
+          height: self.SVGData.mech.height,
+          width: self.SVGData.mech.width,
+          scaleX: self.model.get('width')/self.SVGData.mech.width,                                        
+          scaleY: self.model.get('height')/self.SVGData.mech.height
         });
-        self.object = group;
-        canvas.add(group);
+        group.SVGData = self.SVGData.mech;
+        self.objects.add(group);
       });
+
+      // Angle Meter
+      fabric.loadSVGFromURL(this.SVGData.angleMeter.path, function(objects) {
+        var group = new fabric.PathGroup(objects, {
+          left: self.SVGData.angleMeter.x,
+          top:  self.SVGData.angleMeter.y,
+          height: self.SVGData.angleMeter.height,
+          width: self.SVGData.angleMeter.width
+        });
+        group.SVGData = self.SVGData.angleMeter
+        self.objects.add(group);
+        self.hud.add(group);
+      });
+
+      self.objects.setAngle(self.model.get('angle')*180/Math.PI);
+      canvas.add(self.objects);
     }
   });
 })();
