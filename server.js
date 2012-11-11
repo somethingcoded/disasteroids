@@ -89,9 +89,15 @@ contactListener.BeginContact = function(contact) {
       if (target.life < 0)
         target.life = 0;
     }
-    else if (target.type == 'player' || target.type == 'missile') {
+    else if (target.type == 'player') {
+      target.life = 0;
+      missile.player.kills++;
+      missile.player.hits++;
+    }
+    else if (target.type == 'missile') {
       target.life = 0;
     }
+    missile.player.misses++;
   }
 }
 
