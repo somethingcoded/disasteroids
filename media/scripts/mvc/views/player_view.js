@@ -183,7 +183,7 @@
         }
         var chatText = new fabric.Text(chat.get('msg'), {
           fontFamily: 'abel',
-          fontSize: 14,
+          fontSize: 28,
           fill: '#FFFFFF',
           textAlign: 'left',
           fontWeight: 'bold'
@@ -461,7 +461,7 @@
             fontFamily: 'abel', 
             left: 0, 
             top: -50,
-            fontSize: 14,
+            fontSize: 28,
             fill: "#FFFFFF"
         });
         self.text.add(playerName);
