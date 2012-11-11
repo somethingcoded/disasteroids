@@ -130,7 +130,7 @@
     playerKilled: function(data) {
       if (data.killerID == app.currentPlayer.id) {
         app.world.trigger('message', 'You killed ' + app.world.players.get(data.killedID).get('username') + '!');
-      } else if (data.killedId == app.currentPlayer.id) {
+      } else if (data.killedID == app.currentPlayer.id) {
         app.world.trigger('message', app.world.players.get(data.killerID).get('username') + ' killed you.');
       }
     },
