@@ -58,53 +58,67 @@ contactListener.BeginContact = function(contact) {
   var bodyAData = contact.GetFixtureA().GetBody().GetUserData();
   var bodyBData = contact.GetFixtureB().GetBody().GetUserData();
 
-  var player = undefined;
-  var target = undefined;
-  var missile = undefined;
-
   // player to asteroid collision
-  if (bodyAData.type == 'player') { player = bodyAData; target = bodyBData; }
-  if (bodyBData.type == 'player') { player = bodyBData; target = bodyAData; }
-
-  if (player && target.type == 'asteroid') {
+  if (bodyAData.type == 'player' && bodyBData.type == 'asteroid') {
+    bodyAData.onAsteroid = true;
+    bodyBData.playerCount++;
+  }
+  else if (bodyAData.type == 'asteroid' && bodyBData.type == 'player') {
+    bodyBData.onAsteroid = true;
+    bodyAData.playerCount++;
+  }
     // snap to proper angle on asteroid
     //var playerCenter = player.body.GetWorldCenter();
     //var astCenter = target.body.GetWorldCenter();
     //var newAngle = Math.atan((playerCenter.y-astCenter.y)/(playerCenter.x-astCenter.x));
     //player.body.SetAngle(newAngle);
-    player.onAsteroid = true;
-    target.playerCount++;
-  }
 
   // missile to player or asteroid
-  if (bodyAData.type == 'missile') { missile = bodyAData; target = bodyBData; }
-  if (bodyBData.type == 'missile') { missile = bodyBData; target = bodyAData; }
+  if (bodyAData.type == 'missile' && bodyBData.type == 'player') {
+    bodyAData.life = 0;
+    bodyBData.life = 0;
 
-  if (missile && target) {
-    if (target.type == 'asteroid') {
-      missile.player.misses++;
-      target.life -= 25;
-      if (target.life < 0)
-        target.life = 0;
+    // dont credit derps hitting themselves
+    if (bodyBData.id == bodyAData.player.id) {
+      bodyAData.player.misses++;
+      bodyAData.player.suicides++;
     }
-    else if (target.type == 'player') {
-      target.life = 0;
+    else {
+      bodyAData.player.kills++;
+      bodyADAta.player.hits++;
+    }
+  }
+  else if (bodyBData.type == 'missile' && bodyBData.type == 'player') {
+    bodyAData.life = 0;
+    bodyBData.life = 0;
 
-      // dont credit derps hitting themselves
-      if (target.id == missile.player.id) {
-        missile.player.misses++;
-        missile.player.suicides++;
-      }
-      else {
-        missile.player.kills++;
-        missile.player.hits++;
-      }
+    // dont credit derps hitting themselves
+    if (bodyAData.id == bodyBData.player.id) {
+      bodyBData.player.misses++;
+      bodyBData.player.suicides++;
     }
-    else if (target.type == 'missile') {
-      missile.player.misses++;
-      target.life = 0;
+    else {
+      bodyBData.player.kills++;
+      bodyBDAta.player.hits++;
     }
-    missile.life = 0;
+  }
+
+  if (bodyAData.type == 'missile' && bodyBData.type == 'asteroid') {
+    bodyAData.life = 0;
+    bodyAData.player.misses++;
+    bodyBData.life -= 10;
+  }
+  else if (bodyBData.type == 'missile' && bodyAData.type == 'asteroid') {
+    bodyBData.life = 0;
+    bodyBData.player.misses++;
+    bodyAData.life -= 10;
+  }
+
+  if (bodyAData.type == 'missile' && bodyBData.type == 'missile') {
+      bodyAData.player.misses++;
+      bodyBData.player.misses++;
+      bodyAData.life = 0;
+      bodyBData.life = 0;
   }
 }
 
@@ -113,14 +127,13 @@ contactListener.EndContact = function(contact) {
   var bodyAData = contact.GetFixtureA().GetBody().GetUserData();
   var bodyBData = contact.GetFixtureB().GetBody().GetUserData();
 
-  var player = undefined;
-  var target = undefined;
-  if (bodyAData.type == 'player') { player = bodyAData; target = bodyBData; }
-  if (bodyBData.type == 'player') { player = bodyBData; target = bodyAData; }
-
-  if (player && target.type == 'asteroid') {
-    player.onAsteroid = false;
-    target.playerCount--;
+  if (bodyAData.type == 'asteroid' && bodyBData.type == 'player') {
+    bodyBData.onAsteroid = false;
+    bodyAData.playerCount--;
+  }
+  else if (bodyAData.type == 'player' && bodyBData.type == 'asteroid') {
+    bodyAData.onAsteroid = false;
+    bodyBData.playerCount--;
   }
 }
 contactListener.PostSolve = function(contact, impulse) {
