@@ -18,4 +18,7 @@
 	42.123,45.198 39.175,43.852 47.901,26.569 44.09,26.081 29.882,54.299 "/>
 <line id="pylon" fill="none" stroke="#B8FF52" stroke-width="2" stroke-miterlimit="10" x1="15" y1="23" x2="15" y2="25"/>
 <line id="pylon_1_" fill="none" stroke="#B8FF52" stroke-width="2" stroke-miterlimit="10" x1="19" y1="23" x2="19" y2="25"/>
+<g>
+	<path fill="#FFFFFF" d="M49,1v64H1V1H49 M50,0H0v66h50V0L50,0z"/>
+</g>
 </svg>
