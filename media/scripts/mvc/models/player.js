@@ -13,11 +13,13 @@
     },
     
     jumpConfirmed: function(data) {
+      console.log('jump confirmed', data);
       if (this.id == data.id) {
         this.set({'jumping': true});
       }
     },
     jumpEnded: function(data) {
+      console.log('jump ended', data);
       if (this.id == data.id) {
         this.set({'jumping': false});
       }

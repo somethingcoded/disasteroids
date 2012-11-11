@@ -61,10 +61,12 @@ contactListener.BeginContact = function(contact) {
   // player to asteroid collision
   if (bodyAData.type == 'player' && bodyBData.type == 'asteroid') {
     bodyAData.onAsteroid = true;
+    bodyAData.jumping = false;
     bodyBData.playerCount++;
   }
   else if (bodyAData.type == 'asteroid' && bodyBData.type == 'player') {
     bodyBData.onAsteroid = true;
+    bodyBData.jumping = false;
     bodyAData.playerCount++;
   }
     // snap to proper angle on asteroid
@@ -251,8 +253,10 @@ var update = function() {
       }
 
       // Jump End Detection
-      if (player.body.GetLinearVelocity().Length() < .5)
+      if (player.body.GetLinearVelocity().Length() < .5 && player.jumping) {
+        player.jumping = false;
         player.socket.emit('endJump', player);
+      }
    } // player loop
 
     for (var k=0; k < world.missiles.length; k++) {
@@ -445,6 +449,7 @@ io.sockets.on('connection', function(socket) {
     var fireVec = new Box2D.Common.Math.b2Vec2(playerX, playerY);
     jumpingPlayer.onAsteroid = false;
     jumpingPlayer.body.ApplyImpulse(kick, fireVec);
+    jumpingPlayer.jumping = true;
     jumpingPlayer.socket.emit('jump', jumpingPlayer);
   });
   
