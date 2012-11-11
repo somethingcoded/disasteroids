@@ -82,7 +82,6 @@ contactListener.BeginContact = function(contact) {
   if (bodyBData.type == 'missile') { missile = bodyBData; target = bodyAData; }
 
   if (missile && target) {
-    missile.life = 0;
     missile.body.SetActive(false);
     if (target.type == 'asteroid') {
       missile.player.misses++;
@@ -107,6 +106,7 @@ contactListener.BeginContact = function(contact) {
       missile.player.misses++;
       target.life = 0;
     }
+    missile.life = 0;
   }
 }
 
@@ -166,8 +166,9 @@ var update = function() {
         player.visible = false;
         player.deaths++;
 
+        world.players.remove(j);
         // TODO SHOW LOL YOU DIED SCREEN
-        player.spawn();
+        setTimeout(function() {player.spawn(); world.players.push(player); }, 500);
       }
 
       // nothing to step for player if on asteroid
