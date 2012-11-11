@@ -202,6 +202,12 @@ var update = function() {
 
     for (var k=0; k < world.missiles.length; k++) {
       var missile = world.missiles[k];
+      var currentTime = new Date().getTime();
+
+      // prevent forever missile
+      if ((currentTime - missile.flightStart) >= missile.maxFlightTime) {
+        missile.life = 0;
+      }
 
       // remove missile if dead
       if (missile.life == 0) {
