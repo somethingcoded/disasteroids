@@ -6,6 +6,7 @@
       _.bindAll(this);
 
       window.socket.on('playerDied', this.playerDied);
+      window.socket.on('suicide', this.suicide);
     },
 
     defaults: {
@@ -123,6 +124,10 @@
 
         app.playAudio('player_explosion');
       }
+    },
+
+    suicide: function() {
+      app.world.trigger('message', 'Congratulations, you killed yourself');
     },
 
     missileDestroyed: function() {

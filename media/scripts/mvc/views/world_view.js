@@ -40,7 +40,7 @@
       this.$el.append($el);
       setTimeout(function() {
         $el.fadeOut();
-      }, 500);
+      }, 750);
     },
 
     insertPlayer: function(player) {
