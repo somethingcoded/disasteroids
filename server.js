@@ -73,17 +73,27 @@ contactListener.BeginContact = function(contact) {
     //var astCenter = target.body.GetWorldCenter();
     //var newAngle = Math.atan((playerCenter.y-astCenter.y)/(playerCenter.x-astCenter.x));
     //player.body.SetAngle(newAngle);
-    //player.onAsteroid = true;
-    //player.body.SetAwake(false);
+    player.onAsteroid = true;
+    player.body.SetAwake(false);
   }
 
-  // missile to player or asteroid TODO add missile
+  // missile to player or asteroid
   if (bodyAData.type == 'missile') { missile = bodyAData; target = bodyBData; }
   if (bodyBData.type == 'missile') { missile = bodyBData; target = bodyAData; }
 
-  if (missile && target.type == 'asteroid') {
+  if (missile) {
     missile.life = 0;
-    target.life = 0;
+    if (target.type == 'asteroid') {
+      target.life -= 35;
+      if (target.life < 0)
+        target.life = 0;
+    }
+    else if (target.type == 'player') {
+      target.life = 0;
+    }
+    else if (target.type == 'missile') {
+      target.life = 0;
+    }
   }
 }
 contactListener.EndContact = function(contact) {
