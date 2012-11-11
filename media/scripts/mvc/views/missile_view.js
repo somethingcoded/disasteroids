@@ -32,6 +32,11 @@
       this.explosion.spread = 50;
       this.explosion.emissionRate = 10;
       this.explosion.particleLife = 7;
+
+      this.repulsion = new Field(this.explosion.position, -1000);
+      this.repulsion.size = 0;
+
+      this.particleSystem.fields.push(this.repulsion);
       this.particleSystem.emitters.push(this.explosion);
       
       this.object.remove();
@@ -43,6 +48,9 @@
       setTimeout(function() {
         self.particleSystem.removeEmitter(self.explosion);
       }, 250);
+      setTimeout(function() {
+        self.particleSystem.removeField(self.repulsion);
+      }, 1500);
     },
 
     reposition: function(model) {
