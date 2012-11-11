@@ -246,10 +246,11 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('shootMissile', function(data) {
+    console.log(data);
     // find the player
-    var missileOwner = players[data.playerID];
+    var missileOwner = players[data.id];
     if (missileOwner) {
-      var newMissile = new entities.missile(world, missileOwner, data.x, data.y, data.vel);
+      var newMissile = new entities.missile(world, missileOwner, data.x, data.y, data.power);
       missileOwner.missile = newMissile;
       world.missiles.push(newMissile);
     }

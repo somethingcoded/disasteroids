@@ -61,7 +61,7 @@
     },
 
     emitShoot: function() {
-    
+      window.socket.emit('shootMissile', this.toJSON());
     }
     
   });

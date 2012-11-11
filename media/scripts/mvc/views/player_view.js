@@ -39,7 +39,9 @@
     },
 
     handleKeypress: function(e) {
-      console.log(e.keyCode);
+      // return early if in an input
+      if ($(e.target).is('input')) return;
+      
       var inc = e.shiftKey ? 10 : undefined;
       switch (e.keyCode) {
         case 38: // arrow up
