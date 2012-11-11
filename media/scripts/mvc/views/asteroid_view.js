@@ -28,10 +28,20 @@
       this.model.off('remove', this.exit);
       this.unbind();
       this.remove();
+      // this.particleSystem.removeField(this.field);
     },
 
-    render: function(canvas) {
+    render: function(canvas, particleSystem) {
       var self = this;
+
+      // add particle gravity
+      // this.particleSystem = particleSystem;
+      // var point = new Vector(self.model.get('x'), self.model.get('y'));
+      // var mass = self.model.get('radius') * self.model.get('radius');
+      // this.field = new Field(point, mass);
+      // this.field.size = self.model.get('radius') * 2;
+      // this.particleSystem.fields.push(this.field);
+      
       var path = this.SVGPaths['asteroid'+Math.ceil(Math.random()*5)];
       fabric.loadSVGFromURL(path, function(objects) {
         console.log(objects);
@@ -47,6 +57,7 @@
         self.object = group;
         canvas.add(group);
       });
+
     }
   });
 })();

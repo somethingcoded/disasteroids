@@ -22,7 +22,7 @@
     insertAsteroid: function(asteroid) {
       console.log('insert asteroid', asteroid);
       var asteroidView = new sc.views.AsteroidView({model: asteroid});
-      asteroidView.render(this.canvas);
+      asteroidView.render(this.canvas, this.particleSystem);
     },
 
     insertMissile: function(missile) {
@@ -61,7 +61,7 @@
       }
       drawLoop(); // start drawing, sucka
 
-      // draw particles test
+      // init particle system
       var display = new Display(this.canvas);
       display.init();
       this.particleSystem = new ParticleSystem().init(display);

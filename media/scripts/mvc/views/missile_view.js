@@ -62,13 +62,11 @@
       this.emitter.velocity = Vector.fromAngle(self.model.get('angle')*180/Math.PI, 2);
       this.emitter.size = 0;
       this.emitter.particleLife = 100;
-      this.emitter.spread = Math.PI / 32;
-      this.emitter.emissionRate = 1;
-      // emitter.jitter = 1;
+      // this.emitter.spread = Math.PI / 64;
+      this.emitter.spread = .5;
+      this.emitter.emissionRate = 0.5;
+      this.emitter.jitter = 0;
       particleSystem.emitters.push(this.emitter)
-
-      // particleSystem.addEmitter(new Vector(0, 0), Vector.fromAngle(0, 2));
-      // particleSystem.addField(new Vector(700, 230), -140);
     }
   });
 })();
