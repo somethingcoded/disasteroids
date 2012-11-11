@@ -123,7 +123,9 @@
       }
 
       if (e.keyCode >= 32 && e.keyCode <= 40) {
-        this.handleArtilleryKeypress(e);
+        if (e.type == 'keydown') {
+          this.handleArtilleryKeypress(e);
+        }
       } else {
         if (e.type == 'keydown') {
           this.handleMoveKeypress(e);
