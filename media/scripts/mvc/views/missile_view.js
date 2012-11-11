@@ -44,6 +44,7 @@
     },
 
     reposition: function(model) {
+      var self = this;
       if (!this.object) {
         console.log('no missile!');
         return;
@@ -52,8 +53,9 @@
       this.object.set('left',self.model.get('x'));
       this.object.set('top', self.model.get('y'));
       this.object.set('angle', self.model.get('angle')*180/Math.PI);
-
-      this.thruster.position = new Vector(self.model.get('x'), self.model.get('y'));
+      
+      var thrusterVector = Vector.fromAngle(self.model.get('angle') + Math.PI/2, self.model.get('height')/2);
+      this.thruster.position = new Vector(self.model.get('x') + thrusterVector.x, self.model.get('y') + thrusterVector.y);
       this.thruster.velocity = Vector.fromAngle(self.model.get('angle') + Math.PI/2, 2);
     },
      

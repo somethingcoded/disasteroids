@@ -4,6 +4,8 @@
   sc.models.Player = Backbone.Model.extend({
     initialize: function() {
       _.bindAll(this);
+
+      window.socket.on('playerDied', this.playerDied);
     },
 
     defaults: {
@@ -105,6 +107,12 @@
       console.log('endJump');
       window.socket.emit('endJump', this.toJSON());
       this.set({jumping: false});
+    },
+
+    playerDied: function(data) {
+      if (this.model.id == data.playerID) {
+        this.trigger('remove');
+      }
     },
 
     missileDestroyed: function() {
