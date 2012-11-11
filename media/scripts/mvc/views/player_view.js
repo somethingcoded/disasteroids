@@ -6,7 +6,7 @@
       console.log('player view init');
       _.bindAll(this);
       this.model.on('change:x change:y change:angle', this.reposition);
-      this.model.on('change:power change:shotAngle', this.logTest);
+      this.model.on('change:power change:shotAngle', this.aimRender);
       this.model.on('remove', this.exit);
       app.chatLog.chats.on('add', this.displayChat);
     },
@@ -18,6 +18,8 @@
     objects: null,
     hud: null,
     text: null,
+    chat: null,
+    aimers: null, 
 
     SVGData: {
       mech: {
@@ -33,7 +35,15 @@
         y: -50,
         width: 176,
         height: 84
+      },
+      needle: {
+        path: '/media/art/target_needle.svg',
+        x:-47,
+        y: 0,
+        width: 94,
+        height: 2
       }
+
 
     },
 
@@ -89,9 +99,11 @@
       }, 500); 
     },
 
-    logTest: function() {
+    aimRender: function() {
       console.log('angle', this.model.get('shotAngle'));
       console.log('power', this.model.get('power'));
+      var self = this; 
+      self.renderPower();
     },
 
     initKeyBindings: function() {
@@ -250,7 +262,33 @@
       this.objects.setAngle(self.model.get('angle')*180/Math.PI);
     },
     
-    //_renderSVG: function(SVGData
+    renderPower: function() {
+      var self = this;
+      if (!self.powerBar || !self.powerText)
+        return;
+      var power = self.model.get('power');
+      // text 
+      self.powerText.setText(power+'%');
+      // bar
+      self.powerBar.forEachObject(function(o){
+        self.powerBar.remove(o);
+      });
+      var totalSteps = 50;
+      var start = [1,169,244];
+      var end = [156,203,244];
+      var steps = Math.floor(power/2);
+      for (var i = 0; i < steps; i++) {
+        var bar = new fabric.Rect({
+          width: 8,
+          height: 1,
+          left: 0,
+          top: -i*2,
+          fill: 'rgb('+Math.floor(start[0] + i*(end[0]-start[0])/50)+', ' + Math.floor(start[1] + i*(end[1]-start[1])/50)+', ' + Math.floor(start[2] + i*(end[2]-start[2])/50) +')'
+        });
+        self.powerBar.add(bar);
+      }
+    },
+
     render: function(canvas, particleSystem) {
       var self = this;
       this.initKeyBindings();
@@ -261,6 +299,7 @@
       this.hud = new fabric.Group();
       this.text = new fabric.Group();
       this.chat = new fabric.Group();
+      this.aimers = new fabric.Group();
 
       // Basic Mech
       fabric.loadSVGFromURL(this.SVGData.mech.path, function(objects) {
@@ -289,6 +328,44 @@
           self.objects.add(group);
           self.hud.add(group);
         });
+
+        // Needle
+        fabric.loadSVGFromURL(this.SVGData.needle.path, function(objects) {
+          var group = new fabric.PathGroup(objects, {
+            left: self.SVGData.needle.x,
+            top:  self.SVGData.needle.y,
+            height: self.SVGData.needle.height,
+            width: self.SVGData.needle.width,
+          });
+          self.objects.add(group);
+          self.hud.add(group);
+          self.aimers.add(group);
+        });
+
+        // Power Bar
+        var powerGroup = new fabric.Group([],{
+          left: 110
+        });
+        var powerBar = new fabric.Group([], {
+          height: 100,
+          width: 8,
+          top: -10
+        });
+        var powerText = new fabric.Text(self.model.get('power')+'%', {
+          //top: 40,
+          fontFamily: 'abel',
+          fontSize: 12,
+          fontWeight: 'bold',
+          fill: '#01A9F4'
+        });
+        powerGroup.add(powerText);
+        powerGroup.add(powerBar);
+        self.powerBar = powerBar;
+        self.powerText = powerText;
+        self.renderPower();
+
+        self.objects.add(powerGroup);
+        self.hud.add(powerGroup);
       }
       
       // player names
