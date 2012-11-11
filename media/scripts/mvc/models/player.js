@@ -7,6 +7,7 @@
 
       window.socket.on('playerDied', this.playerDied);
       window.socket.on('suicide', this.suicide);
+      window.socket.on('playerKilled', this.playerKilled);
     },
 
     defaults: {
@@ -123,6 +124,14 @@
         this.trigger('playerDied');
 
         app.playAudio('playerExplosion');
+      }
+    },
+
+    playerKilled: function(data) {
+      if (data.killerID == app.currentPlayer.id) {
+        app.world.trigger('message', 'You killed ' + app.players.get(data.killedID).get('username') + '!');
+      } else if (data.killedId == app.currentPlayer.id) {
+        app.world.trigger('message', app.players.get(data.killerID).get('username') + ' killed you.');
       }
     },
 
