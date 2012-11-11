@@ -2,8 +2,28 @@
   'use strict';
 
   sc.views.WorldView = Backbone.View.extend({
+    baseWidth:2560,
+    baseHeight:1440,
+    getScaleFactor: function() {
+      var self = this; 
+      var viewWidth = this.$el.outerWidth();
+      var viewHeight = this.$el.outerHeight();
+      var wRatio = this.baseWidth/viewWidth;
+      var hRatio = this.baseHeight/viewHeight;
+      console.log(wRatio, hRatio);
+      if (wRatio < 1 && hRatio < 1) {
+        // window is bigger than playing field
+        return 1; 
+      } else if (hRatio >= wRatio) {
+        // window too short fit height 
+        console.log('width');
+        return hRatio; 
+      } else {
+        // window too narrow fit width 
+        return wRatio 
+      }
+    },
 
-    scaleFactor: 0.75,
     initialize: function() {
       _.bindAll(this);
       this.model.asteroids.on('add', this.insertAsteroid);
@@ -35,8 +55,8 @@
 
     resizeCanvas: function() {
       // get heights
-      var width = this.$el.outerWidth()*(1/this.scaleFactor);
-      var height = this.$el.outerHeight()*(1/this.scaleFactor);
+      var width = this.baseWidth;
+      var height = this.baseHeight;
 
       // canvas element resize
       this.$canvas.css({width: width, height: height})
@@ -48,14 +68,14 @@
       this.display.width = width;
       this.display.height = height;
 
-      this.canvas.getContext('2d').scale(this.scaleFactor, this.scaleFactor);
+      this.canvas.getContext('2d').scale(1/this.getScaleFactor(), 1/this.getScaleFactor());
     },
 
     render: function() {
       var self = this;
       this.$el.html(this.template(this.model.toJSON()));
       this.$canvas = this.$('#c');
-      this.$canvas.attr({width: this.$el.outerWidth()*(1/this.scaleFactor), height: this.$el.outerHeight()*(1/this.scaleFactor)});
+      this.$canvas.attr({width: this.baseWidth, height: this.baseHeight});
       this.canvas = new fabric.StaticCanvas(this.$canvas[0]);
       this.canvas.backgroundColor = 'black';
       this.model.canvas = this.canvas;
@@ -73,7 +93,7 @@
       this.particleSystem.maxParticles = 10000;
       this.display.start();
 
-      this.canvas.getContext('2d').scale(this.scaleFactor, this.scaleFactor);
+      this.canvas.getContext('2d').scale(1/this.getScaleFactor(), 1/this.getScaleFactor());
 
       
       return this;
