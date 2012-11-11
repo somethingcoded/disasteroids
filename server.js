@@ -68,6 +68,12 @@ contactListener.BeginContact = function(contact) {
 
   if (player && target.type == 'asteroid') {
     target.life = 0;
+    // snap to proper angle on asteroid
+    //var playerCenter = player.body.GetWorldCenter();
+    //var astCenter = target.body.GetWorldCenter();
+    //var newAngle = Math.atan((playerCenter.y-astCenter.y)/(playerCenter.x-astCenter.x));
+    //player.body.SetAngle(newAngle);
+ 
     //player.onAsteroid = true;
     //player.body.SetAwake(false);
   }
@@ -167,7 +173,7 @@ var update = function() {
     }
 
     if (!nearest){
-      break; // something went wrong
+      continue; // something went wrong
     }
 
     var cutoff = nearest.radius/world.scale * 2;
