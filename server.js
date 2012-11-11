@@ -104,7 +104,7 @@ contactListener.EndContact = function(contact) {
   if (bodyAData.type == 'player') { player = bodyAData; target = bodyBData; }
   if (bodyBData.type == 'player') { player = bodyBData; target = bodyAData; }
 
-  if (target.type == 'asteroid') {
+  if (player && target.type == 'asteroid') {
     player.onAsteroid = false;
     player.body.SetAwake(true);
   }
@@ -134,6 +134,7 @@ var update = function() {
     // player update
     for (var j=0; j < world.players.length; j++) {
       var player = world.players[j];
+
       // remove player if marked for delete
       if (player.disconnected) {
         world.box2DObj.DestroyBody(player.body);
@@ -170,13 +171,22 @@ var update = function() {
     } // player loop
 
     for (var k=0; k < world.missiles.length; k++) {
-      // apply radial gravity to missiles
       var missile = world.missiles[k];
+
+      // remove missile if dead
+      if (missile.life == 0) {
+        world.box2DObj.DestroyBody(missile.body);
+        missile.player.missile = undefined;
+        world.missiles.remove(k);
+        continue;
+      }
+
+      // apply radial gravity to missiles
       var missileBox2DCenter = missile.body.GetWorldCenter();
       var mToA = new Box2D.Common.Math.b2Vec2(0, 0);
       mToA.Add(asteroidCenter);
       mToA.Subtract(missileBox2DCenter);
-      var force = world.asteroids[i].radius*80/(mToA.LengthSquared()/2);
+      var force = world.asteroids[i].radius*20/(mToA.LengthSquared()/2);
       mToA.Normalize();
       mToA.Multiply(force);
       missile.body.ApplyForce(mToA, asteroidCenter);
@@ -233,7 +243,7 @@ setInterval(function() {
 //--- Message Handling ---
 
 var io = sio.listen(server);
-io.set('log level', 1);
+//io.set('log level', 1);
 
 io.sockets.on('connection', function(socket) {
   io.sockets.emit('news', 'someone connected');
@@ -286,12 +296,14 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('shootMissile', function(data) {
-    // find the player
     var missileOwner = players[data.id];
-    if (missileOwner) {
-      var newMissile = new entities.missile(world, missileOwner, data.x + 100, data.y + 100, data.shotAngle, data.power);
-      missileOwner.missile = newMissile;
-      world.missiles.push(newMissile);
+    if (missileOwner.missile == undefined) {
+      // find the player
+      if (missileOwner) {
+        var newMissile = new entities.missile(world, missileOwner, data.x + 300, data.y + 80, data.shotAngle, data.power);
+        missileOwner.missile = newMissile;
+        world.missiles.push(newMissile);
+      }
     }
   });
 
