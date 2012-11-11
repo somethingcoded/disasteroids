@@ -15,8 +15,9 @@
     height: 66,
     
     //object groups
-    objects: [],
-    hud: [],
+    objects: null,
+    hud: null,
+    text: null,
 
     SVGData: {
       mech: {
@@ -40,6 +41,8 @@
     exit: function() {
       console.log('Player view remove');
       this.objects.remove();
+      this.hud.remove();
+      this.text.remove();
       this.model.off('change', this.reposition);
       this.model.off('remove', this.remove);
       $('body').unbind('keydown.player', this.routeKeypress);
@@ -151,6 +154,8 @@
 
     reposition: function(model) {
       var self = this;
+      this.text.set('left', self.model.get('x'));
+      this.text.set('top', self.model.get('y'));
       this.objects.set('left', self.model.get('x'));
       this.objects.set('top', self.model.get('y'));
       this.objects.setAngle(self.model.get('angle')*180/Math.PI);
@@ -163,6 +168,7 @@
       
       this.objects = new fabric.Group();
       this.hud = new fabric.Group();
+      this.text = new fabric.Group();
 
       // Basic Mech
       fabric.loadSVGFromURL(this.SVGData.mech.path, function(objects) {
@@ -202,10 +208,11 @@
             fontSize: 14,
             fill: "#FFFFFF"
         });
-        self.objects.add(playerName);
+        self.text.add(playerName);
       }
 
       self.reposition();
+      canvas.add(self.text);
       canvas.add(self.objects);
     }
   });
