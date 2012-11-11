@@ -244,7 +244,10 @@ setInterval(function() {
 //--- Message Handling ---
 
 var io = sio.listen(server);
-//io.set('log level', 1);
+
+app.configure('production', function() {
+  io.set('log level', 1);
+});
 
 io.sockets.on('connection', function(socket) {
   io.sockets.emit('news', 'someone connected');

@@ -44,6 +44,10 @@
       // return early if in an input
       if ($(e.target).is('input')) return;
 
+      if (e.keyCode == 13) {
+        this.startChat(e);
+      }
+      
       if (e.keyCode >= 32 && e.keyCode <= 40) {
         this.handleArtilleryKeypress(e);
       } else {
@@ -53,6 +57,14 @@
           this.handleEndMoveKeypress(e);
         }
       }
+    },
+
+    startChat: function(e) {
+      e.preventDefault();
+      var $input = $('<input class="hover-chat-input" type="text" placeholder="Type here to chat" />');
+      $input.css({left: this.model.get('x'), top: this.model.get('y')});
+      appView.$el.append($input);
+      $input.focus();
     },
 
     handleArtilleryKeypress: function(e) {
