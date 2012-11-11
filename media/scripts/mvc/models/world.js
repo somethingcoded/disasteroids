@@ -106,7 +106,7 @@
     },
 
     missileDestroyed: function(data) {
-      if (data.playerId == app.currentPlayer.id) {
+      if (data.playerID == app.currentPlayer.id) {
         app.currentPlayer.missileDestroyed();
       }
     },
