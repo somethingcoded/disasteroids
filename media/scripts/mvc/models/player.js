@@ -129,9 +129,9 @@
 
     playerKilled: function(data) {
       if (data.killerID == app.currentPlayer.id) {
-        app.world.trigger('message', 'You killed ' + app.players.get(data.killedID).get('username') + '!');
+        app.world.trigger('message', 'You killed ' + app.world.players.get(data.killedID).get('username') + '!');
       } else if (data.killedId == app.currentPlayer.id) {
-        app.world.trigger('message', app.players.get(data.killerID).get('username') + ' killed you.');
+        app.world.trigger('message', app.world.players.get(data.killerID).get('username') + ' killed you.');
       }
     },
 

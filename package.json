@@ -1,10 +1,10 @@
 {
   "name": "nko3-somethingcoded",
-  "version": "0.0.0-20",
+  "version": "0.0.0-21",
   "description": "SomethingCoded",
   "domains": [
-  	"disasteroids.com",
-	"www.disasteroids.com"
+    "disasteroids.com",
+    "www.disasteroids.com"
   ],
   "main": "server.js",
   "scripts": {
