@@ -28,10 +28,18 @@
       this.model.players.on('add', this.insertPlayer);
       this.model.missiles.on('add', this.insertMissile);
 
+      this.model.on('message', this.displayMessage);
+
       $(window).bind('resize', this.resizeCanvas);
     },
 
     template: _.template($('#world-template').html()),
+
+    displayMessage: function(msg) {
+      var $el = $('<div class="message">' + msg + '</div>');
+      this.$el.append($el);
+      $el.fadeOut('slow');
+    },
 
     insertPlayer: function(player) {
       console.log('insert player', player);
