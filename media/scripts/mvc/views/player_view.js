@@ -44,6 +44,8 @@
       // return early if in an input
       if ($(e.target).is('input')) return;
 
+      if (this.model.id != app.currentPlayer.id) return;
+
       if (e.keyCode == 13) {
         this.startChat(e);
       }
