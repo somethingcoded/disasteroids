@@ -4,7 +4,7 @@
     initialize: function() {
       _.bindAll(this);
 
-      this.model.on('change:kills change:deaths change:suicides', this.render);
+      this.model.on('change:kills change:deaths change:suicides change:misses', this.render);
     },
 
     className: 'stats',
