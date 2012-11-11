@@ -181,7 +181,7 @@ var update = function() {
       (function(aID, w) {
       setTimeout(function() {
         recreateAsteroid(aID, w);
-      }, 10000);
+      }, 25000);
       })(asteroid.id, world);
       continue;
     }
