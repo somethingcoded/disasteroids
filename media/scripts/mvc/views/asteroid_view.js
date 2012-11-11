@@ -37,7 +37,7 @@
       this.emitter.drawColor = 'rgba(0,0,0,0)';
       this.emitter.drawColor2 = 'rgba(0,0,0,0)';
       this.emitter.particleColor = [255,255,255,1];
-      this.emitter.particleSize = 10;
+      this.emitter.particleSize = 1;
       this.particleSystem.emitters.push(this.emitter);
       // this.particleSystem.removeField(this.field);
       
