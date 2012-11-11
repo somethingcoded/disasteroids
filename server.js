@@ -80,7 +80,7 @@ contactListener.BeginContact = function(contact) {
   if (bodyAData.type == 'missile') { missile = bodyAData; target = bodyBData; }
   if (bodyBData.type == 'missile') { missile = bodyBData; target = bodyAData; }
 
-  if (missile) {
+  if (missile && target) {
     missile.life = 0;
     if (target.type == 'asteroid') {
       target.life -= 35;
@@ -118,38 +118,37 @@ world.box2DObj.SetContactListener(contactListener);
 
 //---- update ----
 var update = function() {
-  for (var i=0; i < world.players.length; i++) {
-    var player = world.players[i];
-    // remove player if marked for delete
-    if (player.disconnected) {
-      world.box2DObj.DestroyBody(player.body);
-      world.players.remove(i);
+
+  for (var i=0; i < world.asteroids.length; i++) {
+    // WARNING: ASSUMES AT LEAST 1 ASTEROID EXISTS
+    var asteroid = world.asteroids[i];
+
+    if (asteroid.life == 0) {
+      world.box2DObj.DestroyBody(asteroid.body);
+      world.asteroids.remove(i);
       continue;
     }
 
-    // nothing to step for player if on asteroid
-    if (player.onAsteroid) {
-      continue;
-    }
+    var asteroidCenter = asteroid.body.GetWorldCenter();
 
-    // find the nearest asteroid surface
-    var nearest;
-    var minDistance = Infinity;
-    var minVec;
-    var playerCenter = player.body.GetWorldCenter();
-
-    for (var j=0; j < world.asteroids.length; j++) {
-      var asteroid = world.asteroids[j];
-
-      if (asteroid.life == 0) {
-        world.box2DObj.DestroyBody(asteroid.body);
-        world.asteroids.remove(j);
+    // player update
+    for (var j=0; j < world.players.length; j++) {
+      var player = world.players[j];
+      // remove player if marked for delete
+      if (player.disconnected) {
+        world.box2DObj.DestroyBody(player.body);
+        world.players.remove(j);
         continue;
       }
 
-      var asteroidCenter = asteroid.body.GetWorldCenter();
+      // nothing to step for player if on asteroid
+      if (player.onAsteroid) {
+        continue;
+      }
 
-      // apply radial gravity
+      var playerCenter = player.body.GetWorldCenter();
+
+      // player radial gravity
       var pToA = new Box2D.Common.Math.b2Vec2(0, 0);
       pToA.Add(asteroidCenter);
       pToA.Subtract(playerCenter);
@@ -158,41 +157,48 @@ var update = function() {
       pToA.Multiply(force);
       player.body.ApplyForce(pToA, asteroidCenter);
 
-      // apply radial gravity to missiles
-      if (player.missile) {
-        var missileBox2DCenter = player.missile.body.GetWorldCenter();
-        var mToA = new Box2D.Common.Math.b2Vec2(0, 0);
-        mToA.Add(asteroidCenter);
-        mToA.Subtract(missileBox2DCenter);
-        var force = world.asteroids[i].radius*80/(mToA.LengthSquared()/2);
-        mToA.Normalize();
-        mToA.Multiply(force);
-        player.missile.body.ApplyForce(mToA, asteroidCenter);
-      }
-
-      // orient player
+      // calc player orientation
+      var minDistance = Infinity;
+      var minVec;
       var distVec = new Box2D.Common.Math.b2Vec2(playerCenter.x-asteroidCenter.x, playerCenter.y-asteroidCenter.y);
       var dist = distVec.Length()-(asteroid.radius/world.scale)
       if (dist < minDistance) {
         minDistance = dist;
-        nearest = asteroid;
         minVec = distVec;
+        player.nearestAsteroid = {minDistance: minDistance, minVec: minVec, distVec: distVec, asteroid: asteroid};
       }
-    }
+    } // player loop
 
-    if (!nearest){
-      continue; // something went wrong
-    }
+    for (var k=0; k < world.missiles.length; k++) {
+      // apply radial gravity to missiles
+      var missile = world.missiles[k];
+      var missileBox2DCenter = missile.body.GetWorldCenter();
+      var mToA = new Box2D.Common.Math.b2Vec2(0, 0);
+      mToA.Add(asteroidCenter);
+      mToA.Subtract(missileBox2DCenter);
+      var force = world.asteroids[i].radius*80/(mToA.LengthSquared()/2);
+      mToA.Normalize();
+      mToA.Multiply(force);
+      missile.body.ApplyForce(mToA, asteroidCenter);
+    } // missile loop
+  } // asteroid loop
 
-    var cutoff = nearest.radius/world.scale * 2;
-    if (minDistance < cutoff) {
+  // apply player orientation
+  for (var l=0; l < world.players.length; l++) {
+    var player = world.players[l];
+    if (!player.nearestAsteroid || player.life == 0 || player.onAsteroid) {
+      continue;
+    }
+    var asteroidData = player.nearestAsteroid;
+    var cutoff = asteroidData.asteroid.radius/world.scale * 2;
+    if (asteroidData.minDistance < cutoff) {
       // gogogo start turning
-      var ratio = minDistance/cutoff;
-      var targetAngle = Math.atan(minVec.y/minVec.x);
+      var ratio = asteroidData.minDistance/cutoff;
+      var targetAngle = Math.atan(asteroidData.minVec.y/asteroidData.minVec.x);
       var currentAngle = player.body.GetAngle();
-      player.body.SetAngle(ratio*currentAngle + (1-ratio)*(targetAngle + (minVec.x < 0 ? -1 : 1)*Math.PI/2));
+      player.body.SetAngle(ratio*currentAngle + (1-ratio)*(targetAngle + (asteroidData.minVec.x < 0 ? -1 : 1)*Math.PI/2));
     }
-  }
+  } // orientation loop
 
   // step the world brah
   world.box2DObj.Step(1/world.FPS, 10, 10);
@@ -280,7 +286,6 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('shootMissile', function(data) {
-    console.log(data);
     // find the player
     var missileOwner = players[data.id];
     if (missileOwner) {
