@@ -2,7 +2,7 @@
   'use strict';
   
   // shim for request anim frame 
-  window.requestAnimFrame = (function(){
+  window.requestAnimFrame = window.requestAnimationFrame = (function(){
     return  window.requestAnimationFrame       || 
       window.webkitRequestAnimationFrame || 
       window.mozRequestAnimationFrame    || 

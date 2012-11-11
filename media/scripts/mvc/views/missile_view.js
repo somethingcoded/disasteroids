@@ -23,6 +23,7 @@
       this.model.off('remove', this.exit);
       this.unbind();
       this.remove();
+      this.particleSystem.removeEmitter(this.emitter);
     },
 
     reposition: function(model) {
@@ -33,10 +34,13 @@
       var self = this;
       this.object.set('left',self.model.get('x'));
       this.object.set('top', self.model.get('y'));
-      this.object.set('angle', self.model.get('angle')*180/Math.PI); 
+      this.object.set('angle', self.model.get('angle')*180/Math.PI);
+
+      this.emitter.position = new Vector(self.model.get('x'), self.model.get('y'));
+      this.emitter.velocity = Vector.fromAngle(self.model.get('angle')*180/Math.PI, 2);
     },
      
-    render: function(canvas) {
+    render: function(canvas, particleSystem) {
       var self = this;
       fabric.loadSVGFromURL(this.SVGPaths.default, function(objects) {
         var group = new fabric.PathGroup(objects, {
@@ -51,6 +55,20 @@
         self.object = group;
         canvas.add(group);
       });
+
+      this.particleSystem = particleSystem;
+      this.emitter = new Emitter();
+      this.emitter.position = new Vector(self.model.get('x'), self.model.get('y'));
+      this.emitter.velocity = Vector.fromAngle(self.model.get('angle')*180/Math.PI, 2);
+      this.emitter.size = 0;
+      this.emitter.particleLife = 100;
+      this.emitter.spread = Math.PI / 32;
+      this.emitter.emissionRate = 1;
+      // emitter.jitter = 1;
+      particleSystem.emitters.push(this.emitter)
+
+      // particleSystem.addEmitter(new Vector(0, 0), Vector.fromAngle(0, 2));
+      // particleSystem.addField(new Vector(700, 230), -140);
     }
   });
 })();

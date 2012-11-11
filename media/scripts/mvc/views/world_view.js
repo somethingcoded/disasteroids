@@ -28,7 +28,7 @@
     insertMissile: function(missile) {
       console.log('insert missile', missile);
       var missileView = new sc.views.MissileView({model: missile}); 
-      missileView.render(this.canvas);
+      missileView.render(this.canvas, this.particleSystem);
     },
 
     resizeCanvas: function() {
@@ -60,6 +60,13 @@
         self.canvas.renderAll();
       }
       drawLoop(); // start drawing, sucka
+
+      // draw particles test
+      var display = new Display(this.canvas);
+      display.init();
+      this.particleSystem = new ParticleSystem().init(display);
+      display.start();
+      
       return this;
     }
 
