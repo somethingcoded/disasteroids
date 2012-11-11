@@ -33,15 +33,15 @@
       angleMeter: {
         path: '/media/art/angles.svg',
         x: 0,
-        y: -50,
+        y: -44,
         width: 176,
         height: 84
       },
       needle: {
         path: '/media/art/target_needle.svg',
-        x:-47,
-        y: 0,
-        width: 94,
+        x:0,
+        y: -7,
+        width: 248,
         height: 2
       }
 
@@ -105,6 +105,16 @@
       console.log('power', this.model.get('power'));
       var self = this; 
       self.renderPower();
+      self.renderNeedle();
+    },
+
+    renderNeedle: function() {
+      var self = this;
+      var shotAngle = self.model.get('shotAngle');
+
+      self.aimers.forEachObject(function(object){
+        object.setAngle(shotAngle); 
+      }); 
     },
 
     initKeyBindings: function() {
@@ -388,6 +398,7 @@
             top:  self.SVGData.needle.y,
             height: self.SVGData.needle.height,
             width: self.SVGData.needle.width,
+            angle: self.model.get('shotAngle')
           });
           self.objects.add(group);
           self.hud.add(group);
@@ -396,7 +407,8 @@
 
         // Power Bar
         var powerGroup = new fabric.Group([],{
-          left: 110
+          left: 110,
+          top: -7
         });
         var powerBar = new fabric.Group([], {
           height: 100,
@@ -436,6 +448,7 @@
       canvas.add(self.chat);
       canvas.add(self.text);
       canvas.add(self.objects);
+      //canvas.add(self.aimers);
     }
   });
 })();
