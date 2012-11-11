@@ -12,7 +12,7 @@
       this.model.on('playerDied', this.blowUp);
       app.chatLog.chats.on('add', this.displayChat);
     },
-    
+
     width: 50,
     height: 66,
     

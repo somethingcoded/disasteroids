@@ -70,6 +70,9 @@
         console.log('shootMissile');
         window.socket.emit('shootMissile', this.toJSON());
         this.set({canShoot: false});
+
+        app.playAudio('mortar');
+        app.playAudio('fizzle');
       }
     },
     
@@ -78,6 +81,8 @@
         console.log('moveCC');
         window.socket.emit('moveCC', this.toJSON());
         this.moving = 'cc';
+
+        app.audio.machine.play();
       }
     },
 
@@ -86,6 +91,8 @@
         console.log('moveCCW');
         window.socket.emit('moveCCW', this.toJSON());
         this.moving = 'ccw';
+        
+        app.audio.machine.play();
       }
     },
     
