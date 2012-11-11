@@ -7,6 +7,7 @@
       _.bindAll(this);
       this.model.on('change:x change:y change:angle', this.reposition);
       this.model.on('change:power change:shotAngle', this.aimRender);
+      this.model.on('change:jumping', this.jumpingChanged);
       this.model.on('remove', this.exit);
       app.chatLog.chats.on('add', this.displayChat);
     },
@@ -64,7 +65,7 @@
       this.littleBlast.jitter = 50;
       this.littleBlast.drawColor = 'rgba(0,0,0,0)';
       this.littleBlast.drawColor2 = 'rgba(0,0,0,0)';
-      this.littleBlast.particleColor = [0,255,0,1];
+      this.littleBlast.particleColor = [184,255,82,1];
       this.littleBlast.particleSize = 1;
       
       this.bigBlast = new Emitter();
@@ -76,7 +77,7 @@
       this.bigBlast.emissionRate = 3;
       this.bigBlast.drawColor = 'rgba(0,0,0,0)';
       this.bigBlast.drawColor2 = 'rgba(0,0,0,0)';
-      this.bigBlast.particleColor = [0,255,0,1];
+      this.bigBlast.particleColor = [184,255,82,1];
       this.bigBlast.particleSize = 5;
       this.particleSystem.emitters.push(this.littleBlast);
       this.particleSystem.emitters.push(this.bigBlast);
@@ -179,6 +180,7 @@
         }, 8000);
       }
     },
+    
     hideChat: function() {
       var self = this;
       self.chat.animate({opacity:0});
@@ -189,6 +191,7 @@
         clearTimeout(self.chatTimeout);
       } 
     },
+    
     handleArtilleryKeypress: function(e) {
       var inc = e.shiftKey ? 10 : undefined;
       
@@ -246,7 +249,7 @@
         break;
         case 87: // w
           e.preventDefault();
-          this.model.emitEndMove();
+          this.model.emitEndJump();
         break;
       }
     },
@@ -260,6 +263,53 @@
       this.objects.set('left', self.model.get('x'));
       this.objects.set('top', self.model.get('y'));
       this.objects.setAngle(self.model.get('angle')*180/Math.PI);
+    },
+
+    jumpingChanged: function(model, jumping) {
+      if (jumping) {
+        this.renderThruster();
+      } else {
+        this.removeThruster();
+      }
+    },
+
+    renderThruster: function() {
+      var self = this;
+      this.thruster = new Emitter();
+      var thrusterVector = Vector.fromAngle(self.model.get('angle') + Math.PI/2, self.model.get('height')/2);
+      this.thruster.position = new Vector(self.model.get('x') + thrusterVector.x, self.model.get('y') + thrusterVector.y);
+      this.thruster.velocity = Vector.fromAngle(self.model.get('angle') + Math.PI/2,.5);
+      this.thruster.size = 0;
+      this.thruster.particleLife = 80;
+      this.thruster.spread = 10;
+      this.thruster.emissionRate = 25;
+      this.thruster.jitter = 50;
+      this.thruster.particleColor = [255,130,0,1];
+      this.thruster.particleSize = 1;
+
+      this.thrusterFields = []
+      for (var i = 0; i < 7; i++) {
+        var fieldVector = Vector.fromAngle((self.model.get('angle') + Math.PI/2) + (i+1)*Math.PI/4, 150);
+        var fieldPoint = new Vector(fieldVector.x + this.thruster.position.x, fieldVector.y + this.thruster.position.y);
+        var field = new Field(fieldPoint, -500);
+        field.size = 0;
+        this.thrusterFields.push(field);
+        this.particleSystem.fields.push(field);
+      }
+
+      this.particleSystem.emitters.push(this.thruster);
+    },
+    
+    removeThruster: function() {
+      var self = this;
+      this.particleSystem.removeEmitter(this.thruster);
+
+      setTimeout(function() {
+        _.each(self.thrusterFields, function(field) {
+          self.particleSystem.removeField(field);
+        });
+      },1000);
+
     },
     
     renderPower: function() {

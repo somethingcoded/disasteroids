@@ -355,12 +355,17 @@ io.sockets.on('connection', function(socket) {
   socket.on('moveCCW', function() {
     console.log('moveCCW');
   });
+  
+  socket.on('endMove', function() {
+    console.log('endMove');
+  });
 
   socket.on('jump', function() {
     console.log('jump');
   });
-
-  socket.on('endMove', function() {
-    console.log('endMove');
+  
+  socket.on('endJump', function() {
+    console.log('endJump');
   });
+
 });
