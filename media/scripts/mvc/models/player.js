@@ -20,7 +20,7 @@
       canShoot: true
     },
 
-    incConstant: 1,
+    incConstant: 10,
 
     powerRange: [0,100],
 

@@ -220,7 +220,7 @@
     },
     
     handleArtilleryKeypress: function(e) {
-      var inc = e.shiftKey ? 10 : undefined;
+      var inc = e.shiftKey ? 1 : undefined;
       
       switch (e.keyCode) {
         case 38: // arrow up
