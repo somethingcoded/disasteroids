@@ -126,6 +126,11 @@ contactListener.BeginContact = function(contact) {
       bodyAData.life = 0;
       bodyBData.life = 0;
   }
+
+  if (bodyAData.type == 'player' && bodyBData.type == 'player') {
+      bodyAData.life = 0;
+      bodyBData.life = 0;
+  }
 }
 
 //---- END CONTACT ---
