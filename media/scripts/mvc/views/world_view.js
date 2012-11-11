@@ -2,6 +2,8 @@
   'use strict';
 
   sc.views.WorldView = Backbone.View.extend({
+
+    scaleFactor: 0.75,
     initialize: function() {
       _.bindAll(this);
       this.model.asteroids.on('add', this.insertAsteroid);
@@ -33,8 +35,8 @@
 
     resizeCanvas: function() {
       // get heights
-      var width = this.$el.outerWidth();
-      var height = this.$el.outerHeight();
+      var width = this.$el.outerWidth()*(1/this.scaleFactor);
+      var height = this.$el.outerHeight()*(1/this.scaleFactor);
 
       // canvas element resize
       this.$canvas.css({width: width, height: height})
@@ -44,13 +46,14 @@
       this.canvas.setWidth(width);
       this.canvas.setHeight(height);
 
+      this.canvas.getContext('2d').scale(this.scaleFactor, this.scaleFactor);
     },
 
     render: function() {
       var self = this;
       this.$el.html(this.template(this.model.toJSON()));
       this.$canvas = this.$('#c');
-      this.$canvas.attr({width: this.$el.outerWidth(), height: this.$el.outerHeight()});
+      this.$canvas.attr({width: this.$el.outerWidth()*(1/this.scaleFactor), height: this.$el.outerHeight()*(1/this.scaleFactor)});
       this.canvas = new fabric.StaticCanvas(this.$canvas[0]);
       this.canvas.backgroundColor = 'black';
       this.model.canvas = this.canvas;
@@ -68,7 +71,7 @@
       this.particleSystem.maxParticles = 10000;
       display.start();
 
-      this.canvas.getContext('2d').scale(.75, .75);
+      this.canvas.getContext('2d').scale(this.scaleFactor, this.scaleFactor);
 
       
       return this;
