@@ -293,20 +293,20 @@
     },
 
     jumpingChanged: function(model, jumping) {
-      if (jumping) {
-        this.renderThruster();
-      } else {
-        this.removeThruster();
-      }
+      //if (jumping) {
+      //  this.renderThruster();
+      //} else {
+      //  this.removeThruster();
+      //}
     },
     
     onAsteroidChanged: function(model, onAsteroid) {
       if (onAsteroid) {
         model.set({'jumping':false});
-      } else {
-        model.set({'jumping':true});
       }
-       
+     // else {
+      //  model.set({'jumping':true});
+     // }
     },
     renderThruster: function() {
       var self = this;

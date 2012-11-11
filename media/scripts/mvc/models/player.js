@@ -105,8 +105,8 @@
       if (!this.get('jumping')) {
         console.log('jump');
         window.socket.emit('jump', this.toJSON());
-        //this.set({jumping: true});
         app.playAudio('jump');
+        this.set({jumping: true});
       }
     },
 
