@@ -61,9 +61,39 @@
     },
 
     emitShoot: function() {
+      console.log('shootMissile');
       window.socket.emit('shootMissile', this.toJSON());
-    }
+    },
     
+    emitMoveCC: function() {
+      if (!this.moving) {
+        console.log('moveCC');
+        window.socket.emit('moveCC', this.toJSON());
+        this.moving = 'cc';
+      }
+    },
+
+    emitMoveCCW: function() {
+      if (!this.moving) {
+        console.log('moveCCW');
+        window.socket.emit('moveCCW', this.toJSON());
+        this.moving = 'ccw';
+      }
+    },
+
+    emitEndMove: function() {
+      console.log('endMove');
+      window.socket.emit('endMove', this.toJSON());
+      this.moving = undefined;
+    },
+
+    emitJump: function() {
+      if (!this.moving) {
+        console.log('jump');
+        window.socket.emit('jump', this.toJSON());
+        this.moving = 'jump';
+      }
+    }
   });
 
 })();

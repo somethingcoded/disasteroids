@@ -24,7 +24,8 @@
       this.object.remove();
       this.model.off('change', this.reposition);
       this.model.off('remove', this.remove);
-      $('body').unbind('keydown.player', this.handleKeypress);
+      $('body').unbind('keydown.player', this.routeKeypress);
+      $('body').unbind('keyup.player', this.routeKeypress);
       this.unbind();
       this.remove();
     },
@@ -35,14 +36,28 @@
     },
 
     initKeyBindings: function() {
-      $('body').bind('keydown.player', this.handleKeypress);
+      $('body').bind('keydown.player', this.routeKeypress);
+      $('body').bind('keyup.player', this.routeKeypress);
     },
 
-    handleKeypress: function(e) {
+    routeKeypress: function(e) {
       // return early if in an input
       if ($(e.target).is('input')) return;
-      
+
+      if (e.keyCode >= 32 && e.keyCode <= 40) {
+        this.handleArtilleryKeypress(e);
+      } else {
+        if (e.type == 'keydown') {
+          this.handleMoveKeypress(e);
+        } else {
+          this.handleEndMoveKeypress(e);
+        }
+      }
+    },
+
+    handleArtilleryKeypress: function(e) {
       var inc = e.shiftKey ? 10 : undefined;
+      
       switch (e.keyCode) {
         case 38: // arrow up
           e.preventDefault();
@@ -63,6 +78,41 @@
         case 32: // space
           e.preventDefault();
           this.model.emitShoot();
+        break;
+
+      }
+    },
+
+    handleMoveKeypress: function(e) {
+      switch (e.keyCode) {
+        case 65: // a
+          e.preventDefault();
+          this.model.emitMoveCCW();
+        break;
+        case 68: // d
+          e.preventDefault();
+          this.model.emitMoveCC();
+        break;
+        case 87: // w
+          e.preventDefault();
+          this.model.emitJump();
+        break;
+      }
+    },
+
+    handleEndMoveKeypress: function(e) {
+      switch (e.keyCode) {
+        case 65: // a
+          e.preventDefault();
+          this.model.emitEndMove();
+        break;
+        case 68: // d
+          e.preventDefault();
+          this.model.emitEndMove();
+        break;
+        case 87: // w
+          e.preventDefault();
+          this.model.emitEndMove();
         break;
       }
     },
