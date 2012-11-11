@@ -60,12 +60,25 @@ contactListener.BeginContact = function(contact) {
 
   var player = undefined;
   var target = undefined;
+  var missile = undefined;
+
+  // player to asteroid collision
   if (bodyAData.type == 'player') { player = bodyAData; target = bodyBData; }
   if (bodyBData.type == 'player') { player = bodyBData; target = bodyAData; }
 
-  if (target.type == 'asteroid') {
-    player.onAsteroid = true;
-    player.body.SetAwake(false);
+  if (player && target.type == 'asteroid') {
+    target.life = 0;
+    //player.onAsteroid = true;
+    //player.body.SetAwake(false);
+  }
+
+  // missile to player or asteroid TODO add missile
+  if (bodyAData.type == 'missile') { missile = bodyAData; target = bodyBData; }
+  if (bodyBData.type == 'missile') { missile = bodyBData; target = bodyAData; }
+
+  if (missile && target.type == 'asteroid') {
+    missile.life = 0;
+    target.life = 0;
   }
 }
 contactListener.EndContact = function(contact) {
@@ -113,6 +126,13 @@ var update = function() {
 
     for (var j=0; j < world.asteroids.length; j++) {
       var asteroid = world.asteroids[j];
+
+      if (asteroid.life == 0) {
+        world.box2DObj.DestroyBody(asteroid.body);
+        world.asteroids.remove(j);
+        continue;
+      }
+
       var asteroidCenter = asteroid.body.GetWorldCenter();
 
       // apply radial gravity
@@ -193,7 +213,7 @@ setInterval(function() {
 //--- Message Handling ---
 
 var io = sio.listen(server);
-io.set('log level', 1);
+//io.set('log level', 1);
 
 io.sockets.on('connection', function(socket) {
   io.sockets.emit('news', 'someone connected');
@@ -232,7 +252,7 @@ io.sockets.on('connection', function(socket) {
     }
 
     // create user and log in
-    var newPlayer = new entities.player(world, socket.id, data.username, 250, 800);
+    var newPlayer = new entities.player(world, socket.id, data.username, 250, 600);
     world.players.push(newPlayer);
     players[newPlayer.id] = newPlayer;
     io.sockets.emit('news', data.username + ' logged in');
