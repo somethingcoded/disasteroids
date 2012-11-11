@@ -186,7 +186,7 @@ var update = function() {
       var mToA = new Box2D.Common.Math.b2Vec2(0, 0);
       mToA.Add(asteroidCenter);
       mToA.Subtract(missileBox2DCenter);
-      var force = world.asteroids[i].radius*20/(mToA.LengthSquared()/2);
+      var force = world.asteroids[i].radius*1.3/(mToA.LengthSquared()/2);
       mToA.Normalize();
       mToA.Multiply(force);
       missile.body.ApplyForce(mToA, asteroidCenter);
