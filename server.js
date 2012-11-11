@@ -380,8 +380,27 @@ io.sockets.on('connection', function(socket) {
     console.log('endMove');
   });
 
-  socket.on('jump', function() {
-    console.log('jump');
+  socket.on('jump', function(data) {
+    var jumpingPlayer = players[data.id];
+    if (!jumpingPlayer)
+      return;
+    if (!jumpingPlayer.onAsteroid)
+      return;
+    
+    var power = data.power || 1;
+    var alpha = 50;// TODO: change this to tweak power
+    var theta1 = jumpingPlayer.angle;
+    var theta2 = data.shotAngle * Math.PI/180;
+    var theta3 = theta1 + theta2 + Math.PI;
+    var playerCenter = jumpingPlayer.body.GetWorldCenter();
+    var playerX = playerCenter.x; // Meters
+    var playerY = playerCenter.y; // Meters
+    var fireDX = Math.cos(theta3) / world.scale; // Meters
+    var fireDY = Math.sin(theta3) / world.scale; // Meters
+    var kick = new Box2D.Common.Math.b2Vec2(alpha*power*fireDX, alpha*power*fireDY);
+    var fireVec = new Box2D.Common.Math.b2Vec2(playerX, playerY);
+    jumpingPlayer.onAsteroid = false;
+    jumpingPlayer.body.ApplyImpulse(kick, fireVec);
   });
   
   socket.on('endJump', function() {

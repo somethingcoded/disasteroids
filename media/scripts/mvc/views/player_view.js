@@ -8,6 +8,7 @@
       this.model.on('change:x change:y change:angle', this.reposition);
       this.model.on('change:power change:shotAngle', this.aimRender);
       this.model.on('change:jumping', this.jumpingChanged);
+      this.model.on('change:onAsteroid', this.onAsteroidChanged);
       this.model.on('remove', this.exit);
       this.model.on('playerDied', this.blowUp);
       app.chatLog.chats.on('add', this.displayChat);
@@ -96,8 +97,11 @@
       app.world.canvas.remove(this.chat);
       app.world.canvas.remove(this.text);
       
+      this.model.off('playerDied', this.blowUp);
+      this.model.off('change:jumping', this.jumpingChanged);
       this.model.off('change', this.reposition);
       this.model.off('remove', this.remove);
+      this.model.off('change:onAsteroid', this.onAsteroidChanged);
       app.chatLog.chats.off('add', this.displayChat);
       $('body').unbind('keydown.player', this.routeKeypress);
       $('body').unbind('keyup.player', this.routeKeypress);
@@ -271,8 +275,8 @@
           this.model.emitEndMove();
         break;
         case 87: // w
-          e.preventDefault();
-          this.model.emitEndJump();
+          //e.preventDefault();
+          //this.model.emitEndJump();
         break;
       }
     },
@@ -295,7 +299,15 @@
         this.removeThruster();
       }
     },
-
+    
+    onAsteroidChanged: function(model, onAsteroid) {
+      if (onAsteroid) {
+        model.set({'jumping':false});
+      } else {
+        model.set({'jumping':true});
+      }
+       
+    },
     renderThruster: function() {
       var self = this;
       this.thruster = new Emitter();

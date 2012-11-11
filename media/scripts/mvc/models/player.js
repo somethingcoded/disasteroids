@@ -106,15 +106,16 @@
       if (!this.get('jumping')) {
         console.log('jump');
         window.socket.emit('jump', this.toJSON());
-        this.set({jumping: true});
+        //this.set({jumping: true});
       }
     },
 
-    emitEndJump: function() {
-      console.log('endJump');
-      window.socket.emit('endJump', this.toJSON());
-      this.set({jumping: false});
-    },
+    // deprecated
+    //emitEndJump: function() {
+    //  console.log('endJump');
+     // window.socket.emit('endJump', this.toJSON());
+      //this.set({jumping: false});
+    //},
 
     playerDied: function(data) {
       if (this.id == data.playerID) {

@@ -10,13 +10,11 @@
       var viewHeight = this.$el.outerHeight();
       var wRatio = this.baseWidth/viewWidth;
       var hRatio = this.baseHeight/viewHeight;
-      console.log(wRatio, hRatio);
       if (wRatio < 1 && hRatio < 1) {
         // window is bigger than playing field
         return 1; 
       } else if (hRatio >= wRatio) {
         // window too short fit height 
-        console.log('width');
         return hRatio; 
       } else {
         // window too narrow fit width 
