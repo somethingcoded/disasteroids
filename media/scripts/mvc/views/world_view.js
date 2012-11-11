@@ -114,12 +114,15 @@
       this.particleSystem = new ParticleSystem().init(this.display);
       this.particleSystem.maxParticles = 10000;
       this.display.start();
-
+      
+      // canvas scaling hax
       this.canvas.getContext('2d').scale(1/this.getScaleFactor(), 1/this.getScaleFactor());
       var x = (this.$el.outerWidth()-(this.baseWidth/this.getScaleFactor()))/2;
-      console.log(x);
       var y = (this.$el.outerHeight()-(this.baseHeight/this.getScaleFactor()))/2;
       this.canvas.getContext('2d').translate(x*this.getScaleFactor(), y*this.getScaleFactor()); 
+
+      // logo scale
+      $('.logo img').width(self.$el.outerWidth()/7);
       return this;
     }
   });
