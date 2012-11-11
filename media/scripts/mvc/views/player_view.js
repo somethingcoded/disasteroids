@@ -123,15 +123,21 @@
     },
 
     routeKeypress: function(e) {
-      // return early if in an input
-      if ($(e.target).is('input')) return;
 
       if (this.model.id != app.currentPlayer.id) return;
 
-      if (e.keyCode == 13) {
-        this.startChat(e);
+      if (e.keyCode == 13 && e.type == 'keyup') {
+        // return early if in an input
+        if ($(e.target).is('input')) {
+          return $(e.target).blur();
+        } else {
+          this.startChat(e);
+        }
       }
+      
 
+      if ($(e.target).is('input')) return;
+      
       if (e.keyCode >= 32 && e.keyCode <= 40) {
         if (e.type == 'keydown') {
           this.handleArtilleryKeypress(e);
