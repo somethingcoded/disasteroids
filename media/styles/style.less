@@ -1,43 +1,117 @@
 /* Vars and Mixins
 ***************************/
 
-.fontset { font-family: Abel, Helvetica, Arial, sans-serif; }
+.fontset {
+  font-family: Abel, Helvetica, Arial, sans-serif;
+}
+
+.shdw (@x, @y, @blur, @color) {
+          box-shadow: @x @y @blur @color;
+     -moz-box-shadow: @x @y @blur @color;
+  -webkit-box-shadow: @x @y @blur @color;
+}
 
 
 /* Styles
 ***************************/
 
-body { .fontset; }
-
-input[type=text] { .fontset; }
-
-.main { position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
-.errors { position: fixed; top: 15px; left: 15px; color: red; }
-
-.chat-log { 
-  position: absolute; right: 30px; bottom: 30px; width: 300px; height: 500px; border: 1px solid gray;
-  background: rgba(255,255,255,.2);
-
-  .chat-log-inner { position: absolute; bottom: 0; }
-  
-  .chats-wrapper { overflow: scroll; max-height: 435px; width: 300px; padding: 10px; color: #fff; }
-
-  .chat-log-input { width: 278px; padding: 10px; border: 1px solid #ccc; margin: 0; }
+body {
+  .fontset;
 }
 
-.hover-chat-input { position: absolute; height: 100px; width: 200px; color: lightblue; background: transparent; }
+input[type=text] {
+  .fontset;
+}
 
-.vote-button { position: absolute; top: 15px; left: 15px; }
+.main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
 
-.world { position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
+.errors {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  color: red;
+}
 
-.lobby { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: rgba(255,255,255,.3); }
+.chat-log { 
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  width: 300px;
+  height: 500px;
+  border: 1px solid gray;
+  background: rgba(255,255,255,.2);
+
+  .chat-log-inner {
+    position: absolute;
+    bottom: 0;
+  }
+  
+  .chats-wrapper {
+    overflow: scroll;
+    max-height: 435px;
+    width: 300px;
+    padding: 10px;
+    color: #fff;
+  }
+
+  .chat-log-input {
+    width: 278px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 0;
+  }
+}
+
+.hover-chat-input {
+  position: absolute;
+  height: 100px;
+  width: 200px;
+  color: lightblue;
+  background: transparent;
+}
+
+.vote-button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.world {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.lobby {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,.3);
+}
 
 .login-form { 
-  width: 300px; height: 100px; position: absolute; top: 50%; left: 50%; margin: -50px -150px; padding: 30px;
-  border: 1px solid black;
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -50px -150px;
+  padding: 30px;
+  background: rgba(0,0,0,.6);
 
-  .username { padding: 5px; }
+  .username {
+    padding: 5px;
+  }
 }
 
 ::-webkit-scrollbar { 
