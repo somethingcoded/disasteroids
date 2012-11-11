@@ -54,7 +54,7 @@
       this.object.set('angle', self.model.get('angle')*180/Math.PI);
 
       this.thruster.position = new Vector(self.model.get('x'), self.model.get('y'));
-      this.thruster.velocity = Vector.fromAngle(self.model.get('angle')*180/Math.PI, 2);
+      this.thruster.velocity = Vector.fromAngle(self.model.get('angle') + Math.PI/2, 2);
     },
      
     render: function(canvas, particleSystem) {
