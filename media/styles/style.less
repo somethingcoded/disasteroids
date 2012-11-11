@@ -15,12 +15,42 @@
   -webkit-box-shadow: @x @y @blur @color;
 }
 
+.textshdw (@x, @y, @blur, @color) {
+          text-shadow: @x @y @blur @color;
+     -moz-text-shadow: @x @y @blur @color;
+  -webkit-text-shadow: @x @y @blur @color;
+}
+
+.brdr (@x) {
+          border-radius: @x;
+     -moz-border-radius: @x;
+  -webkit-border-radius: @x;
+}
+
+.brdrrgt (@x) {
+             border-top-right-radius: @x;
+         -moz-border-radius-topright: @x;
+     -webkit-border-top-right-radius: @x;
+          border-bottom-right-radius: @x;
+      -moz-border-radius-bottomright: @x;
+  -webkit-border-bottom-right-radius: @x;
+}
+
+.brdrlft (@x) {
+             border-top-left-radius: @x;
+         -moz-border-radius-topleft: @x;
+     -webkit-border-top-left-radius: @x;
+          border-bottom-left-radius: @x;
+      -moz-border-radius-bottomleft: @x;
+  -webkit-border-bottom-left-radius: @x;
+}
 
 /* Styles
 ***************************/
 
 body {
   .fontset;
+  font-size: 18px;
 }
 
 input[type=text] {
@@ -42,14 +72,15 @@ input[type=text] {
   color: red;
 }
 
-.chat-log { 
+.chat-log {
+  .brdr(1px);
+  .textshdw(0px, 0px, 5px, rgba(255, 255, 255, .75));
   position: absolute;
   right: 30px;
   bottom: 30px;
   width: 300px;
   height: 500px;
-  border: 1px solid gray;
-  background: rgba(255, 255, 255, .2);
+  background: rgba(0, 0, 0, .6);
 
   .chat-log-inner {
     position: absolute;
@@ -67,8 +98,11 @@ input[type=text] {
   .chat-log-input {
     width: 278px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: none;
     margin: 0;
+    background: rgba(255, 255, 255, .08);
+    color: @white;
+    font-size: 18px;
   }
 }
 
@@ -104,6 +138,7 @@ input[type=text] {
 }
 
 .login-form {
+  .brdr(1px);
   .shdw(0px, 0px, 10px, rgba(0, 0, 0, .4));
   width: 230px;
   height: 90px;
@@ -122,6 +157,7 @@ input[type=text] {
   }
 
   .username {
+    .brdrlft(1px);
     float: left;
     padding: 0 10px;
     margin-right: 0;
@@ -135,6 +171,7 @@ input[type=text] {
   }
 
   .login {
+    .brdrrgt(1px);
     float: left;
     width: 36px;
     height: 36px;
