@@ -85,19 +85,28 @@ contactListener.BeginContact = function(contact) {
     missile.life = 0;
     missile.body.SetActive(false);
     if (target.type == 'asteroid') {
+      missile.player.misses++;
       target.life -= 35;
       if (target.life < 0)
         target.life = 0;
     }
     else if (target.type == 'player') {
       target.life = 0;
-      missile.player.kills++;
-      missile.player.hits++;
+
+      // dont credit derps hitting themselves
+      if (target.id == missile.player.id) {
+        missile.player.misses++;
+        missile.player.suicides++;
+      }
+      else {
+        missile.player.kills++;
+        missile.player.hits++;
+      }
     }
     else if (target.type == 'missile') {
+      missile.player.misses++;
       target.life = 0;
     }
-    missile.player.misses++;
   }
 }
 
