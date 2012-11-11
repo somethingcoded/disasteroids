@@ -13,7 +13,8 @@
       x: 0,
       y: 0,
       power: 50,
-      shotAngle: 90
+      shotAngle: 90,
+      canShoot: true
     },
 
     incConstant: .5,
@@ -64,10 +65,10 @@
     },
 
     emitShoot: function() {
-      if (!this.shooting) {
+      if (this.get('canShoot')) {
         console.log('shootMissile');
         window.socket.emit('shootMissile', this.toJSON());
-        this.shooting = true;
+        this.set({canShoot: false});
       }
     },
     
@@ -102,7 +103,7 @@
     },
 
     missileDestroyed: function() {
-      this.shooting = false;
+      this.set({canShoot: true});
     }
   });
 
