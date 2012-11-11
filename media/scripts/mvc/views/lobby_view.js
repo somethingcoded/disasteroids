@@ -26,6 +26,8 @@
     login: function(e) {
       e.preventDefault();
       var username = this.$('.username').val();
+      if (!username) return;
+      
       this.model.set({username: username});
     },
 

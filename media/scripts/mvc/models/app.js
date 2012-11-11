@@ -6,6 +6,10 @@
       this.chatLog = new sc.models.ChatLog();
     },
 
+    defaults: {
+      audioEnabled: true
+    },
+
     router: new sc.routers.Router,
 
     start: function() {
@@ -21,7 +25,7 @@
     audioEnabled: true,
 
     playAudio: function(name) {
-      if (app.audioEnabled) {
+      if (app.get('audioEnabled')) {
         this.audio[name].play();
       }
     },

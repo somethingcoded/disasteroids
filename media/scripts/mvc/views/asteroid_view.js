@@ -53,6 +53,8 @@
       this.particleSystem.emitters.push(this.littleExplosion);
       this.particleSystem.emitters.push(this.bigExplosion);
       // this.particleSystem.removeField(this.field);
+
+      app.playAudio('hardImpact');
       
       console.log('Asteroid View Exit');
       this.object.remove();
