@@ -172,6 +172,9 @@ var update = function() {
         player.body.SetAwake(false);
         continue;
       }
+      else {
+        player.body.SetAwake(true);
+      }
 
       var playerCenter = player.body.GetWorldCenter();
 
