@@ -68,7 +68,14 @@
       this.display.width = width;
       this.display.height = height;
 
+      this.canvas.getContext('2d').fillStyle = "#000000";
+      this.canvas.getContext('2d').fillRect(0,0,this.canvas.width,this.canvas.height);
       this.canvas.getContext('2d').scale(1/this.getScaleFactor(), 1/this.getScaleFactor());
+      var x = (this.$el.outerWidth()-(this.baseWidth/this.getScaleFactor()))/2;
+      console.log(x);
+      var y = (this.$el.outerHeight()-(this.baseHeight/this.getScaleFactor()))/2;
+      this.canvas.getContext('2d').translate(x*this.getScaleFactor(), y*this.getScaleFactor()); 
+ 
     },
 
     renderStats: function() {
@@ -82,6 +89,8 @@
       this.$canvas = this.$('#c');
       this.$canvas.attr({width: this.baseWidth, height: this.baseHeight});
       this.canvas = new fabric.StaticCanvas(this.$canvas[0]);
+      this.canvas.getContext('2d').fillStyle = "#000000";
+      this.canvas.getContext('2d').fillRect(0,0,this.canvas.width,this.canvas.height);
       this.canvas.backgroundColor = 'black';
       this.model.canvas = this.canvas;
 
@@ -99,12 +108,11 @@
       this.display.start();
 
       this.canvas.getContext('2d').scale(1/this.getScaleFactor(), 1/this.getScaleFactor());
-
-      
+      var x = (this.$el.outerWidth()-(this.baseWidth/this.getScaleFactor()))/2;
+      console.log(x);
+      var y = (this.$el.outerHeight()-(this.baseHeight/this.getScaleFactor()))/2;
+      this.canvas.getContext('2d').translate(x*this.getScaleFactor(), y*this.getScaleFactor()); 
       return this;
     }
-
-    
   });
-  
 })();
