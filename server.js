@@ -166,7 +166,7 @@ var update = function() {
         player.visible = false;
         player.deaths++;
 
-        player.socket.emit('playerDied', {'playerID': player.id});
+        io.sockets.emit('playerDied', {'playerID': player.id});
         player.spawn();
       }
 
