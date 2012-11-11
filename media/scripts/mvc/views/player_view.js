@@ -9,7 +9,6 @@
       this.model.on('change:power change:shotAngle', this.logTest);
       this.model.on('remove', this.exit);
       app.chatLog.chats.on('add', this.displayChat);
-
     },
     
     width: 50,
@@ -41,6 +40,36 @@
     // Remember to avoid memory leaks
     exit: function() {
       console.log('Player view remove');
+
+      // explode
+      this.littleBlast = new Emitter();
+      this.littleBlast.position = new Vector(self.model.get('x'), self.model.get('y'));
+      this.littleBlast.velocity = Vector.fromAngle(0,5);
+      this.littleBlast.size = self.model.get('radius') * 2;
+      this.littleBlast.particleLife = 100;
+      // this.emitter.spread = Math.PI / 64;
+      this.littleBlast.spread = 50;
+      this.littleBlast.emissionRate = 25;
+      this.littleBlast.jitter = 50;
+      this.littleBlast.drawColor = 'rgba(0,0,0,0)';
+      this.littleBlast.drawColor2 = 'rgba(0,0,0,0)';
+      this.littleBlast.particleColor = [255,255,255,1];
+      this.littleBlast.particleSize = 1;
+
+      this.bigBlast = new Emitter();
+      this.bigBlast.position = new Vector(self.model.get('x'), self.model.get('y'));
+      this.bigBlast.velocity = new Vector(0, 2);
+      this.bigBlast.size = self.model.get('radius');
+      this.bigBlast.particleLife = 50;
+      this.bigBlast.spread = 50;
+      this.bigBlast.emissionRate = 3;
+      this.bigBlast.drawColor = 'rgba(0,0,0,0)';
+      this.bigBlast.drawColor2 = 'rgba(0,0,0,0)';
+      this.bigBlast.particleColor = [255,255,255,1];
+      this.bigBlast.particleSize = 5;
+      this.particleSystem.emitters.push(this.littleBlast);
+      this.particleSystem.emitters.push(this.bigBlast);
+      
       this.objects.remove();
       this.hud.remove();
       this.text.remove();
@@ -52,6 +81,11 @@
       $('body').unbind('keyup.player', this.routeKeypress);
       this.unbind();
       this.remove();
+
+      setTimeout(function() {
+        this.particleSystem.removeEmitter(this.littleBlast);
+        this.particleSystem.removeEmitter(this.bigBlast);
+      }, 500); 
     },
 
     logTest: function() {
@@ -216,9 +250,11 @@
     },
     
     //_renderSVG: function(SVGData
-    render: function(canvas) {
+    render: function(canvas, particleSystem) {
       var self = this;
       this.initKeyBindings();
+
+      this.particleSystem = particleSystem;
       
       this.objects = new fabric.Group();
       this.hud = new fabric.Group();
