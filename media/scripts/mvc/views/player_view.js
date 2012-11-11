@@ -8,9 +8,10 @@
       this.model.on('change:x change:y change:angle', this.reposition);
       this.model.on('change:power change:shotAngle', this.logTest);
       this.model.on('remove', this.exit);
+      app.chatLog.chats.on('add', this.displayChat);
 
     },
-
+    
     width: 50,
     height: 66,
     
@@ -43,8 +44,10 @@
       this.objects.remove();
       this.hud.remove();
       this.text.remove();
+      this.chat.remove();
       this.model.off('change', this.reposition);
       this.model.off('remove', this.remove);
+      app.chatLog.chats.off('add', this.displayChat);
       $('body').unbind('keydown.player', this.routeKeypress);
       $('body').unbind('keyup.player', this.routeKeypress);
       this.unbind();
@@ -70,7 +73,7 @@
       if (e.keyCode == 13) {
         this.startChat(e);
       }
-      
+
       if (e.keyCode >= 32 && e.keyCode <= 40) {
         this.handleArtilleryKeypress(e);
       } else {
@@ -81,15 +84,64 @@
         }
       }
     },
-
+    
     startChat: function(e) {
       e.preventDefault();
-      var $input = $('<input class="hover-chat-input" type="text" placeholder="Type here to chat" />');
-      $input.css({left: this.model.get('x'), top: this.model.get('y')});
-      appView.$el.append($input);
+      var $input = $('.chat-log-input');
       $input.focus();
     },
+      
+    chatTimeout: null,
+    displayChat: function(chat) {
+      if (chat.get('msg').length > 50)
+        return; // Ignore long messages
 
+      var self = this;
+      if (chat.get('username') === this.model.get('username')){
+        if (this.chat) {
+          this.chat.forEachObject(function(e){
+            self.chat.remove(e);
+          });
+          if (self.chatTimeout) {
+            clearTimeout(self.chatTimeout);
+          }
+        }
+        var chatText = new fabric.Text(chat.get('msg'), {
+          fontFamily: 'abel',
+          fontSize: 14,
+          fill: '#FFFFFF',
+          textAlign: 'left',
+          fontWeight: 'bold'
+        });
+        chatText.set('top', 60);
+        var chatBubble = new fabric.Rect({
+          height: chatText.height+4,
+          width: chatText.width+4,
+          rx: 5,
+          ry: 5,
+          top:chatText.top,
+          fill: '#000000',
+          opacity: .75
+        });
+        this.chat.add(chatBubble);
+        this.chat.add(chatText);
+        this.chat.bringToFront();
+        this.chat.setOpacity(1);
+        this.chatTimeout = setTimeout(function() {
+          self.hideChat();  
+        }, 8000);
+      }
+    },
+    hideChat: function() {
+      var self = this;
+      self.chat.animate({opacity:0});
+      //this.chat.forEachObject(function(e){
+      //  self.chat.remove(e);
+      //});
+      if (self.chatTimeout) {
+        clearTimeout(self.chatTimeout);
+      } 
+    },
     handleArtilleryKeypress: function(e) {
       var inc = e.shiftKey ? 10 : undefined;
       
@@ -154,6 +206,8 @@
 
     reposition: function(model) {
       var self = this;
+      this.chat.set('left', self.model.get('x'));
+      this.chat.set('top', self.model.get('y'));
       this.text.set('left', self.model.get('x'));
       this.text.set('top', self.model.get('y'));
       this.objects.set('left', self.model.get('x'));
@@ -169,6 +223,7 @@
       this.objects = new fabric.Group();
       this.hud = new fabric.Group();
       this.text = new fabric.Group();
+      this.chat = new fabric.Group();
 
       // Basic Mech
       fabric.loadSVGFromURL(this.SVGData.mech.path, function(objects) {
@@ -212,6 +267,7 @@
       }
 
       self.reposition();
+      canvas.add(self.chat);
       canvas.add(self.text);
       canvas.add(self.objects);
     }
