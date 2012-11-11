@@ -9,6 +9,7 @@
       this.model.on('change:power change:shotAngle', this.aimRender);
       this.model.on('change:jumping', this.jumpingChanged);
       this.model.on('remove', this.exit);
+      this.model.on('playerDied', this.blowUp);
       app.chatLog.chats.on('add', this.displayChat);
     },
     
@@ -48,8 +49,7 @@
 
     },
 
-    // Remember to avoid memory leaks
-    exit: function() {
+    blowUp: function() {
       var self = this;
       console.log('Player view remove');
 
@@ -80,7 +80,17 @@
       this.bigBlast.particleColor = [184,255,82,1];
       this.bigBlast.particleSize = 5;
       this.particleSystem.emitters.push(this.littleBlast);
-      this.particleSystem.emitters.push(this.bigBlast);
+      this.particleSystem.emitters.push(this.bigBlast); 
+      
+      setTimeout(function() {
+        self.particleSystem.removeEmitter(self.littleBlast);
+        self.particleSystem.removeEmitter(self.bigBlast);
+      }, 500); 
+    },
+
+    // Remember to avoid memory leaks
+    exit: function() {
+      this.blowUp();
       
       app.world.canvas.remove(this.objects);
       app.world.canvas.remove(this.chat);
@@ -93,11 +103,6 @@
       $('body').unbind('keyup.player', this.routeKeypress);
       this.unbind();
       this.remove();
-
-      setTimeout(function() {
-        self.particleSystem.removeEmitter(self.littleBlast);
-        self.particleSystem.removeEmitter(self.bigBlast);
-      }, 500); 
     },
 
     aimRender: function() {

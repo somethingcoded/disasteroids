@@ -111,7 +111,7 @@
 
     playerDied: function(data) {
       if (this.id == data.playerID) {
-        this.trigger('remove');
+        this.trigger('playerDied');
       }
     },
 
