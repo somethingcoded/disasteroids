@@ -56,7 +56,7 @@ var profile = false;
       this.trigger('afterUpdate');
       this.trigger('beforeDraw');
       this.tick();
-      // this.trigger('draw');
+      this.trigger('draw');
       this.trigger('afterDraw');
     },
     drawLine : function (startPoint, endPoint) {
